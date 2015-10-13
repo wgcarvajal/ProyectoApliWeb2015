@@ -21,4 +21,24 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>apliwebJDBCRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/error.html</form-login-page>
+            <form-error-page>/error.html</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>administrador de grupo</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <description>empleados del sistema</description>
+        <role-name>empl</role-name>
+    </security-role>
+    <security-role>
+        <description>usuario normales</description>
+        <role-name>user</role-name>
+    </security-role>
 </web-app>

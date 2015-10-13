@@ -38,7 +38,8 @@
                             <h:form id="form">
                                 
                                 <p:commandButton  style="border: none; font-family: inherit; width: 120px;
-                                              border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
+                                                  border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
+                                                  action="#{usuariosController.ventanaInicioSession()}"  
                                               value="Iniciar Sesión"> 
 
                             </p:commandButton>
@@ -109,7 +110,7 @@
                             <p:outputLabel style="color:red;"  value=" * " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="firstname" value="#{usuarioSessionController.nombreDeUsuario}" 
+                            <p:inputText id="firstname" value="#{usuariosController.nombreUsuario}" 
                                          required="true" label="Firstname" requiredMessage="Ingrese nombre de usuario"/>
                             
                         </p:column>
@@ -123,7 +124,7 @@
                             <p:outputLabel style="color:red;"  value=" * " />
                         </p:column>
                         <p:column>
-                            <p:password id="contrasena" value="#{usuarioSessionController.contrasena}" 
+                            <p:password id="contrasena" value="#{usuariosController.contrasena}" 
                                          label="Lastname" required="true" requiredMessage="Ingrese una contraseña">
                                 <f:validateLength minimum="6" />
                                 <p:ajax update="msgContrasena" event="keyup" />
@@ -148,8 +149,9 @@
                         </p:column>
                         <p:column>
                             <p:commandButton style="background: #22419A;color:#FFFFFF;font-style: italic;font-weight: normal;"
-                                             value="Iniciar Sesión" update="formularioInicioSession" 
-                                             onstart="PF('efectoCarga').show()"  onsuccess="PF('efectoCarga').hide()"/>
+                                             value="Iniciar Sesión" update="formularioInicioSession"
+                                             actionListener="#{usuariosController.login()}"
+                                             />
                         </p:column>
                     </p:row>
                 </p:panelGrid>                                   
