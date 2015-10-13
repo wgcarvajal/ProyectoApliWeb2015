@@ -1,3 +1,4 @@
+
 /***** Fuentes *****/
 @font-face {
     font-family: 'Vegur-Regular';
@@ -26,11 +27,11 @@ body {
 #mainHeader .contenedor {
     width: 972px;
     margin: auto;
-    background-color: #345F15;
+    background-color: #092169;
     padding: 35px 0 0px;
 }
 #mainHeader .top {
-    background-color: #A7DE80;
+    background-color: #22419A;
     position: relative;
 }
 #mainHeader .top .borde-redondo {
@@ -38,7 +39,7 @@ body {
     width: 125px;
     height: 125px;
     border-radius: 60px;
-    background-color: #A7DE80;
+    background-color: #22419A;
     top: -15px;
 }
 #mainHeader .top .titulo:link, #mainHeader .top .titulo:visited {
@@ -66,7 +67,7 @@ body {
 }
 #mainHeader .bottom {
     height: 40px;
-    background: url(../img/bkg-cabecera-rojo.png) repeat-y;
+    background: url(../img/azul_cabecera.png) repeat-y;
 }
 
 /***** Main Navigation *****/
@@ -137,7 +138,7 @@ body {
     margin: auto;
     border-top: 1px solid rgba(0,0,0,0.5);
     padding: 30px 20px 10px;
-    background: url(../img/antorcha.png) no-repeat top right  #FFFFFF;
+    background: #FFFFFF;
 }
 #mainMenu {
     border-right:1px solid #999;
@@ -193,12 +194,13 @@ body {
     padding: 0px;
 }
 #mainFooter .contenedor .separador {
-    background: url(../img/foot-bkg.gif) no-repeat;
+    
     width: 972px;
-    height: 75px;
+    height: 59px;
+    background: url(../img/azul_cabecera.png) repeat-y;
 }
-#mainFooter .contenedor .pie {
-    background: url(../img/bkg-cabecera-rojo.png) repeat-y;
+#mainFooter .contenedor .pie { 
+    background: url(../img/azul_cabecera.png) repeat-y;
     width: 972px;
     border-top: 5px solid #092169;
 }
