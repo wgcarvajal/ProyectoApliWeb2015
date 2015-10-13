@@ -1,39 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/atiende/List" value="Show All Atiende Items"/>
-        <br />
-        <h:link outcome="/cambio/List" value="Show All Cambio Items"/>
-        <br />
-        <h:link outcome="/categoria/List" value="Show All Categoria Items"/>
-        <br />
-        <h:link outcome="/incidente/List" value="Show All Incidente Items"/>
-        <br />
-        <h:link outcome="/persona/List" value="Show All Persona Items"/>
-        <br />
-        <h:link outcome="/preguntas/List" value="Show All Preguntas Items"/>
-        <br />
-        <h:link outcome="/respode/List" value="Show All Respode Items"/>
-        <br />
-        <h:link outcome="/solucion/List" value="Show All Solucion Items"/>
-    </h:body>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+    <body>
 
+        <ui:composition template="./plantilla/plantilla.xhtml">
 
+            <ui:define name="top">
+                top
+            </ui:define>
 
+            <ui:define name="content">
+                content
+            </ui:define>
 
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
 
+        </ui:composition>
 
-
+    </body>
 </html>
-

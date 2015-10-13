@@ -14,12 +14,14 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class UsuariosController {
+public class UsuariosController
+{
 
     /**
      * Creates a new instance of UsuariosController
      */
-    public UsuariosController() {
+    public UsuariosController() 
+    {
     }
     
 }
