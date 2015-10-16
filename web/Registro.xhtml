@@ -31,7 +31,7 @@
                 <p:message for="user"/>
                 
                 <p:outputLabel value="Password: " for="password"/>
-                <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 4 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)">
+                <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)">
                     <f:converter converterId="passwordConverter"></f:converter>
                 </p:password>                
                 <p:message for="password"/>

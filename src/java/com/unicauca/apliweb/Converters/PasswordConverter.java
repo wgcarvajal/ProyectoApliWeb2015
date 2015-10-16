@@ -28,11 +28,13 @@ public class PasswordConverter implements Converter{
         }
         else
         {   
-            // Si no es el componente de repetir contraseña
-            if(!component.getClientId().contains("REP"))
-                context.addMessage(component.getClientId(), new FacesMessage("La longitud minima es de 7"));
-            return "";         
+            /* Si es el componente de repetir contraseña no borrar lo que estaba pa que
+                no aparezca el mensaje de error de CONFIRME LA CONTRASEÑA */
+            if(!component.getClientId().contains("REP"))          
+                context.addMessage(component.getClientId(), new FacesMessage("La longitud minima es de 7"));                        
+            return value;                                 
         }
+        
     }
 
     @Override
