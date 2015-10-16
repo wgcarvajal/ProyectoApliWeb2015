@@ -70,7 +70,7 @@ public class UsuariosController implements Serializable
             {
                 req.login(this.nombreUsuario, this.contrasena);
                 req.getServletContext().log("Autenticacion exitosa");               
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/");
                
                 
             } 
@@ -166,8 +166,7 @@ public class UsuariosController implements Serializable
         HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
         if (req.getUserPrincipal() == null) 
         {
-            return false;
-            
+            return false;            
         }
         else
         {
@@ -201,6 +200,18 @@ public class UsuariosController implements Serializable
             return false;            
         }
       
+    }
+    
+    public void registrarse() throws IOException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/faces/Registro.xhtml"); 
+    }
+    
+    public void iniciarSession() throws IOException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/"); 
     }
     
     
