@@ -8,7 +8,9 @@ package com.unicauca.apliweb.beans;
 import com.unicauca.apliweb.entities.Persona;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,5 +29,26 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     public PersonaFacade() {
         super(Persona.class);
     }
+
+    public boolean existsPerson(String perUser) {
+        try
+        {            
+            TypedQuery<Persona> query =em.createNamedQuery("Persona.findByPeruser", Persona.class);
+            query.setParameter("peruser", perUser);            
+            query.getSingleResult();
+            return true;
+        }
+        catch(NoResultException ex)
+        {
+            return false;
+        }
+        //return em.find(Persona.class, perid)!=null;
+    }
+
+    public void registrar(Persona persona) {
+        em.persist(persona);
+    }
+    
+    
     
 }

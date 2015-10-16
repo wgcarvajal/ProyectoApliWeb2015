@@ -6,9 +6,11 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Grupo;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,6 +28,18 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
 
     public GrupoFacade() {
         super(Grupo.class);
+    }
+
+    public List<Grupo> obtnGrupos() {
+        try
+        {
+            TypedQuery query=em.createNamedQuery("Grupo.findAll",Grupo.class);            
+            return query.getResultList();
+        }
+        catch(Exception ex)
+        {            
+            return null;
+        }
     }
     
 }

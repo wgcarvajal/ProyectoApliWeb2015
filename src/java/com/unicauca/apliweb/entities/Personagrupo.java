@@ -63,6 +63,11 @@ public class Personagrupo implements Serializable
     public Personagrupo(String gruid, int perid) {
         this.personagrupoPK = new PersonagrupoPK(gruid, perid);
     }
+    
+    public Personagrupo(String gruid, int perid, String perUser) {
+        this.personagrupoPK = new PersonagrupoPK(gruid, perid);
+        this.peruser=perUser;
+    }
 
     public PersonagrupoPK getPersonagrupoPK() {
         return personagrupoPK;

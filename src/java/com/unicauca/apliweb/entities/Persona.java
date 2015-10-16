@@ -6,6 +6,7 @@
 package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -59,7 +60,7 @@ public class Persona implements Serializable {
     @Size(max = 20)
     @Column(name = "PERUSER")
     private String peruser;
-    @Size(max = 20)
+    @Size(max = 250)
     @Column(name = "PERPASSWORD")
     private String perpassword;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
@@ -184,6 +185,6 @@ public class Persona implements Serializable {
 
     public void setPersonagrupoList(List<Personagrupo> personagrupoList) {
         this.personagrupoList = personagrupoList;
-    }
+    }  
     
 }

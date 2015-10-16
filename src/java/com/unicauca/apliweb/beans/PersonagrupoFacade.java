@@ -40,4 +40,9 @@ public class PersonagrupoFacade extends AbstractFacade<Personagrupo> {
         return resultList;
     }
     
+    public void registrar(Personagrupo entry)
+    {
+        em.persist(entry);
+    }
+    
 }
