@@ -9,44 +9,52 @@
         <title>Registro de Usuarios</title>
     </h:head>
     <h:body>
-        <h:form id="regPersona">        
-            <h:panelGrid columns="3">
-                <p:outputLabel value="Rol: " for="rol"></p:outputLabel>                
-                <p:selectOneMenu id="rol" required="true" requiredMessage="Debe seleccionar un Rol" value="#{registroController.idGrupoSeleccionado}">                    
-                    <f:selectItem itemValue="" itemLabel="Seleccionar un Rol" />
-                    <f:selectItems value="#{registroController.obtnGrupos()}" var="grupo" itemValue="#{grupo.gruid}" itemLabel="#{grupo.grudescripcion}"></f:selectItems>                    
-                </p:selectOneMenu>
-                <p:message for="rol"/>
-                
-                <p:outputLabel value="Nombre: " for="nombre"/>
-                <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Debes introducir el Nombre" value="#{registroController.persona.pernombre}" placeholder="Introduce tu nombre"/>
-                <p:message for="nombre"/>
-                
-                <p:outputLabel value="Apellido: " for="apellido"/>
-                <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
-                <p:message for="apellido"/>
-                
-                <p:outputLabel value="User: " for="user"/>
-                <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
-                <p:message for="user"/>
-                
-                <p:outputLabel value="Password: " for="password"/>
-                <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)">
-                    <f:converter converterId="passwordConverter"></f:converter>
-                </p:password>                
-                <p:message for="password"/>
-                
-                <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
-                <p:password id="REPpassword" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false">
-                    <f:converter converterId="passwordConverter"></f:converter>
-                    <f:validator validatorId="confirmPasswordValidator"></f:validator>
-                </p:password>                                
-                <p:message for="REPpassword"></p:message>                                               
-                
-                <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroController.actionRegistrar}" ajax="false"/>
-            </h:panelGrid>                                    
-            <p:messages globalOnly="true"/>        
-        </h:form>
+        <ui:composition template="./plantillas/plantilla.xhtml">
+            <ui:define name="title">
+                Registro
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="regPersona">        
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="Rol: " for="rol"></p:outputLabel>                
+                        <p:selectOneMenu id="rol" required="true" requiredMessage="Debe seleccionar un Rol" value="#{registroController.idGrupoSeleccionado}">                    
+                            <f:selectItem itemValue="" itemLabel="Seleccionar un Rol" />
+                            <f:selectItems value="#{registroController.obtnGrupos()}" var="grupo" itemValue="#{grupo.gruid}" itemLabel="#{grupo.grudescripcion}"></f:selectItems>                    
+                        </p:selectOneMenu>
+                        <p:message for="rol"/>
+
+                        <p:outputLabel value="Nombre: " for="nombre"/>
+                        <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Debes introducir el Nombre" value="#{registroController.persona.pernombre}" placeholder="Introduce tu nombre"/>
+                        <p:message for="nombre"/>
+
+                        <p:outputLabel value="Apellido: " for="apellido"/>
+                        <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
+                        <p:message for="apellido"/>
+
+                        <p:outputLabel value="User: " for="user"/>
+                        <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
+                        <p:message for="user"/>
+
+                        <p:outputLabel value="Password: " for="password"/>
+                        <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)">
+                            <f:converter converterId="passwordConverter"></f:converter>
+                        </p:password>                
+                        <p:message for="password"/>
+
+                        <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
+                        <p:password id="REPpassword" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false">
+                            <f:converter converterId="passwordConverter"></f:converter>
+                            <f:validator validatorId="confirmPasswordValidator"></f:validator>
+                        </p:password>                                
+                        <p:message for="REPpassword"></p:message>                                               
+
+                        <!-- -->
+                        <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroController.actionRegistrar}" ajax="false"/>
+                    </h:panelGrid>                                    
+                    <p:messages globalOnly="true"/>        
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

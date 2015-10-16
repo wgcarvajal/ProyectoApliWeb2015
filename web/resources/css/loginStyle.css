@@ -9,16 +9,17 @@ and open the template in the editor.
 */
 
 form input {
-	border: 2px solid #E5E5E8 !important;		
-	padding-left: 40px !important;
+	border: 2px solid #E5E5E8 !important;			
 	width: 180px !important;
 	height: 22px !important;
 }
 
-.userClass {        
+.userClass {
+        padding-left: 40px !important;
         background: url("#{resource['img/ico-usuario.png']}") no-repeat !important;
 }
 .passwordClass {
+        padding-left: 40px !important;
         background: url("#{resource['img/ico-pass.png']}") no-repeat !important;
 }
 

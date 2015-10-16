@@ -11,7 +11,7 @@
         <ui:composition template="./plantillas/plantilla.xhtml">
 
             <ui:define name="title">
-                hola
+                Iniciar Sesion
             </ui:define>
 
             <ui:define name="body">
@@ -25,14 +25,18 @@
                         <p:outputLabel  value="Contraseña:" />                    
                         <p:password id="contrasena" value="#{usuariosController.contrasena}" required="true" requiredMessage="Ingrese una contraseña" styleClass="passwordClass"/>                                                                                    
                         <p:message for="contrasena" />
-
-                         <p:link  value="¿Has olvidado tu contraseña?" />                                                                                                                                                                                  
-                    </p:panelGrid>
-                <p:commandButton style="background: #22419A;color:#FFFFFF;font-style: italic;font-weight: normal;"
+                         
+                        <!-- -->
+                         <p:link  value="¿Has olvidado tu contraseña?" style="float:right; font-size: smaller;"/>                                                                                                                                                                                  
+                        <!-- -->
+                        
+                        <p:outputLabel/>
+                        <p:commandButton style="background: #22419A;color:#FFFFFF;font-style: italic;font-weight: normal;"
                                              value="Iniciar Sesión" 
                                              action="#{usuariosController.login()}"
                                              ajax="false"
                                              />
+                    </p:panelGrid>                
             </h:form>
             </ui:define>
 
