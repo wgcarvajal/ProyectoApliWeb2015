@@ -34,11 +34,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
     @NamedQuery(name = "Persona.findByPerid", query = "SELECT p FROM Persona p WHERE p.perid = :perid"),
     @NamedQuery(name = "Persona.findByPernombre", query = "SELECT p FROM Persona p WHERE p.pernombre = :pernombre"),
-    @NamedQuery(name = "Persona.findByPerapellido", query = "SELECT p FROM Persona p WHERE p.perapellido = :perapellido"),
-    @NamedQuery(name = "Persona.findByPertipo", query = "SELECT p FROM Persona p WHERE p.pertipo = :pertipo"),
+    @NamedQuery(name = "Persona.findByPerapellido", query = "SELECT p FROM Persona p WHERE p.perapellido = :perapellido"),  
     @NamedQuery(name = "Persona.findByPeruser", query = "SELECT p FROM Persona p WHERE p.peruser = :peruser"),
     @NamedQuery(name = "Persona.findByPerpassword", query = "SELECT p FROM Persona p WHERE p.perpassword = :perpassword")})
 public class Persona implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Personagrupo> personagrupoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,12 +55,7 @@ public class Persona implements Serializable {
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "PERAPELLIDO")
-    private String perapellido;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "PERTIPO")
-    private String pertipo;
+    private String perapellido;    
     @Size(max = 20)
     @Column(name = "PERUSER")
     private String peruser;
@@ -80,11 +76,11 @@ public class Persona implements Serializable {
         this.perid = perid;
     }
 
-    public Persona(Integer perid, String pernombre, String perapellido, String pertipo) {
+    public Persona(Integer perid, String pernombre, String perapellido) {
         this.perid = perid;
         this.pernombre = pernombre;
         this.perapellido = perapellido;
-        this.pertipo = pertipo;
+        
     }
 
     public Integer getPerid() {
@@ -111,13 +107,7 @@ public class Persona implements Serializable {
         this.perapellido = perapellido;
     }
 
-    public String getPertipo() {
-        return pertipo;
-    }
-
-    public void setPertipo(String pertipo) {
-        this.pertipo = pertipo;
-    }
+    
 
     public String getPeruser() {
         return peruser;
@@ -185,6 +175,15 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.apliweb.entities.Persona[ perid=" + perid + " ]";
+    }
+
+    @XmlTransient
+    public List<Personagrupo> getPersonagrupoList() {
+        return personagrupoList;
+    }
+
+    public void setPersonagrupoList(List<Personagrupo> personagrupoList) {
+        this.personagrupoList = personagrupoList;
     }
     
 }

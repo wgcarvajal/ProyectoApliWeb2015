@@ -5,8 +5,12 @@
  */
 package com.unicauca.apliweb.managedbean.personas;
 
+import com.unicauca.apliweb.beans.PersonagrupoFacade;
 import java.io.IOException;
+import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,10 +26,13 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @SessionScoped
-public class UsuariosController
+public class UsuariosController implements Serializable
 {
     private String nombreUsuario;
     private String contrasena;
+    
+    @EJB
+    private PersonagrupoFacade personaGrupoEJB;
 
    
     public UsuariosController() 
@@ -52,7 +59,8 @@ public class UsuariosController
     }
     
     
-     public void login()throws IOException, ServletException 
+    
+    public void login()throws IOException, ServletException 
     {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -61,12 +69,14 @@ public class UsuariosController
             try 
             {
                 req.login(this.nombreUsuario, this.contrasena);
-                req.getServletContext().log("Autenticacion exitosa");
+                req.getServletContext().log("Autenticacion exitosa");               
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb");
+               
                 
             } 
             catch (ServletException e) 
             {
-                //fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario o contraseña incorrectos", "Nombre de usuario o contraseña incorrectos"));
+                fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario o contraseña incorrectos", "Nombre de usuario o contraseña incorrectos"));
                 requestContext.update("formularioInicioSession");                
             }
         } 
@@ -76,6 +86,7 @@ public class UsuariosController
             requestContext.update("formularioInicioSession");
         }
     }
+    
     
     
     public void ventanaInicioSession()
@@ -93,6 +104,104 @@ public class UsuariosController
        requestContext.execute("PF('IniciarSesion').show()");
     }
     
+    
+    public boolean esusuarioSinSession()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
+        if (req.getUserPrincipal() == null) 
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    public boolean esusuarioConSession()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
+        if (req.getUserPrincipal() == null) 
+        {
+            return false;
+            
+        }
+       return true;
+        
+    }
+    
+    public String nombreUsuario()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
+        if (req.getUserPrincipal() == null) 
+        {
+            return "";
+        }
+        else
+        {
+            return req.getUserPrincipal().getName();
+        }
+    }
+    
+     public void logout() throws IOException, ServletException 
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();
+        try {
+            req.logout();            
+            req.getSession().invalidate();
+            fc.getExternalContext().invalidateSession();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/");
+
+        } catch (ServletException e) {            
+            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "FAILED", "Logout failed on backend"));            
+        }
+        
+    }
+     
+    public boolean esUsuarioOempleado()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
+        if (req.getUserPrincipal() == null) 
+        {
+            return false;
+            
+        }
+        else
+        {
+            String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
+            if(tipo.equals("empl")|| tipo.equals("user"))
+            {
+                return true;
+            }
+            return false;            
+        }
+      
+    }
+    
+    
+    public boolean esEmpleado()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();       
+        if (req.getUserPrincipal() == null) 
+        {
+            return false;
+            
+        }
+        else
+        {
+            String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
+            if(tipo.equals("empl"))
+            {
+                return true;
+            }
+            return false;            
+        }
+      
+    }
     
     
 }

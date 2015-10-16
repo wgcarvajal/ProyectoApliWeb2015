@@ -37,12 +37,21 @@
                         <ui:insert name="CuadroDeBotonesSesion">
                             <h:form id="form">
                                 
-                                <p:commandButton  style="border: none; font-family: inherit; width: 120px;
-                                                  border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
-                                                  action="#{usuariosController.ventanaInicioSession()}"  
-                                              value="Iniciar Sesión"> 
-
-                            </p:commandButton>
+                                
+                                
+                                <h:link rendered="#{usuariosController.esusuarioConSession()}" id="opcionesusuario" style="text-decoration: none;color:#FFFFFF; ">
+                                    #{usuariosController.nombreUsuario()}
+                                    <p:graphicImage style="width:20px; margin:0;margin-left: 5px;" library="img" name="usuario.png"/>
+                            </h:link>
+                                
+                                
+                           <p:menu rendered="#{usuariosController.esusuarioConSession()}" overlay="true" trigger="opcionesusuario"  my="left top" at="left bottom">        
+                                   
+                               <p:menuitem value="Cerrar Sesión" action="#{usuariosController.logout()}"
+                                                />
+                                </p:menu> 
+                                
+                             
                                     
                                 
                             </h:form>
@@ -59,13 +68,10 @@
                 <nav id="mainNav">                       
                     <ui:insert name="menuprincipal">
                         <ul>
-                            <li><span class="punta"></span><p:link  value="Inicio"/></li>
-                            <!--<li><span class="punta"></span><p:link  value="Item 1"/></li>-->
-                            <!--<li><span class="punta"></span><p:link  value="Item 2"/></li>-->
-                            <!--<li><span class="punta"></span><p:link outcome="/usuario/asistencia/asistencia-personal" value="Asistencia personal"/></li>-->
-                            <li><span class="punta"></span><p:link   value="Acerca de"/></li>
-                            <li><span class="punta"></span><p:link  value="Quienes Somos"/></li>
-                            
+                           
+                            <li><span class="punta"></span><p:link rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
+                            <li><span class="punta"></span><p:link rendered="#{usuariosController.esEmpleado()}"  value="Gestion Incidentes"/></li>
+
                             <!--<li><span class="punta"></span><p:link  outcome="/usuario/medidas/consultaTest" value="Consultar Test"/></li>-->
                         </ul>
                     </ui:insert>           
@@ -90,73 +96,6 @@
                 </div>
             </div>
         </footer>        
-        <p:dialog  resizable="false"   header="Iniciar Sesión" showEffect="scale" modal="true"  widgetVar="IniciarSesion"  width="450">
-            <h:form id="formularioInicioSession">                
-                <p:messages closable="true"/>
-                <p:panelGrid style="text-align:left;" styleClass="panelgrid">
-                    <p:row>
-                        <p:column></p:column>
-                        <p:column></p:column>
-                        <p:column></p:column>                        
-                    </p:row>
-                    <p:row>
-                        <p:column></p:column>
-                        <p:column></p:column>
-                        <p:column></p:column>                        
-                    </p:row>
-                    <p:row>
-                        <p:column style="text-align:right;">
-                            <p:outputLabel  value="Nombre de Usuario:" />
-                            <p:outputLabel style="color:red;"  value=" * " />
-                        </p:column>
-                        <p:column>
-                            <p:inputText id="firstname" value="#{usuariosController.nombreUsuario}" 
-                                         required="true" label="Firstname" requiredMessage="Ingrese nombre de usuario"/>
-                            
-                        </p:column>
-                        <p:column>
-                            <p:message for="firstname" display="icon" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column style="text-align:right;">
-                            <p:outputLabel  value="Contraseña:" />
-                            <p:outputLabel style="color:red;"  value=" * " />
-                        </p:column>
-                        <p:column>
-                            <p:password id="contrasena" value="#{usuariosController.contrasena}" 
-                                         label="Lastname" required="true" requiredMessage="Ingrese una contraseña">
-                                <f:validateLength minimum="6" />
-                                <p:ajax update="msgContrasena" event="keyup" />
-                            </p:password>                          
-                        </p:column>
-                        <p:column>
-                            <p:message for="contrasena" id="msgContrasena" display="icon" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>                                
-                        </p:column>
-                        <p:column>
-                            <p:link  value="¿Has olvidado tu contraseña?">                                
-                            </p:link> 
-                        </p:column>
-                        <p:column>                            
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>                                
-                        </p:column>
-                        <p:column>
-                            <p:commandButton style="background: #22419A;color:#FFFFFF;font-style: italic;font-weight: normal;"
-                                             value="Iniciar Sesión" update="formularioInicioSession"
-                                             actionListener="#{usuariosController.login()}"
-                                             />
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>                                   
-            </h:form>
-            <p:separator/>
-        </p:dialog>     
+        
     </h:body>
 </html>
