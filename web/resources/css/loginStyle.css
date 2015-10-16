@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/10/2015, 09:45:37 PM
+    Author     : Miguel
+*/
+
+form input {
+	border: 2px solid #E5E5E8 !important;		
+	padding-left: 40px !important;
+	width: 180px !important;
+	height: 22px !important;
+}
+
+.userClass {        
+        background: url("#{resource['img/ico-usuario.png']}") no-repeat !important;
+}
+.passwordClass {
+        background: url("#{resource['img/ico-pass.png']}") no-repeat !important;
+}
+
+
+
