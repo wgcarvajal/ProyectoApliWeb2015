@@ -45,4 +45,12 @@ public class PersonagrupoFacade extends AbstractFacade<Personagrupo> {
         em.persist(entry);
     }
     
+    public boolean estaUsuario(String nombreusuario)
+    {
+        Query query = getEntityManager().createNamedQuery("Personagrupo.findByPeruser");
+        query.setParameter("peruser", nombreusuario);
+        List<Personagrupo> resultList = query.getResultList();
+        return !resultList.isEmpty();
+    }
+    
 }
