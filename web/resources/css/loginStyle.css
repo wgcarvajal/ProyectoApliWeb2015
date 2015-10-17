@@ -18,10 +18,17 @@ form input {
         padding-left: 40px !important;
         background: url("#{resource['img/ico-usuario.png']}") no-repeat !important;
 }
-.passwordClass {
+.passwordClass 
+{
         padding-left: 40px !important;
         background: url("#{resource['img/ico-pass.png']}") no-repeat !important;
 }
+
+.centrarFormulario
+{
+    padding-left: 200px;
+}
+
 
 
 

@@ -5,7 +5,9 @@
  */
 package com.unicauca.apliweb.urlsFiltros;
 
+import com.unicauca.apliweb.beans.PersonagrupoFacade;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpSession;
 @WebFilter("*.xhtml")
 public class SesionUrlsFiltros implements Filter 
 {
+    @EJB
+    private  PersonagrupoFacade    personaGrupoEJB;
 
     FilterConfig filterConfig;
     @Override
@@ -209,7 +213,15 @@ public class SesionUrlsFiltros implements Filter
             {
                 if(requestUrl.equals("http://localhost:8080/ProyectoApliWeb/") || requestUrl.equals("http://localhost:8080/ProyectoApliWeb/faces/Login.xhtml") )
                 {
-                    res.sendRedirect(req.getContextPath()+"/faces/error.html");
+                    String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
+                    if(tipo.equals("user"))
+                    {
+                        res.sendRedirect(req.getContextPath()+"/faces/usuario/incidentes.xhtml");
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 else
                 {

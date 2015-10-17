@@ -386,4 +386,10 @@ body {
     background-position: 0; /* asuming bandeau.png is a single image */
 }
 
+.tituloPrincipalPagina
+{
+    text-align: center;
+    color: #0174DF;
+}
+
 
