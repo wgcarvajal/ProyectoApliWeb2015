@@ -27,7 +27,7 @@ public class SesionUrlsFiltros implements Filter
     @EJB
     private  PersonagrupoFacade    personaGrupoEJB;
     
-    private String urlPrincipal="http://localhost:8080/ProyectoApliWeb/";
+    private String urlPrincipal="http://localhost:8080/ProyectoApliWeb2015/";
 
     FilterConfig filterConfig;
     @Override

@@ -70,7 +70,7 @@ public class UsuariosController implements Serializable
             {
                 req.login(this.nombreUsuario, this.contrasena);
                 req.getServletContext().log("Autenticacion exitosa");               
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/");
                
                 
             } 
@@ -152,7 +152,7 @@ public class UsuariosController implements Serializable
             req.logout();            
             req.getSession().invalidate();
             fc.getExternalContext().invalidateSession();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/");
 
         } catch (ServletException e) {            
             fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "FAILED", "Logout failed on backend"));            
