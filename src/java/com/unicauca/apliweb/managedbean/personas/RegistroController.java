@@ -13,6 +13,7 @@ import com.unicauca.apliweb.beans.PersonagrupoFacade;
 import com.unicauca.apliweb.entities.Grupo;
 import com.unicauca.apliweb.entities.Persona;
 import com.unicauca.apliweb.entities.Personagrupo;
+import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -40,7 +41,7 @@ public class RegistroController{
     private GrupoFacade grupoEJB;
 
     @EJB
-    private PersonagrupoFacade personagrupoEJB;
+    private PersonagrupoFacade personagrupoEJB;    
     
     public String actionRegistrar(){
         FacesContext ctx=FacesContext.getCurrentInstance();
@@ -59,20 +60,30 @@ public class RegistroController{
                 if(personaEJB.existsPerson(persona.getPeruser()))
                     ctx.addMessage("regPersona:user", new FacesMessage("Usuario ya existe"));
                 else
-                {
+                {                    
                     try
                     {   
                         HashGenerator hash=new HashGenerator();                        
                         persona.setPerpassword(hash.generateSHA256(REPpassword));
                         personaEJB.registrar(persona);
-                        personagrupoEJB.registrar(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));                            
+                        Principal userRol=ctx.getExternalContext().getUserPrincipal();
+                        
+                        if(userRol!=null)
+                        {
+                            String tipo;
+                            tipo = personagrupoEJB.buscarPorNombreUsuario(userRol.getName()).get(0).getPersonagrupoPK().getGruid();
+                            if (tipo.equals("admin"))
+                                personagrupoEJB.registrar(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));                            
+                            
+                        }                                                    
                         ctx.addMessage(null, new FacesMessage("Registro Exitoso"));
-                        //return "otrapagina.xhtml"
+                        
                     }
                     catch(Exception ex)
                     {            
-                        ctx.addMessage(null, new FacesMessage(ex.getMessage()));                            
+                        ctx.addMessage(null, new FacesMessage("Hubo un error"));                            
                     }  
+                            
                 }
             }
         }                                

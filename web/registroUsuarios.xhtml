@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Registro</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./plantillas/plantilla.xhtml">
+            <ui:define name="CuadroDeBotonesSesion">
+                <h:form id="form">
+                <p:commandButton   style="border: none; font-family: inherit; width: 120px;
+                        border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
+                        value="Iniciar sessión" action="#{usuariosController.iniciarSession()}"
+                        ajax="false"
+                       /> 
+                </h:form>
+            </ui:define>
+            
+            
+            <div class="centrarFormulario">
+                <ui:define name="title"><h2>Registrate</h2></ui:define>
+
+                <ui:define name="body">
+                    <h:form id="regPersona">
+
+                        <h:panelGrid columns="3">                            
+                            <p:outputLabel value="Nombre: " for="nombre"/>
+                            <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Debes introducir el Nombre" value="#{registroController.persona.pernombre}" placeholder="Introduce tu nombre"/>
+                            <p:message for="nombre"/>
+
+                            <p:outputLabel value="Apellido: " for="apellido"/>
+                            <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
+                            <p:message for="apellido"/>
+
+                            <p:outputLabel value="User: " for="user"/>
+                            <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
+                            <p:message for="user"/>
+
+                            <p:outputLabel value="Password: " for="password"/>
+                            <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)"/>                                                                                
+                            <p:message for="password"/>
+
+                            <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
+                            <p:password id="REPpassword" value="#{registroController.REPpassword}" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false"/>                                                                                                              
+                            <p:message for="REPpassword"></p:message>                                               
+
+                            <!-- -->
+                            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroController.actionRegistrar}" ajax="false"/>
+                        </h:panelGrid>                                    
+                        <p:messages globalOnly="true"/>        
+                    </h:form>
+                </ui:define>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+
+<!--
+
+-->
