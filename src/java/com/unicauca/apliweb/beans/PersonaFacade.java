@@ -55,10 +55,11 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     public List<Persona> buscarPorAdministradores() 
     {   
         List <Persona>resultList=new ArrayList();
-        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        Query query = getEntityManager().createNamedQuery("Persona.findAll",Persona.class);       
         List<Persona> resultquery = query.getResultList();
         for(Persona p:resultquery)
         {
+            getEntityManager().refresh(p);
             if(!(p.getPersonagrupoList().isEmpty()) && p.getPersonagrupoList().get(0).getGrupo().getGruid().equals("admin"))
             {
                 resultList.add(p);
@@ -69,10 +70,11 @@ public class PersonaFacade extends AbstractFacade<Persona> {
 
     public List<Persona> buscarPorEmpleados() {
        List <Persona>resultList=new ArrayList();
-        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        Query query = getEntityManager().createNamedQuery("Persona.findAll",Persona.class);       
         List<Persona> resultquery = query.getResultList();
         for(Persona p:resultquery)
         {
+            getEntityManager().refresh(p);
             if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
             {
                 resultList.add(p);
@@ -82,13 +84,15 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     }
 
     public List<Persona> buscarPorUsuarios() 
-    {
+    {        
         List <Persona>resultList=new ArrayList();
-        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        Query query = getEntityManager().createNamedQuery("Persona.findAll",Persona.class);       
         List<Persona> resultquery = query.getResultList();
+        System.out.println("Tamaño:"+resultquery.size());
         for(Persona p:resultquery)
         {
-            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
+            getEntityManager().refresh(p);
+            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getPersonagrupoPK().getGruid().equals("user"))
             {
                 resultList.add(p);
             }
@@ -105,6 +109,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         System.out.println("tamaño:"+resultquery.size());
         for(Persona p:resultquery)
         {
+            getEntityManager().refresh(p);
             if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("admin"))
             {
                 resultList.add(p);
@@ -122,6 +127,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         System.out.println("tamaño:"+resultquery.size());
         for(Persona p:resultquery)
         {
+            getEntityManager().refresh(p);
             if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
             {
                 resultList.add(p);
@@ -139,7 +145,8 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         System.out.println("tamaño:"+resultquery.size());
         for(Persona p:resultquery)
         {
-            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
+            getEntityManager().refresh(p);
+            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getPersonagrupoPK().getGruid().equals("user"))
             {
                 resultList.add(p);
             }
