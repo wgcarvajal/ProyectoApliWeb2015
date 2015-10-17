@@ -45,16 +45,11 @@
                         <p:message for="user"/>
 
                         <p:outputLabel value="Password: " for="password"/>
-                        <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)">
-                            <f:converter converterId="passwordConverter"></f:converter>
-                        </p:password>                
+                        <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)"/>                                                                                
                         <p:message for="password"/>
 
                         <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
-                        <p:password id="REPpassword" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false">
-                            <f:converter converterId="passwordConverter"></f:converter>
-                            <f:validator validatorId="confirmPasswordValidator"></f:validator>
-                        </p:password>                                
+                        <p:password id="REPpassword" value="#{registroController.REPpassword}" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false"/>                                                                                                              
                         <p:message for="REPpassword"></p:message>                                               
 
                         <!-- -->
