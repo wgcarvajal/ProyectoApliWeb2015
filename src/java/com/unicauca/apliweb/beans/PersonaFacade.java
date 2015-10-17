@@ -59,7 +59,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         List<Persona> resultquery = query.getResultList();
         for(Persona p:resultquery)
         {
-            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("admin"))
+            if(!(p.getPersonagrupoList().isEmpty()) && p.getPersonagrupoList().get(0).getGrupo().getGruid().equals("admin"))
             {
                 resultList.add(p);
             }
@@ -73,7 +73,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         List<Persona> resultquery = query.getResultList();
         for(Persona p:resultquery)
         {
-            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
+            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
             {
                 resultList.add(p);
             }
@@ -88,7 +88,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         List<Persona> resultquery = query.getResultList();
         for(Persona p:resultquery)
         {
-            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
+            if(!(p.getPersonagrupoList().isEmpty()) && (p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
             {
                 resultList.add(p);
             }
