@@ -6,12 +6,12 @@
     <group-name>admin</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>emp</role-name>
-    <group-name>emp</group-name>
+    <role-name>empl</role-name>
+    <group-name>user</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>cli</role-name>
-    <group-name>cli</group-name>
+    <role-name>user</role-name>
+    <group-name>user</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
