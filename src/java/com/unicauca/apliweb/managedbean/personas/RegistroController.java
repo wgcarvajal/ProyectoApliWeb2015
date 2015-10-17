@@ -6,6 +6,7 @@
 package com.unicauca.apliweb.managedbean.personas;
 
 
+import com.unicauca.apliweb.Converters.HashGenerator;
 import com.unicauca.apliweb.beans.GrupoFacade;
 import com.unicauca.apliweb.beans.PersonaFacade;
 import com.unicauca.apliweb.beans.PersonagrupoFacade;
@@ -32,6 +33,7 @@ public class RegistroController{
     @EJB
     private PersonaFacade personaEJB;
     private Persona persona;
+    private String REPpassword;
     private List<Grupo> gruposDisponibles;
     private String idGrupoSeleccionado;
     @EJB
@@ -42,21 +44,38 @@ public class RegistroController{
     
     public String actionRegistrar(){
         FacesContext ctx=FacesContext.getCurrentInstance();
-        if(personaEJB.existsPerson(persona.getPeruser()))
-            ctx.addMessage("regPersona:user", new FacesMessage("Usuario ya existe"));
+        if(persona.getPerpassword().length()<7)
+        {            
+            ctx.addMessage("regPersona:password", new FacesMessage("La longitud minima es de 7 caracteres"));
+        }
         else
         {
-            try
-            {   
-                personaEJB.registrar(persona);
-                personagrupoEJB.registrar(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));                            
-                ctx.addMessage(null, new FacesMessage("Registro Exitoso"));            
+            if(persona.getPerpassword().equals(this.REPpassword)==false)
+            {
+                ctx.addMessage("regPersona:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Las contraseñas NO coinciden", "Las contraseñas NO coinciden"));
             }
-            catch(Exception ex)
-            {            
-                ctx.addMessage(null, new FacesMessage(ex.getMessage()));                            
-            }  
-        }        
+            else
+            {
+                if(personaEJB.existsPerson(persona.getPeruser()))
+                    ctx.addMessage("regPersona:user", new FacesMessage("Usuario ya existe"));
+                else
+                {
+                    try
+                    {   
+                        HashGenerator hash=new HashGenerator();                        
+                        persona.setPerpassword(hash.generateSHA256(REPpassword));
+                        personaEJB.registrar(persona);
+                        personagrupoEJB.registrar(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));                            
+                        ctx.addMessage(null, new FacesMessage("Registro Exitoso"));
+                        //return "otrapagina.xhtml"
+                    }
+                    catch(Exception ex)
+                    {            
+                        ctx.addMessage(null, new FacesMessage(ex.getMessage()));                            
+                    }  
+                }
+            }
+        }                                
         return null;
     }
                 
@@ -94,4 +113,13 @@ public class RegistroController{
     public void setIdGrupoSeleccionado(String idGrupoSeleccionado) {
         this.idGrupoSeleccionado = idGrupoSeleccionado;
     }     
+
+    public String getREPpassword() {
+        return REPpassword;
+    }
+
+    public void setREPpassword(String REPpassword) {
+        this.REPpassword = REPpassword;
+    }
+    
 }
