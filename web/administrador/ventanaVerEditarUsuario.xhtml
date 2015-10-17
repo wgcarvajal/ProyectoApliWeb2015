@@ -6,26 +6,71 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <p:dialog header="Ver o editar usuario" modal="true" resizable="false" position="top"  widgetVar="verEditarUsuario" closable="true">
+        <p:dialog header="Ver o editar usuario" modal="true" resizable="false" position="center"  widgetVar="verEditarUsuario" closable="true">
             <h:form id="formVerEditarUsuario">
-                <p:panelGrid styleClass="panelgrid">
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel value="Nombres:"/>
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="#{verEditarPersona.persona.pernombre}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel value="Apellidos"/>
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="#{verEditarPersona.persona.perapellido}"/>
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>                
+                <p:panel header="Datos personales">
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nombres:"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{verEditarPersona.persona.pernombre}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink style="color: blue;"  value="Editar"/> 
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Apellidos: "/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{verEditarPersona.persona.perapellido}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink style="color: blue;"  value="Editar"/> 
+                            </p:column>
+                        </p:row>                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Tipo: "/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{verEditarPersona.tipo}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink style="color: blue;"  value="Editar"/> 
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>  
+                </p:panel> 
+                <p:panel header="Datos cuenta">
+                    <p:panelGrid styleClass="panelgrid">                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nombre usuario: "/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{verEditarPersona.persona.peruser}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink style="color: blue;"  value="Editar"/> 
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Contraseña: "/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="********"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink style="color: blue;"  value="Editar"/> 
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>  
+                </p:panel>
             </h:form>
         </p:dialog>
         

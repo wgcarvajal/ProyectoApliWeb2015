@@ -80,7 +80,7 @@ public class MostrarUsuariosPendientes implements Serializable
         requestContext.execute("PF('habilitarUsuario').hide()");
         try 
         {
-            personagrupoEJB.registrar(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));
+            personagrupoEJB.create(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","Registro Exitoso"));
             listaPendientes.remove(persona);            
             requestContext.update("tablasUsuariosPendientes");

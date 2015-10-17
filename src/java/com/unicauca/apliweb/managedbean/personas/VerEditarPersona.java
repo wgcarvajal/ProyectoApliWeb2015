@@ -9,13 +9,20 @@ import org.primefaces.context.RequestContext;
 /**
  *
  * @author geovanny
- */
+ */ 
 @ManagedBean
 @ViewScoped
 public class VerEditarPersona implements Serializable
 {
     private MostrarUsuarios mgb;
     private Persona persona;
+    private String tipo;
+    private boolean habilitarNombres;
+    private boolean habilitarApellidos;
+    private boolean habilitarTipoPersona;
+    private boolean habilitarContrasena;
+    private boolean habilitarNombreUsuario;
+    
     
 
     public VerEditarPersona() 
@@ -32,14 +39,33 @@ public class VerEditarPersona implements Serializable
     {
         this.persona = persona;
     }
-    
-    
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
     
     public void  abrirVentanaVerEditarUsuario(Persona persona,MostrarUsuarios mgb)
     {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         this.persona=persona;
         this.mgb=mgb;
+        tipo="";
+        if(this.persona.getPersonagrupoList().get(0).getGrupo().getGruid().equals("admin"))
+        {
+            tipo="Administrador";
+        }
+        if(this.persona.getPersonagrupoList().get(0).getGrupo().getGruid().equals("empl"))
+        {
+            tipo="Empleado";
+        }
+        if(this.persona.getPersonagrupoList().get(0).getGrupo().getGruid().equals("user"))
+        {
+            tipo="Usuario";
+        }
         requestContext.update("formVerEditarUsuario");
         requestContext.execute("PF('verEditarUsuario').show()"); 
         

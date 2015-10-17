@@ -64,27 +64,35 @@ public class UsuariosController implements Serializable
     {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();        
-        if (req.getUserPrincipal() == null) {
-            try 
-            {
-                req.login(this.nombreUsuario, this.contrasena);
-                req.getServletContext().log("Autenticacion exitosa");               
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/");
-               
-                
-            } 
-            catch (ServletException e) 
-            {
-                fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario o contraseña incorrectos", "Nombre de usuario o contraseña incorrectos"));
-                requestContext.update("formularioInicioSession");                
-            }
-        } 
-        else 
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();
+        if (personaGrupoEJB.estaUsuario(this.nombreUsuario)) 
         {
-            req.getServletContext().log("El usuario ya estaba logueado:  ");
+            if (req.getUserPrincipal() == null) 
+            {
+
+                try 
+                {
+                    req.login(this.nombreUsuario, this.contrasena);
+                    req.getServletContext().log("Autenticacion exitosa");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/");
+
+                } catch (ServletException e) 
+                {
+                    fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario o contraseña incorrectos", "Nombre de usuario o contraseña incorrectos"));
+                    requestContext.update("formularioInicioSession");
+                }
+            } else 
+            {
+                req.getServletContext().log("El usuario ya estaba logueado:  ");
+                requestContext.update("formularioInicioSession");
+            }
+        }
+        else
+        {
+            fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nombre de usuario o contraseña incorrectos", "Nombre de usuario o contraseña incorrectos"));
             requestContext.update("formularioInicioSession");
         }
+        
     }
     
     
