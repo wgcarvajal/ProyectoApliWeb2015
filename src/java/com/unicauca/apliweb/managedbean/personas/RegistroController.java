@@ -13,6 +13,7 @@ import com.unicauca.apliweb.beans.PersonagrupoFacade;
 import com.unicauca.apliweb.entities.Grupo;
 import com.unicauca.apliweb.entities.Persona;
 import com.unicauca.apliweb.entities.Personagrupo;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -131,6 +132,18 @@ public class RegistroController{
 
     public void setREPpassword(String REPpassword) {
         this.REPpassword = REPpassword;
+    }
+    
+    public void registrarse() throws IOException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/faces/Registro.xhtml"); 
+    }
+    
+    public void registrarUsuario() throws IOException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/faces/administrador/Registro.xhtml"); 
     }
     
 }
