@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+
+        <ui:composition template="./../plantillas/plantilla.xhtml">
+
+            <ui:define name="titulo">
+                Usuarios Pendientes
+            </ui:define>
+           
+
+            <ui:define name="menuprincipal">
+                <ul> 
+                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios"/></li>
+                </ul>
+            </ui:define>
+
+            <ui:define name="title">
+               
+            </ui:define>
+
+            <ui:define name="body">
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/administrador/usuarios" />                                                          
+                    </p:breadCrumb>
+                </h:form>
+                
+                 <div class="tituloPrincipalPagina"><h1>Usuarios Pendientes</h1></div>                                  
+                 <br/>
+                 <h:form id="tablasUsuariosPendientes">
+            
+                    <p:panel id="tablaUsuarioPendientes">                                            
+                        <p:dataTable  var="personas" value="#{mostrarUsuariosPendientes.listaPendientes}"
+                                              paginator="true" rows="20"  
+                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                              >                            
+                            <p:column headerText="Nombres">
+                                #{personas.pernombre}
+                            </p:column>    
+
+                            <p:column headerText="Apellidos">
+                                #{personas.perapellido}
+                            </p:column>
+
+                            <p:column headerText="Nombre usuario">
+                                #{personas.peruser}
+                            </p:column>
+
+                            <p:column headerText="Acciones" width="70">                                
+                                <p:commandLink title="Ver o Editar"   style="text-decoration: none;" action="#{mostrarUsuariosPendientes.mostrarEmergente(personas)}">                                    
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                </p:commandLink>                                
+                                <p:commandLink id="eliminar" style="text-decoration: none;margin-left: 5px; " title="Eliminar" >                                    
+                                    <p:graphicImage style="width:20px; " library="img/usuarios" name="eliminar.png"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>                   
+                </h:form>
+                
+                 <p:growl severity="info,fatal" autoUpdate="true"/>
+                 <p:dialog widgetVar="habilitarUsuario" header="Habilitar Usuario">                     
+                     <h:form id="frmHabilitar">                         
+                        <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Habilitar al usuario #{mostrarUsuariosPendientes.persona.pernombre} #{mostrarUsuariosPendientes.persona.perapellido} como:"/>
+                        
+                        <h:panelGrid columns="2">                                                                                    
+                            <p:outputLabel value="Rol: " for="rol"></p:outputLabel>                
+                            <p:selectOneMenu id="rol" required="true" requiredMessage="Debe seleccionar un Rol" value="#{mostrarUsuariosPendientes.idGrupoSeleccionado}">                    
+                                <f:selectItem itemValue="" itemLabel="Seleccionar un Rol" />
+                                <f:selectItems value="#{registroController.obtnGrupos()}" var="grupo" itemValue="#{grupo.gruid}" itemLabel="#{grupo.grudescripcion}"></f:selectItems>                    
+                            </p:selectOneMenu>                            
+                        </h:panelGrid>
+                         <br />
+                         <p:commandButton value="Habilitar" actionListener="#{mostrarUsuariosPendientes.habilitarUsuario()}"/>
+                     </h:form>
+                 </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </body>
+           
+    
+        
+</html>
+

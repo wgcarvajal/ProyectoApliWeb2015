@@ -146,7 +146,8 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         }
         return resultList; 
     }
-    
-    
-    
+    public List<Persona> buscarPendientes() {
+       TypedQuery<Persona> query=em.createNamedQuery("Persona.findByPendientes",Persona.class);
+       return query.getResultList();
+    }        
 }

@@ -38,7 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findByPeruser", query = "SELECT p FROM Persona p WHERE p.peruser = :peruser"),
     @NamedQuery(name = "Persona.findByPerpassword", query = "SELECT p FROM Persona p WHERE p.perpassword = :perpassword"),
     @NamedQuery(name = "Persona.findByName", query = "SELECT p FROM Persona p WHERE LOWER(CONCAT(CONCAT(p.pernombre,' '),p.perapellido)) LIKE :nombre "),
-    @NamedQuery(name = "Persona.findByGruid", query = "SELECT p FROM Persona p INNER JOIN Personagrupo pg")})
+    @NamedQuery(name = "Persona.findByGruid", query = "SELECT p FROM Persona p INNER JOIN Personagrupo pg"),
+    @NamedQuery(name = "Persona.findByPendientes", query = "SELECT p FROM Persona p WHERE p.personagrupoList IS EMPTY")    
+})
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
