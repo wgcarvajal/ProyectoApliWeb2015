@@ -40,12 +40,12 @@ public class Respode implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "RESPRESPUESTA")
     private String resprespuesta;
-    @JoinColumn(name = "PREID", referencedColumnName = "PREID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Preguntas preguntas;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Persona persona;
+    @JoinColumn(name = "PREID", referencedColumnName = "PREID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Preguntas preguntas;
 
     public Respode() {
     }
@@ -79,20 +79,20 @@ public class Respode implements Serializable {
         this.resprespuesta = resprespuesta;
     }
 
-    public Preguntas getPreguntas() {
-        return preguntas;
-    }
-
-    public void setPreguntas(Preguntas preguntas) {
-        this.preguntas = preguntas;
-    }
-
     public Persona getPersona() {
         return persona;
     }
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public Preguntas getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(Preguntas preguntas) {
+        this.preguntas = preguntas;
     }
 
     @Override

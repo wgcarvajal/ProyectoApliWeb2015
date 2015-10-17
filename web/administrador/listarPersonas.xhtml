@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <h:form id="tablasUsuarios">
+            <h:panelGrid style="margin-bottom: 10px;" rendered="#{mostrarUsuarios.habilitarTablaPersonas}" columns="3">                      
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarAdministradores}" class="CampoLabel" value="Nombre del Administrador:" />
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarEmpleados}" class="CampoLabel" value="Nombre del Empleado:" />
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarUsuarios}" class="CampoLabel" value="Nombre del Usuario:" />
+                <p:inputText style="width: 240px;" value="#{mostrarUsuarios.nombrePersona}"  >
+                    <p:ajax event="keyup" update="tablaUsuario" listener="#{mostrarUsuarios.buscarPorNombrePersona}" />                                
+                        </p:inputText>                                                   
+                    </h:panelGrid>
+            <p:panel id="tablaUsuario" rendered="#{mostrarUsuarios.habilitarTablaPersonas}">                                            
+                <p:dataTable  var="personas" value="#{mostrarUsuarios.listaPersonas}"
+                                      paginator="true" rows="20"  
+                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                      >
+
+                            
+                            <p:column headerText="Nombres">
+                                #{personas.pernombre}
+                            </p:column>    
+                    
+                            <p:column headerText="Apellidos">
+                                #{personas.perapellido}
+                            </p:column>
+                    
+                            <p:column headerText="Nombre usuario">
+                                #{personas.peruser}
+                            </p:column>
+                            
+                            <p:column headerText="Acciones" width="70">                                
+                                <p:commandLink title="Ver o Editar"   style="text-decoration: none;" >                                    
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                </p:commandLink>                                
+                                <p:commandLink id="eliminar" style="text-decoration: none;margin-left: 5px; " title="Eliminar" >                                    
+                                    <p:graphicImage style="width:20px; " library="img/usuarios" name="eliminar.png"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>                   
+                    
+                </h:form>
+        
+    </ui:composition>    
+</html>
+

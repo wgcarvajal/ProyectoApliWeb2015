@@ -42,12 +42,12 @@ public class Atiende implements Serializable {
     @Column(name = "ATIFECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date atifecha;
-    @JoinColumn(name = "PERID", referencedColumnName = "PERID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Persona persona;
     @JoinColumn(name = "INCID", referencedColumnName = "INCID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Incidente incidente;
+    @JoinColumn(name = "PERID", referencedColumnName = "PERID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Persona persona;
 
     public Atiende() {
     }
@@ -81,20 +81,20 @@ public class Atiende implements Serializable {
         this.atifecha = atifecha;
     }
 
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
     public Incidente getIncidente() {
         return incidente;
     }
 
     public void setIncidente(Incidente incidente) {
         this.incidente = incidente;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     @Override

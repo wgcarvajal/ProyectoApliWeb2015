@@ -6,10 +6,13 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Persona;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -47,6 +50,101 @@ public class PersonaFacade extends AbstractFacade<Persona> {
 
     public void registrar(Persona persona) {
         em.persist(persona);
+    }
+
+    public List<Persona> buscarPorAdministradores() 
+    {   
+        List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        List<Persona> resultquery = query.getResultList();
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("admin"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList;
+    }
+
+    public List<Persona> buscarPorEmpleados() {
+       List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        List<Persona> resultquery = query.getResultList();
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList;
+    }
+
+    public List<Persona> buscarPorUsuarios() 
+    {
+        List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findAll");       
+        List<Persona> resultquery = query.getResultList();
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList;
+    }
+
+    public List<Persona> buscarPorNombreAdministrador(String nombrePersona)
+    {
+        List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findByName");
+        query.setParameter("nombre","%"+nombrePersona.toLowerCase()+"%");
+        List<Persona> resultquery = query.getResultList();
+        System.out.println("tamaño:"+resultquery.size());
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("admin"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList;        
+    }
+
+    public List<Persona> busacarPorNombreEmpleado(String nombrePersona) 
+    {
+        List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findByName");
+        query.setParameter("nombre","%"+nombrePersona.toLowerCase()+"%");
+        List<Persona> resultquery = query.getResultList();
+        System.out.println("tamaño:"+resultquery.size());
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("empl"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList; 
+    }
+
+    public List<Persona> busacarPorNombreUsuario(String nombrePersona) 
+    {
+        List <Persona>resultList=new ArrayList();
+        Query query = getEntityManager().createNamedQuery("Persona.findByName");
+        query.setParameter("nombre","%"+nombrePersona.toLowerCase()+"%");
+        List<Persona> resultquery = query.getResultList();
+        System.out.println("tamaño:"+resultquery.size());
+        for(Persona p:resultquery)
+        {
+            if((p.getPersonagrupoList().get(0)).getGrupo().getGruid().equals("user"))
+            {
+                resultList.add(p);
+            }
+        }
+        return resultList; 
     }
     
     

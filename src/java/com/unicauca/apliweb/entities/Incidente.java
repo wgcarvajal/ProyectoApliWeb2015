@@ -80,12 +80,12 @@ public class Incidente implements Serializable {
     private List<Solucion> solucionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private List<Atiende> atiendeList;
-    @JoinColumn(name = "PERID", referencedColumnName = "PERID")
-    @ManyToOne(optional = false)
-    private Persona perid;
     @JoinColumn(name = "CATID", referencedColumnName = "CATID")
     @ManyToOne(optional = false)
     private Categoria catid;
+    @JoinColumn(name = "PERID", referencedColumnName = "PERID")
+    @ManyToOne(optional = false)
+    private Persona perid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incid")
     private List<Cambio> cambioList;
 
@@ -170,20 +170,20 @@ public class Incidente implements Serializable {
         this.atiendeList = atiendeList;
     }
 
-    public Persona getPerid() {
-        return perid;
-    }
-
-    public void setPerid(Persona perid) {
-        this.perid = perid;
-    }
-
     public Categoria getCatid() {
         return catid;
     }
 
     public void setCatid(Categoria catid) {
         this.catid = catid;
+    }
+
+    public Persona getPerid() {
+        return perid;
+    }
+
+    public void setPerid(Persona perid) {
+        this.perid = perid;
     }
 
     @XmlTransient
