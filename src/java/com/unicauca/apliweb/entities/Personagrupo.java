@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "PERSONAGRUPO", catalog = "apliWeb", schema = "")
@@ -63,7 +63,8 @@ public class Personagrupo implements Serializable {
         this.personagrupoPK = new PersonagrupoPK(gruid, perid);
     }
     
-    public Personagrupo(String gruid, int perid, String perUser) {
+    public Personagrupo(String gruid, int perid, String perUser)
+    {
         this.personagrupoPK = new PersonagrupoPK(gruid, perid);
         this.peruser=perUser;
     }

@@ -14,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Stateless
 public class PersonagrupoFacade extends AbstractFacade<Personagrupo> {
@@ -30,8 +30,7 @@ public class PersonagrupoFacade extends AbstractFacade<Personagrupo> {
         super(Personagrupo.class);
     }
     
-    
-    public List<Personagrupo> buscarPorNombreUsuario(String nombreusuario)
+     public List<Personagrupo> buscarPorNombreUsuario(String nombreusuario)
     {
         System.out.println(nombreusuario);
         Query query = getEntityManager().createNamedQuery("Personagrupo.findByPeruser");

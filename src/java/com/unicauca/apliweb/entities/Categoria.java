@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "CATEGORIA", catalog = "apliWeb", schema = "")
@@ -47,10 +47,10 @@ public class Categoria implements Serializable {
     private Integer catid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 256)
     @Column(name = "CATNOMBRE")
     private String catnombre;
-    @Size(max = 1024)
+    @Size(max = 2048)
     @Column(name = "CATDESCRIPCION")
     private String catdescripcion;
     @JoinTable(name = "DEFINE", joinColumns = {

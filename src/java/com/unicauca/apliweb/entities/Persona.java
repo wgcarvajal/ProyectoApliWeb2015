@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "PERSONA", catalog = "apliWeb", schema = "")
@@ -37,10 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findByPerapellido", query = "SELECT p FROM Persona p WHERE p.perapellido = :perapellido"),
     @NamedQuery(name = "Persona.findByPeruser", query = "SELECT p FROM Persona p WHERE p.peruser = :peruser"),
     @NamedQuery(name = "Persona.findByPerpassword", query = "SELECT p FROM Persona p WHERE p.perpassword = :perpassword"),
+    @NamedQuery(name = "Persona.findByPeremail", query = "SELECT p FROM Persona p WHERE p.peremail = :peremail"),
     @NamedQuery(name = "Persona.findByName", query = "SELECT p FROM Persona p WHERE LOWER(CONCAT(CONCAT(p.pernombre,' '),p.perapellido)) LIKE :nombre "),
     @NamedQuery(name = "Persona.findByGruid", query = "SELECT p FROM Persona p INNER JOIN Personagrupo pg"),
-    @NamedQuery(name = "Persona.findByPendientes", query = "SELECT p FROM Persona p WHERE p.personagrupoList IS EMPTY")    
-})
+    @NamedQuery(name = "Persona.findByPendientes", query = "SELECT p FROM Persona p WHERE p.personagrupoList IS EMPTY") })
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,20 +58,29 @@ public class Persona implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "PERAPELLIDO")
     private String perapellido;
-    @Size(max = 20)
+    @Size(max = 50)
     @Column(name = "PERUSER")
     private String peruser;
-    @Size(max = 250)
+    @Size(max = 256)
     @Column(name = "PERPASSWORD")
     private String perpassword;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "PEREMAIL")
+    private String peremail;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Atiende> atiendeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "perid")
     private List<Incidente> incidenteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private List<Respode> respodeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Personagrupo> personagrupoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Enviacorreo> enviacorreoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona1")
+    private List<Enviacorreo> enviacorreoList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Responde> respondeList;
 
     public Persona() {
     }
@@ -80,10 +89,11 @@ public class Persona implements Serializable {
         this.perid = perid;
     }
 
-    public Persona(Integer perid, String pernombre, String perapellido) {
+    public Persona(Integer perid, String pernombre, String perapellido, String peremail) {
         this.perid = perid;
         this.pernombre = pernombre;
         this.perapellido = perapellido;
+        this.peremail = peremail;
     }
 
     public Integer getPerid() {
@@ -126,6 +136,14 @@ public class Persona implements Serializable {
         this.perpassword = perpassword;
     }
 
+    public String getPeremail() {
+        return peremail;
+    }
+
+    public void setPeremail(String peremail) {
+        this.peremail = peremail;
+    }
+
     @XmlTransient
     public List<Atiende> getAtiendeList() {
         return atiendeList;
@@ -145,21 +163,39 @@ public class Persona implements Serializable {
     }
 
     @XmlTransient
-    public List<Respode> getRespodeList() {
-        return respodeList;
-    }
-
-    public void setRespodeList(List<Respode> respodeList) {
-        this.respodeList = respodeList;
-    }
-
-    @XmlTransient
     public List<Personagrupo> getPersonagrupoList() {
         return personagrupoList;
     }
 
     public void setPersonagrupoList(List<Personagrupo> personagrupoList) {
         this.personagrupoList = personagrupoList;
+    }
+
+    @XmlTransient
+    public List<Enviacorreo> getEnviacorreoList() {
+        return enviacorreoList;
+    }
+
+    public void setEnviacorreoList(List<Enviacorreo> enviacorreoList) {
+        this.enviacorreoList = enviacorreoList;
+    }
+
+    @XmlTransient
+    public List<Enviacorreo> getEnviacorreoList1() {
+        return enviacorreoList1;
+    }
+
+    public void setEnviacorreoList1(List<Enviacorreo> enviacorreoList1) {
+        this.enviacorreoList1 = enviacorreoList1;
+    }
+
+    @XmlTransient
+    public List<Responde> getRespondeList() {
+        return respondeList;
+    }
+
+    public void setRespondeList(List<Responde> respondeList) {
+        this.respondeList = respondeList;
     }
 
     @Override

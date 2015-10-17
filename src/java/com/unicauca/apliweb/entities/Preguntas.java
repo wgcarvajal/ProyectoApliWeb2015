@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "PREGUNTAS", catalog = "apliWeb", schema = "")
@@ -44,13 +44,13 @@ public class Preguntas implements Serializable {
     private Integer preid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1024)
+    @Size(min = 1, max = 2048)
     @Column(name = "PREINTERROGANTE")
     private String preinterrogante;
     @ManyToMany(mappedBy = "preguntasList")
     private List<Categoria> categoriaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "preguntas")
-    private List<Respode> respodeList;
+    private List<Responde> respondeList;
 
     public Preguntas() {
     }
@@ -90,12 +90,12 @@ public class Preguntas implements Serializable {
     }
 
     @XmlTransient
-    public List<Respode> getRespodeList() {
-        return respodeList;
+    public List<Responde> getRespondeList() {
+        return respondeList;
     }
 
-    public void setRespodeList(List<Respode> respodeList) {
-        this.respodeList = respodeList;
+    public void setRespondeList(List<Responde> respondeList) {
+        this.respondeList = respondeList;
     }
 
     @Override

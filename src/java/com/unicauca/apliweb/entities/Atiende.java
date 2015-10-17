@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "ATIENDE", catalog = "apliWeb", schema = "")
@@ -32,22 +32,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Atiende.findAll", query = "SELECT a FROM Atiende a"),
     @NamedQuery(name = "Atiende.findByIncid", query = "SELECT a FROM Atiende a WHERE a.atiendePK.incid = :incid"),
     @NamedQuery(name = "Atiende.findByPerid", query = "SELECT a FROM Atiende a WHERE a.atiendePK.perid = :perid"),
-    @NamedQuery(name = "Atiende.findByAtifecha", query = "SELECT a FROM Atiende a WHERE a.atifecha = :atifecha")})
+    @NamedQuery(name = "Atiende.findByFecha", query = "SELECT a FROM Atiende a WHERE a.fecha = :fecha")})
 public class Atiende implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AtiendePK atiendePK;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ATIFECHA")
+    @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date atifecha;
-    @JoinColumn(name = "INCID", referencedColumnName = "INCID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Incidente incidente;
+    private Date fecha;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Persona persona;
+    @JoinColumn(name = "INCID", referencedColumnName = "INCID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Incidente incidente;
 
     public Atiende() {
     }
@@ -56,9 +56,9 @@ public class Atiende implements Serializable {
         this.atiendePK = atiendePK;
     }
 
-    public Atiende(AtiendePK atiendePK, Date atifecha) {
+    public Atiende(AtiendePK atiendePK, Date fecha) {
         this.atiendePK = atiendePK;
-        this.atifecha = atifecha;
+        this.fecha = fecha;
     }
 
     public Atiende(int incid, int perid) {
@@ -73,20 +73,12 @@ public class Atiende implements Serializable {
         this.atiendePK = atiendePK;
     }
 
-    public Date getAtifecha() {
-        return atifecha;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setAtifecha(Date atifecha) {
-        this.atifecha = atifecha;
-    }
-
-    public Incidente getIncidente() {
-        return incidente;
-    }
-
-    public void setIncidente(Incidente incidente) {
-        this.incidente = incidente;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public Persona getPersona() {
@@ -95,6 +87,14 @@ public class Atiende implements Serializable {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public Incidente getIncidente() {
+        return incidente;
+    }
+
+    public void setIncidente(Incidente incidente) {
+        this.incidente = incidente;
     }
 
     @Override

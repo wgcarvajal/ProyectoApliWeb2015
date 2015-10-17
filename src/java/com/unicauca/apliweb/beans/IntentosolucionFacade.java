@@ -5,19 +5,17 @@
  */
 package com.unicauca.apliweb.beans;
 
-import com.unicauca.apliweb.entities.Grupo;
-import java.util.List;
+import com.unicauca.apliweb.entities.Intentosolucion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  *
  * @author miguel
  */
 @Stateless
-public class GrupoFacade extends AbstractFacade<Grupo> {
+public class IntentosolucionFacade extends AbstractFacade<Intentosolucion> {
     @PersistenceContext(unitName = "ProyectoApliWebPU")
     private EntityManager em;
 
@@ -26,20 +24,8 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         return em;
     }
 
-    public GrupoFacade() {
-        super(Grupo.class);
-    }
-    
-    public List<Grupo> obtnGrupos() {
-        try
-        {
-            TypedQuery query=em.createNamedQuery("Grupo.findAll",Grupo.class);            
-            return query.getResultList();
-        }
-        catch(Exception ex)
-        {            
-            return null;
-        }
+    public IntentosolucionFacade() {
+        super(Intentosolucion.class);
     }
     
 }

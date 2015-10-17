@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "CAMBIO", catalog = "apliWeb", schema = "")
@@ -35,8 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cambio.findAll", query = "SELECT c FROM Cambio c"),
     @NamedQuery(name = "Cambio.findByCamid", query = "SELECT c FROM Cambio c WHERE c.camid = :camid"),
     @NamedQuery(name = "Cambio.findByCamdescripcion", query = "SELECT c FROM Cambio c WHERE c.camdescripcion = :camdescripcion"),
-    @NamedQuery(name = "Cambio.findByCampropiedad", query = "SELECT c FROM Cambio c WHERE c.campropiedad = :campropiedad"),
-    @NamedQuery(name = "Cambio.findByCamvalor", query = "SELECT c FROM Cambio c WHERE c.camvalor = :camvalor"),
     @NamedQuery(name = "Cambio.findByCamfecha", query = "SELECT c FROM Cambio c WHERE c.camfecha = :camfecha")})
 public class Cambio implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,15 +45,9 @@ public class Cambio implements Serializable {
     private Integer camid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 200)
+    @Size(min = 1, max = 2048)
     @Column(name = "CAMDESCRIPCION")
     private String camdescripcion;
-    @Size(max = 20)
-    @Column(name = "CAMPROPIEDAD")
-    private String campropiedad;
-    @Size(max = 1024)
-    @Column(name = "CAMVALOR")
-    private String camvalor;
     @Basic(optional = false)
     @NotNull
     @Column(name = "CAMFECHA")
@@ -92,22 +84,6 @@ public class Cambio implements Serializable {
 
     public void setCamdescripcion(String camdescripcion) {
         this.camdescripcion = camdescripcion;
-    }
-
-    public String getCampropiedad() {
-        return campropiedad;
-    }
-
-    public void setCampropiedad(String campropiedad) {
-        this.campropiedad = campropiedad;
-    }
-
-    public String getCamvalor() {
-        return camvalor;
-    }
-
-    public void setCamvalor(String camvalor) {
-        this.camvalor = camvalor;
     }
 
     public Date getCamfecha() {

@@ -5,17 +5,17 @@
  */
 package com.unicauca.apliweb.beans;
 
-import com.unicauca.apliweb.entities.Respode;
+import com.unicauca.apliweb.entities.Responde;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Stateless
-public class RespodeFacade extends AbstractFacade<Respode> {
+public class RespondeFacade extends AbstractFacade<Responde> {
     @PersistenceContext(unitName = "ProyectoApliWebPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class RespodeFacade extends AbstractFacade<Respode> {
         return em;
     }
 
-    public RespodeFacade() {
-        super(Respode.class);
+    public RespondeFacade() {
+        super(Responde.class);
     }
     
 }

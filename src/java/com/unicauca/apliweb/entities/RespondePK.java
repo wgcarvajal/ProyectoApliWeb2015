@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Embeddable
-public class RespodePK implements Serializable {
+public class RespondePK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "PERID")
@@ -26,10 +26,10 @@ public class RespodePK implements Serializable {
     @Column(name = "PREID")
     private int preid;
 
-    public RespodePK() {
+    public RespondePK() {
     }
 
-    public RespodePK(int perid, int preid) {
+    public RespondePK(int perid, int preid) {
         this.perid = perid;
         this.preid = preid;
     }
@@ -61,10 +61,10 @@ public class RespodePK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RespodePK)) {
+        if (!(object instanceof RespondePK)) {
             return false;
         }
-        RespodePK other = (RespodePK) object;
+        RespondePK other = (RespondePK) object;
         if (this.perid != other.perid) {
             return false;
         }
@@ -76,7 +76,7 @@ public class RespodePK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.apliweb.entities.RespodePK[ perid=" + perid + ", preid=" + preid + " ]";
+        return "com.unicauca.apliweb.entities.RespondePK[ perid=" + perid + ", preid=" + preid + " ]";
     }
     
 }

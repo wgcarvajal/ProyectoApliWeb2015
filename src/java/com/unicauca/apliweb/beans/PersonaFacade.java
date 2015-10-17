@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Stateless
 public class PersonaFacade extends AbstractFacade<Persona> {
@@ -32,7 +32,7 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     public PersonaFacade() {
         super(Persona.class);
     }
-
+    
     public boolean existsPerson(String perUser) {
         try
         {            
@@ -156,5 +156,6 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     public List<Persona> buscarPendientes() {
        TypedQuery<Persona> query=em.createNamedQuery("Persona.findByPendientes",Persona.class);
        return query.getResultList();
-    }        
+    }  
+    
 }

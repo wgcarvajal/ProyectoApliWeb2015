@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author geovanny
+ * @author miguel
  */
 @Entity
 @Table(name = "INCIDENTE", catalog = "apliWeb", schema = "")
@@ -63,10 +63,10 @@ public class Incidente implements Serializable {
     private Date incfecharegistro;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1024)
+    @Size(min = 1, max = 2048)
     @Column(name = "INCDESCRIPCION")
     private String incdescripcion;
-    @Size(max = 1024)
+    @Size(max = 2048)
     @Column(name = "INCEXPERIENCIA")
     private String incexperiencia;
     @Basic(optional = false)
@@ -75,19 +75,21 @@ public class Incidente implements Serializable {
     private boolean incsolucionado;
     @JoinTable(name = "TIENE", joinColumns = {
         @JoinColumn(name = "INCID", referencedColumnName = "INCID")}, inverseJoinColumns = {
-        @JoinColumn(name = "SOLID", referencedColumnName = "SOLID")})
+        @JoinColumn(name = "INTID", referencedColumnName = "INTID")})
     @ManyToMany
-    private List<Solucion> solucionList;
+    private List<Intentosolucion> intentosolucionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private List<Atiende> atiendeList;
-    @JoinColumn(name = "CATID", referencedColumnName = "CATID")
-    @ManyToOne(optional = false)
-    private Categoria catid;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID")
     @ManyToOne(optional = false)
     private Persona perid;
+    @JoinColumn(name = "CATID", referencedColumnName = "CATID")
+    @ManyToOne(optional = false)
+    private Categoria catid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incid")
     private List<Cambio> cambioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
+    private List<Enviacorreo> enviacorreoList;
 
     public Incidente() {
     }
@@ -153,12 +155,12 @@ public class Incidente implements Serializable {
     }
 
     @XmlTransient
-    public List<Solucion> getSolucionList() {
-        return solucionList;
+    public List<Intentosolucion> getIntentosolucionList() {
+        return intentosolucionList;
     }
 
-    public void setSolucionList(List<Solucion> solucionList) {
-        this.solucionList = solucionList;
+    public void setIntentosolucionList(List<Intentosolucion> intentosolucionList) {
+        this.intentosolucionList = intentosolucionList;
     }
 
     @XmlTransient
@@ -170,20 +172,20 @@ public class Incidente implements Serializable {
         this.atiendeList = atiendeList;
     }
 
-    public Categoria getCatid() {
-        return catid;
-    }
-
-    public void setCatid(Categoria catid) {
-        this.catid = catid;
-    }
-
     public Persona getPerid() {
         return perid;
     }
 
     public void setPerid(Persona perid) {
         this.perid = perid;
+    }
+
+    public Categoria getCatid() {
+        return catid;
+    }
+
+    public void setCatid(Categoria catid) {
+        this.catid = catid;
     }
 
     @XmlTransient
@@ -193,6 +195,15 @@ public class Incidente implements Serializable {
 
     public void setCambioList(List<Cambio> cambioList) {
         this.cambioList = cambioList;
+    }
+
+    @XmlTransient
+    public List<Enviacorreo> getEnviacorreoList() {
+        return enviacorreoList;
+    }
+
+    public void setEnviacorreoList(List<Enviacorreo> enviacorreoList) {
+        this.enviacorreoList = enviacorreoList;
     }
 
     @Override
