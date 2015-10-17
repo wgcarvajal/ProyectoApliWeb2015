@@ -10,8 +10,9 @@
         <ui:composition template="../plantillas/plantilla.xhtml">
             
             <ui:define name="menuprincipal">
-                <ul> 
-                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios"/></li>
+                <ul>                     
+                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios Activos"/></li>                    
+                    <li><span class="punta"></span><p:link outcome="/administrador/listarPersonasPendientes" value="Usuarios Pendientes"/></li>
                 </ul>
             </ui:define>
            

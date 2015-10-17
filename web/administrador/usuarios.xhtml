@@ -15,7 +15,9 @@
             </ui:define>
             <ui:define name="menuprincipal">
                 <ul> 
-                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios"/></li>
+                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios Activos"/></li>                    
+                    <li><span class="punta"></span><p:link outcome="/administrador/listarPersonasPendientes" value="Usuarios Pendientes"/></li>
+                    
                 </ul>
             </ui:define>
 
@@ -26,7 +28,7 @@
             <ui:define name="body">
                 <h:form>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" outcome="/administrador/usuarios" />                                                          
+                        <p:menuitem value="Inicio" outcome="/administrador/usuarios" />                                                                                  
                     </p:breadCrumb>
                 </h:form>
                 

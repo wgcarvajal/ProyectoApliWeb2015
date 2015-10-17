@@ -17,7 +17,8 @@
 
             <ui:define name="menuprincipal">
                 <ul> 
-                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios"/></li>
+                    <li><span class="punta"></span><p:link outcome="/administrador/usuarios" value="Usuarios Activos"/></li>                    
+                    <li><span class="punta"></span><p:link outcome="/administrador/listarPersonasPendientes" value="Usuarios Pendientes"/></li>
                 </ul>
             </ui:define>
 
@@ -29,6 +30,7 @@
                 <h:form>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" outcome="/administrador/usuarios" />                                                          
+                        <p:menuitem value="Usuarios Pendientes" outcome="/administrador/listarPersonasPendientes" />
                     </p:breadCrumb>
                 </h:form>
                 
@@ -53,13 +55,10 @@
                                 #{personas.peruser}
                             </p:column>
 
-                            <p:column headerText="Acciones" width="70">                                
-                                <p:commandLink title="Ver o Editar"   style="text-decoration: none;" action="#{mostrarUsuariosPendientes.mostrarEmergente(personas)}">                                    
-                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
-                                </p:commandLink>                                
-                                <p:commandLink id="eliminar" style="text-decoration: none;margin-left: 5px; " title="Eliminar" >                                    
-                                    <p:graphicImage style="width:20px; " library="img/usuarios" name="eliminar.png"/>
-                                </p:commandLink>
+                            <p:column headerText="Habilitar" width="45">                                
+                                <p:commandLink title="Habilitar"   style="text-decoration: none;" action="#{mostrarUsuariosPendientes.mostrarEmergente(personas)}">                                    
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ok.png"/>
+                                </p:commandLink>                                                                
                             </p:column>
                         </p:dataTable>
                     </p:panel>                   
