@@ -31,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Personagrupo.findByGruid", query = "SELECT p FROM Personagrupo p WHERE p.personagrupoPK.gruid = :gruid"),
     @NamedQuery(name = "Personagrupo.findByPerid", query = "SELECT p FROM Personagrupo p WHERE p.personagrupoPK.perid = :perid"),
     @NamedQuery(name = "Personagrupo.findByPeruser", query = "SELECT p FROM Personagrupo p WHERE p.peruser = :peruser")})
-public class Personagrupo implements Serializable 
-{
+public class Personagrupo implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PersonagrupoPK personagrupoPK;

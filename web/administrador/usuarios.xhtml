@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -20,11 +22,43 @@
             </ui:define>
 
             <ui:define name="title">
-                <div class="tituloPrincipalPagina"><h1>Usuarios</h1></div>
+               
             </ui:define>
 
             <ui:define name="body">
-                body
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/administrador/usuarios" />                                                          
+                    </p:breadCrumb>
+                </h:form>
+                
+                 <div class="tituloPrincipalPagina"><h1>Usuarios</h1></div>
+                 
+                 
+                 <br/>
+                <h:form id="seleccionarUsuarios">
+                    <h:panelGrid columns="3"> 
+                        <p:outputLabel styleClass="CampoLabel" value="Seleccione Tipo Usuario:" />                      
+                        <p:selectOneMenu  id="tipoUsuario" style="width:150px;font-size: 15px;" required="true"
+                                          requiredMessage="Seleccione un Tipo Usuario."
+                                          valueChangeListener="#{mostrarUsuarios.cambiarTipoUsuario}"
+                                          >
+                            <f:selectItem itemLabel="Seleccione.." itemValue="Seleccione" />
+                            <f:selectItems value="#{mostrarUsuarios.listaTiposdePersonas}"
+                                           var="usuarios" itemLabel="#{usuarios}" itemValue="#{usuarios}"/>
+                           <p:ajax update=":tablasUsuarios"/>
+                                                                
+                        </p:selectOneMenu>                      
+                    </h:panelGrid>
+                </h:form>                   
+                <p:separator/>
+                <br/>
+                
+                <ui:include src="listarPersonas.xhtml"/>               
+                <p:separator/>
+                
+                
+                
             </ui:define>
 
         </ui:composition>

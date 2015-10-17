@@ -44,7 +44,7 @@ public class SesionUrlsFiltros implements Filter
         
             if(req.getUserPrincipal()==null)
             {
-                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") )
+                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") ||  requestUrl.equals(urlPrincipal+"faces/Registro.xhtml") )
                 {
                     chain.doFilter(request, response);
                 }
@@ -56,7 +56,7 @@ public class SesionUrlsFiltros implements Filter
             }
             else
             {
-                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") )
+                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") ||  requestUrl.equals(urlPrincipal+"faces/Registro.xhtml") )
                 {
                     String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
                     if(tipo.equals("user"))

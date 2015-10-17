@@ -6,7 +6,6 @@
 package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -35,12 +34,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
     @NamedQuery(name = "Persona.findByPerid", query = "SELECT p FROM Persona p WHERE p.perid = :perid"),
     @NamedQuery(name = "Persona.findByPernombre", query = "SELECT p FROM Persona p WHERE p.pernombre = :pernombre"),
-    @NamedQuery(name = "Persona.findByPerapellido", query = "SELECT p FROM Persona p WHERE p.perapellido = :perapellido"),  
+    @NamedQuery(name = "Persona.findByPerapellido", query = "SELECT p FROM Persona p WHERE p.perapellido = :perapellido"),
     @NamedQuery(name = "Persona.findByPeruser", query = "SELECT p FROM Persona p WHERE p.peruser = :peruser"),
-    @NamedQuery(name = "Persona.findByPerpassword", query = "SELECT p FROM Persona p WHERE p.perpassword = :perpassword")})
+    @NamedQuery(name = "Persona.findByPerpassword", query = "SELECT p FROM Persona p WHERE p.perpassword = :perpassword"),
+    @NamedQuery(name = "Persona.findByName", query = "SELECT p FROM Persona p WHERE LOWER(CONCAT(CONCAT(p.pernombre,' '),p.perapellido)) LIKE :nombre "),
+    @NamedQuery(name = "Persona.findByGruid", query = "SELECT p FROM Persona p INNER JOIN Personagrupo pg")})
 public class Persona implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private List<Personagrupo> personagrupoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +55,7 @@ public class Persona implements Serializable {
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "PERAPELLIDO")
-    private String perapellido;    
+    private String perapellido;
     @Size(max = 20)
     @Column(name = "PERUSER")
     private String peruser;
@@ -69,6 +68,8 @@ public class Persona implements Serializable {
     private List<Incidente> incidenteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Respode> respodeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Personagrupo> personagrupoList;
 
     public Persona() {
     }
@@ -81,7 +82,6 @@ public class Persona implements Serializable {
         this.perid = perid;
         this.pernombre = pernombre;
         this.perapellido = perapellido;
-        
     }
 
     public Integer getPerid() {
@@ -107,8 +107,6 @@ public class Persona implements Serializable {
     public void setPerapellido(String perapellido) {
         this.perapellido = perapellido;
     }
-
-    
 
     public String getPeruser() {
         return peruser;
@@ -153,6 +151,15 @@ public class Persona implements Serializable {
         this.respodeList = respodeList;
     }
 
+    @XmlTransient
+    public List<Personagrupo> getPersonagrupoList() {
+        return personagrupoList;
+    }
+
+    public void setPersonagrupoList(List<Personagrupo> personagrupoList) {
+        this.personagrupoList = personagrupoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -177,14 +184,5 @@ public class Persona implements Serializable {
     public String toString() {
         return "com.unicauca.apliweb.entities.Persona[ perid=" + perid + " ]";
     }
-
-    @XmlTransient
-    public List<Personagrupo> getPersonagrupoList() {
-        return personagrupoList;
-    }
-
-    public void setPersonagrupoList(List<Personagrupo> personagrupoList) {
-        this.personagrupoList = personagrupoList;
-    }  
     
 }

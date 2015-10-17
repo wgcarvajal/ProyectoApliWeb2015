@@ -10,15 +10,20 @@
     </h:head>
     <h:body>
         <ui:composition template="./plantillas/plantilla.xhtml">
+            
             <ui:define name="CuadroDeBotonesSesion">
-                <h:form id="form">
-                <p:commandButton   style="border: none; font-family: inherit; width: 120px;
-                        border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
-                        value="Iniciar sessión" action="#{usuariosController.iniciarSession()}"
-                        ajax="false"
-                       /> 
-                </h:form>
+                <div class="CuadroDeBotonesSesion">
+                    <h:form id="form">
+
+                        <p:commandButton rendered="#{usuariosController.esusuarioSinSession()}"  style="border: none; font-family: inherit; width: 120px;
+                                              border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
+                                              value="Iniciar sesión"
+                                              action="#{usuariosController.iniciarSession()}"
+                                         ajax="false"/> 
+                    </h:form>
+                </div>
             </ui:define>
+            
             <ui:define name="title">
                 Registro
             </ui:define>

@@ -205,13 +205,13 @@ public class UsuariosController implements Serializable
     public void registrarse() throws IOException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/faces/Registro.xhtml"); 
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/faces/Registro.xhtml"); 
     }
     
     public void iniciarSession() throws IOException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb/"); 
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/ProyectoApliWeb2015/"); 
     }
     
     
