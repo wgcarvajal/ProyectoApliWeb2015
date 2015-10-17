@@ -26,6 +26,8 @@ public class SesionUrlsFiltros implements Filter
 {
     @EJB
     private  PersonagrupoFacade    personaGrupoEJB;
+    
+    private String urlPrincipal="http://localhost:8080/ProyectoApliWeb/";
 
     FilterConfig filterConfig;
     @Override
@@ -36,162 +38,7 @@ public class SesionUrlsFiltros implements Filter
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException 
-    {
-        /*HttpServletRequest req=(HttpServletRequest)request;
-        HttpServletResponse res=(HttpServletResponse)response;
-        HttpSession session=req.getSession(true);        
-        String requestUrl=req.getRequestURL().toString(); 
-        
-        String []urlPermitidasSuperAdministrador= new String []
-        {"VistaAdministrador","gestionUsuarios","gestionAdministradores","gestionImplementos",
-         "gestionEscenarios","registrarUsuario","registrarAdministrador","usuariosPorConfirmar",
-         "registrarImplemento","registrarEscenario","gestionReservas","reservasImplementos",
-         "realizarReservaImplemento", "reservaEscenario/Listar", "reservaEscenario/Create","mostrarReservasImplementos","Estadisticas"};
-        
-        String []urlPermitidasAdministradorEscenarios= new String []
-        {"VistaAdministrador","gestionUsuarios","gestionEscenarios","registrarUsuario","usuariosPorConfirmar"
-        ,"gestionReservas", "reservaEscenario/Listar", "reservaEscenario/Create","Estadisticas"};
-        
-        String []urlPermitidasAdministradorImplementos= new String []
-        {"VistaAdministrador","gestionUsuarios","gestionImplementos","registrarUsuario","usuariosPorConfirmar",
-         "registrarImplemento","gestionReservas","reservasImplementos","realizarReservaImplemento","mostrarReservasImplementos","Estadisticas"};
-        
-        String []urlPermitidasUsuarioSinSesion= new String[]
-        {"index", "reservaEscenario/VerTodas"};
-        
-        String []urlPermitidasUsuarioComun= new String[]
-        {"index", "indexUser", "reservaEscenario/Solicitar"};
-        
-        if(requestUrl.equals("http://localhost:8084/GestorRecursosDeportivos/"))
-        {
-            res.sendRedirect(req.getContextPath()+"/faces/index.xhtml");
-        }
-        else
-        {
-            if(session.getAttribute("rol")!=null && (Integer)session.getAttribute("rol")==1)
-            {
-                boolean bandera=false;
-                for(String url:urlPermitidasSuperAdministrador)
-                {
-                    if(requestUrl.contains(url))
-                    {
-                        bandera=true;
-                        break;
-                    }
-                }
-                if(bandera==true)
-                {
-                    
-                    chain.doFilter(request, response);                    
-                }
-                else
-                {
-                    res.sendRedirect(req.getContextPath()+"/faces/VistaAdministrador.xhtml");
-                }
-                            
-            }
-            else
-            {   
-                if(session.getAttribute("rol")!=null && (Integer)session.getAttribute("rol")==2)
-                {
-                    boolean bandera=false;
-                    for(String url:urlPermitidasAdministradorEscenarios)
-                    {
-                        if(requestUrl.contains(url))
-                        {
-                            bandera=true;
-                            break;
-                        }
-                    }
-                    if(bandera==true)
-                    {
-
-                        chain.doFilter(request, response);                    
-                    }
-                    else
-                    {
-                        res.sendRedirect(req.getContextPath()+"/faces/VistaAdministrador.xhtml");
-                    }
-
-                }
-                else
-                {
-                    if(session.getAttribute("rol")!=null && (Integer)session.getAttribute("rol")==3)
-                    {
-                        boolean bandera=false;
-                        for(String url:urlPermitidasAdministradorImplementos)
-                        {
-                            if(requestUrl.contains(url))
-                            {
-                                bandera=true;
-                                break;
-                            }
-                        }
-                        if(bandera==true)
-                        {
-
-                            chain.doFilter(request, response);                    
-                        }
-                        else
-                        {
-                            res.sendRedirect(req.getContextPath()+"/faces/VistaAdministrador.xhtml");
-                        }
-
-                    }
-                    else
-                    {
-                        if(session.getAttribute("rol")!=null && (Integer)session.getAttribute("rol")==4)
-                        {
-                            boolean bandera=false;
-                            for(String url:urlPermitidasUsuarioComun)
-                            {
-                                if(requestUrl.contains(url))
-                                {
-                                    bandera=true;
-                                    break;
-                                }
-                            }
-                            if(bandera==true)
-                            {
-
-                                chain.doFilter(request, response);                    
-                            }
-                            else
-                            {
-                                res.sendRedirect(req.getContextPath()+"/faces/index.xhtml");
-                            }
-                        }
-                        else
-                        {
-                            boolean bandera=false;
-                            for(String url:urlPermitidasUsuarioSinSesion)
-                            {
-                                if(requestUrl.contains(url))
-                                {
-                                    bandera=true;
-                                    break;
-                                }
-                            }
-                            if(bandera==true)
-                            {
-
-                                chain.doFilter(request, response);                    
-                            }
-                            else
-                            {
-                                res.sendRedirect(req.getContextPath()+"/faces/index.xhtml");
-                            }
-
-                        }
-                         
-                    }
-                }  
-                   
-                    
-            }
-            
-            
-        } */
+    {        
         
         HttpServletRequest req=(HttpServletRequest)request;
         HttpServletResponse res=(HttpServletResponse)response;
@@ -199,7 +46,7 @@ public class SesionUrlsFiltros implements Filter
         
             if(req.getUserPrincipal()==null)
             {
-                if(requestUrl.equals("http://localhost:8080/ProyectoApliWeb/") || requestUrl.equals("http://localhost:8080/ProyectoApliWeb/faces/Login.xhtml") )
+                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") )
                 {
                     chain.doFilter(request, response);
                 }
@@ -211,7 +58,7 @@ public class SesionUrlsFiltros implements Filter
             }
             else
             {
-                if(requestUrl.equals("http://localhost:8080/ProyectoApliWeb/") || requestUrl.equals("http://localhost:8080/ProyectoApliWeb/faces/Login.xhtml") )
+                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") )
                 {
                     String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
                     if(tipo.equals("user"))
@@ -220,7 +67,14 @@ public class SesionUrlsFiltros implements Filter
                     }
                     else
                     {
-                        
+                        if(tipo.equals("admin"))
+                        {
+                            res.sendRedirect(req.getContextPath()+"/faces/administrador/usuarios.xhtml");
+                        }
+                        else
+                        {
+                            
+                        }
                     }
                 }
                 else

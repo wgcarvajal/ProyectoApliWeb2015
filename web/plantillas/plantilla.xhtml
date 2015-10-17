@@ -32,38 +32,36 @@
                         <a href="#"></a>
                     </div>
                     <div class="borde-redondo"></div>
-                    <a href="#" class="titulo">Tu Soporte<!--#{bundle.AppName}--></a>
+                    <a href="#" class="titulo">#{bundle.AppName}</a>
                      
-                    <div class="CuadroDeBotonesSesion">                        
+                                           
                         <ui:insert name="CuadroDeBotonesSesion">
-                            <h:form id="form">
-                                
-                                <p:commandButton rendered="#{usuariosController.esusuarioSinSession()}"  style="border: none; font-family: inherit; width: 120px;
+                            <div class="CuadroDeBotonesSesion">
+                                <h:form id="form">
+
+                                    <p:commandButton rendered="#{usuariosController.esusuarioSinSession()}"  style="border: none; font-family: inherit; width: 120px;
                                               border-radius: 5px;background: #092169;font-size: 13px;color: #FFFFFF;font-weight: normal;"
-                                              value="Registrarse" action="#{usuariosController.registrarse()}"
-                                              ajax="false"/> 
-                                
-                                
-                                
-                                <h:link rendered="#{usuariosController.esusuarioConSession()}" id="opcionesusuario" style="text-decoration: none;color:#FFFFFF; ">
+                                                     value="Registrarse" action="#{usuariosController.registrarse()}"
+                                                     ajax="false"/> 
+
+
+
+                                    <h:link rendered="#{usuariosController.esusuarioConSession()}" id="opcionesusuario" style="text-decoration: none;color:#FFFFFF; ">
                                     #{usuariosController.nombreUsuario()}
-                                    <p:graphicImage style="width:20px; margin:0;margin-left: 5px;" library="img" name="usuario.png"/>
-                            </h:link>
-                                
-                                
-                           <p:menu rendered="#{usuariosController.esusuarioConSession()}" overlay="true" trigger="opcionesusuario"  my="left top" at="left bottom">        
-                                   
-                               <p:menuitem value="Cerrar Sesión" action="#{usuariosController.logout()}"
-                                                />
-                                </p:menu> 
-                                
-                             
-                                    
-                                
-                            </h:form>
+                                        <p:graphicImage style="width:20px; margin:0;margin-left: 5px;" library="img" name="usuario.png"/>
+                                    </h:link>
+
+
+                                    <p:menu rendered="#{usuariosController.esusuarioConSession()}" overlay="true" trigger="opcionesusuario"  my="left top" at="left bottom">        
+
+                                        <p:menuitem value="Cerrar Sesión" action="#{usuariosController.logout()}"
+                                                    />
+                                    </p:menu> 
+                                </h:form>
+                            </div>
                         </ui:insert>  
                         
-                    </div>
+                    
                     <div class="clear">
                         
                     </div>
@@ -73,13 +71,7 @@
                 </div>                
                 <nav id="mainNav">                       
                     <ui:insert  name="menuprincipal">
-                        <ul>
-                           
-                            <li><span class="punta"></span><p:link rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
-                            <li><span class="punta"></span><p:link rendered="#{usuariosController.esEmpleado()}"  value="Gestion Incidentes"/></li>
-
-                            <!--<li><span class="punta"></span><p:link  outcome="/usuario/medidas/consultaTest" value="Consultar Test"/></li>-->
-                        </ul>
+                        
                     </ui:insert>           
                 </nav>                
             </div>
