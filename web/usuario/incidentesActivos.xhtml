@@ -2,30 +2,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./../plantillas/plantilla.xhtml">
 
             <ui:define name="titulo">
-                Incidentes
+                Incidentes Activos
             </ui:define>              
 
             <ui:define name="title">
-                <div class="tituloPrincipalPagina"><h1>Incidentes</h1></div>
+                
             </ui:define>
             
             <ui:define name="menuprincipal">
                 <ul>                           
-                    <li><span class="punta"></span><p:link outcome="/usuario/incidentes" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
+                    <li><span class="punta"></span><p:link outcome="/usuario/incidentesActivos" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
                     <li><span class="punta"></span><p:link rendered="#{usuariosController.esEmpleado()}"  value="Gestion Incidentes"/></li>
                     <!--<li><span class="punta"></span><p:link  outcome="/usuario/medidas/consultaTest" value="Consultar Test"/></li>-->
                 </ul>
             </ui:define>
 
             <ui:define name="body">
-                body
+                
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/usuario/incidentesActivos" />                       
+                    </p:breadCrumb>
+                </h:form>
+                
+               <div class="tituloPrincipalPagina"><h1>Incidentes Activos</h1></div>
             </ui:define>           
             
             
