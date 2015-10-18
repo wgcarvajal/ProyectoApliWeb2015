@@ -6,7 +6,13 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:form id="tablasIncidentes">
-            
+            <h:panelGrid style="margin-bottom: 10px;" rendered="#{mostrarIncidentes.habilitarTablaIncidentes}" columns="2">
+                <p:outputLabel styleClass="CampoLabel" value="Fecha (aaaa-mm-dd):"/>
+                <p:calendar id="button"  navigator="true" showOn="button"
+                            yearRange="c-100:c" pattern="yyyy-MM-dd" size="10"/>
+                                                                  
+            </h:panelGrid>
+
             <p:panel id="tablaIncidete" rendered="#{mostrarIncidentes.habilitarTablaIncidentes}">                                            
                 <p:dataTable  var="incidentes" value="#{mostrarIncidentes.listaIncidentes}"
                                       paginator="true" rows="20"  
@@ -15,7 +21,7 @@
 
                             
                             <p:column headerText="Fecha">
-                                #{incidentes.incfecharegistro}
+                                #{mostrarIncidentes.sdf.format(incidentes.incfecharegistro)}
                             </p:column>  
                             <p:column headerText="Prioridad">
                                 #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
@@ -27,7 +33,7 @@
                             
                             <p:column headerText="Acciones" width="70">                                
                                 <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
-                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="lupa.jpg"/>
                                 </p:commandLink>                      
                             </p:column>
                         </p:dataTable>

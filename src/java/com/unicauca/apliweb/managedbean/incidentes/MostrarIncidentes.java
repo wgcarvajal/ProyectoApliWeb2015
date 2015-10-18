@@ -6,6 +6,7 @@ import com.unicauca.apliweb.beans.PersonaFacade;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Persona;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,6 +32,7 @@ public class MostrarIncidentes implements Serializable
     private boolean habilitarIncidentesSolucionados;
     private boolean habilitarIncidentesPendientes;
     private List<Incidente> listaIncidentes;
+    private SimpleDateFormat sdf;
     
     @EJB
     private IncidenteFacade incidenteEJB;
@@ -40,6 +42,7 @@ public class MostrarIncidentes implements Serializable
    
     public MostrarIncidentes() 
     {
+        this.sdf=new SimpleDateFormat("yyyy-MM-dd");
     }
     
     @PostConstruct
@@ -110,7 +113,15 @@ public class MostrarIncidentes implements Serializable
     }
     
     
-    
+    public SimpleDateFormat getSdf()
+    {
+        return sdf;
+    }
+
+    public void setSdf(SimpleDateFormat sdf) 
+    {
+        this.sdf = sdf;
+    }
     
     
 
