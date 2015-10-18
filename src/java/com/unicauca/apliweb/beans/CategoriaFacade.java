@@ -6,10 +6,12 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Categoria;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -30,7 +32,12 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
     }
 
     public List<Categoria> obtnCategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Categoria> query=em.createNamedQuery("Categoria.findAll", Categoria.class);
+        return query.getResultList();
+    }
+
+    public Categoria obtnCategoria(int idCatSeleccionada) {
+        return em.find(Categoria.class, idCatSeleccionada);
     }
     
 }

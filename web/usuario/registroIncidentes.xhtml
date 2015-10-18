@@ -36,8 +36,8 @@
                <div class="tituloPrincipalPagina"><h1>Registro de Incidentes</h1></div>
                <br/>
                <div class="centrarFormulario">
-                    <h:form id="regPersona">
-
+                    <h:form id="frmRegIncidente">
+                        <p:growl autoUpdate="true" globalOnly="true" severity="info" showDetail="true"/>
                         <h:panelGrid columns="3">     
                             
                             <p:outputLabel value="Categoria: " for="categoria"></p:outputLabel>                
@@ -47,46 +47,25 @@
                             </p:selectOneMenu>
                             <p:message for="categoria"/>
                             
-                            <p:outputLabel value="Nivel: " for="nivel"/>
-                            <p:selectOneMenu id="nivel" required="true" requiredMessage="Debes especificar el Nivel de Urgencia" value="#{registroIncidente.incidente.incnivel}">
+                            <p:outputLabel value="Prioridad: " for="prioridad"/>
+                            <p:selectOneMenu id="prioridad" required="true" requiredMessage="Debes especificar la prioridad" value="#{registroIncidente.prioridadSeleccionada}">                                
+                                <f:selectItem itemValue="" itemLabel="Seleccionar la Prioridad" />
+                                <f:selectItems value="#{registroIncidente.prioridades}" var="prioridad" itemValue="#{prioridad}" />                                                    
+                            </p:selectOneMenu>                                
+                            <p:message for="prioridad"/>
+
+                            <p:outputLabel value="Descripcion: " for="descripcion"/>
+                            <p:inputTextarea id="descripcion" required="true" requiredMessage="Debes describir el Incidente" value="#{registroIncidente.incidente.incdescripcion}" placeholder="Describe el Incidente"/>                                    
+                            <p:message for="descripcion"/>
                             
-                            </p:selectOneMenu>
-                                
-                            <p:message for="nombre"/>
-
-                            <p:outputLabel value="Apellido: " for="apellido"/>
-                            <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
-                            <p:message for="apellido"/>
-
-                            <p:outputLabel value="Email: " for="email"/>
-                            <p:inputText id="email" validatorMessage="Email INVALIDO" required="true" requiredMessage="Debes introducir tu Email" value="#{registroController.persona.peremail}" placeholder="Introduce tu Email">
-                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
-                            </p:inputText>                                    
-                            <p:message for="email"/>
-
-                            <p:outputLabel value="User: " for="user"/>
-                            <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
-                            <p:message for="user"/>
-
-                            <p:outputLabel value="Password: " for="password"/>
-                            <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)"/>                                                                                
-                            <p:message for="password"/>
-
-                            <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
-                            <p:password id="REPpassword" value="#{registroController.REPpassword}" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false"/>                                                                                                              
-                            <p:message for="REPpassword"></p:message>                                               
-
                             <!-- -->
-                            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroController.actionRegistrar}" ajax="false"/>
-                        </h:panelGrid>                                    
-                        <p:messages globalOnly="true"/>        
+                            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroIncidente.actionRegistrar()}" ajax="false"/>
+                        </h:panelGrid>                                                                    
                     </h:form>
+                   
                 </div>
-            </ui:define>           
-            
-            
-
-        </ui:composition>
+            </ui:define>                                   
+        </ui:composition>        
 
     </body>
 </html>

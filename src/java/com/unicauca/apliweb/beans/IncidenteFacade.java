@@ -27,5 +27,9 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
     public IncidenteFacade() {
         super(Incidente.class);
     }
+
+    public void registrar(Incidente incidente) {
+        em.persist(incidente);
+    }
     
 }

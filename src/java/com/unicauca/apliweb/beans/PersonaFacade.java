@@ -157,5 +157,11 @@ public class PersonaFacade extends AbstractFacade<Persona> {
        TypedQuery<Persona> query=em.createNamedQuery("Persona.findByPendientes",Persona.class);
        return query.getResultList();
     }  
+
+    public Persona obtnPersonaPrincipal(String username) {
+        TypedQuery<Persona> query=em.createNamedQuery("Persona.findByPeruser", Persona.class);
+        query.setParameter("peruser", username);
+        return query.getSingleResult();
+    }
     
 }
