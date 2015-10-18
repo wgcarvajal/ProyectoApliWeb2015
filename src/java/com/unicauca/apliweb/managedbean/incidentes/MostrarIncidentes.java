@@ -164,6 +164,24 @@ public class MostrarIncidentes implements Serializable
       this.habilitarIncidentesSolucionados=false;
     }
     
+    public String convertirPrioridad(int p)
+    {
+        switch(p)
+        {
+            case 1:
+                return "Baja";
+            
+            case  2:
+                return "Media";
+            
+            case 3:
+                return "Alta";
+            default:
+                return "";
+        }
+        
+    }
+    
     
     
 }

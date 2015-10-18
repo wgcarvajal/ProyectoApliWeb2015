@@ -18,7 +18,7 @@
 
             <ui:define name="menuprincipal">
                  <ul>                           
-                     <li><span class="punta"></span><p:link outcome="/usuario/incidentesActivos" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
+                     <li><span class="punta"></span><p:link outcome="/usuario/registroIncidentes"  value="Registrar un Incidente"/></li>
                      <li><span class="punta"></span><p:link outcome="/usuario/incidentesReportados" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes reportados"/></li>
 
                     <!--<li><span class="punta"></span><p:link  outcome="/usuario/medidas/consultaTest" value="Consultar Test"/></li>-->
@@ -32,7 +32,7 @@
                 
                 <h:form>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" outcome="/usuario/incidentesActivos" /> 
+                        <p:menuitem value="Inicio" outcome="/usuario/registroIncidentes" /> 
                         <p:menuitem value="Incidentes reportados" outcome="/usuario/incidentesReportados" />  
                     </p:breadCrumb>
                 </h:form>
