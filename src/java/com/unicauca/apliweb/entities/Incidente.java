@@ -85,7 +85,7 @@ public class Incidente implements Serializable {
     private List<Atiende> atiendeList;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID")
     @ManyToOne(optional = false)
-    private Persona perid;
+    private Persona persona;
     @JoinColumn(name = "CATID", referencedColumnName = "CATID")
     @ManyToOne(optional = false)
     private Categoria categoria;
@@ -175,12 +175,12 @@ public class Incidente implements Serializable {
         this.atiendeList = atiendeList;
     }
 
-    public Persona getPerid() {
-        return perid;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setPerid(Persona perid) {
-        this.perid = perid;
+    public void setPersona(Persona per) {
+        this.persona = per;
     }
 
     public Categoria getCategoria() {

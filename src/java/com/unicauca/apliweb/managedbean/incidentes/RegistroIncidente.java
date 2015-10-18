@@ -54,7 +54,7 @@ public class RegistroIncidente implements Serializable{
     {
         this.incidente.setIncnivel(convertirPrioridad(prioridadSeleccionada));
         Principal user=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        this.incidente.setPerid(personaEJB.obtnPersonaPrincipal(user.getName()));
+        this.incidente.setPersona(personaEJB.obtnPersonaPrincipal(user.getName()));
         this.incidente.setCategoria(categoriaEJB.obtnCategoria(idCatSeleccionada));
         this.incidente.setIncsolucionado(false);
         this.incidente.setIncfecharegistro(new Date());
