@@ -14,17 +14,21 @@
                                       >
 
                             
-                            <p:column headerText="Nombres">
-                                #{personas.pernombre}
-                            </p:column>                   
+                            <p:column headerText="Fecha">
+                                #{incidentes.incfecharegistro}
+                            </p:column>  
+                            <p:column headerText="Prioridad">
+                                #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
+                            </p:column> 
+                    
+                            <p:column headerText="Descripción">
+                                #{incidentes.incdescripcion}
+                            </p:column> 
                             
                             <p:column headerText="Acciones" width="70">                                
                                 <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
                                     <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
-                                </p:commandLink>                                
-                                <p:commandLink id="eliminar" style="text-decoration: none;margin-left: 5px; " title="Eliminar" >                                    
-                                    <p:graphicImage style="width:20px; " library="img/usuarios" name="eliminar.png"/>
-                                </p:commandLink>
+                                </p:commandLink>                      
                             </p:column>
                         </p:dataTable>
                     </p:panel>                   
