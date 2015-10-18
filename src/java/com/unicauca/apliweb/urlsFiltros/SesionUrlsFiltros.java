@@ -61,7 +61,7 @@ public class SesionUrlsFiltros implements Filter
                     String tipo=personaGrupoEJB.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getPersonagrupoPK().getGruid();
                     if(tipo.equals("user"))
                     {
-                        res.sendRedirect(req.getContextPath()+"/faces/usuario/incidentesActivos.xhtml");
+                        res.sendRedirect(req.getContextPath()+"/faces/usuario/registroIncidentes.xhtml");
                     }
                     else
                     {
