@@ -20,6 +20,7 @@
             <ui:define name="menuprincipal">
                 <ul>                           
                     <li><span class="punta"></span><p:link outcome="/usuario/incidentesActivos" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes"/></li>
+                    <li><span class="punta"></span><p:link outcome="/usuario/incidentesReportados" rendered="#{usuariosController.esUsuarioOempleado()}"  value="Incidentes reportados"/></li>
                     <li><span class="punta"></span><p:link rendered="#{usuariosController.esEmpleado()}"  value="Gestion Incidentes"/></li>
                     <!--<li><span class="punta"></span><p:link  outcome="/usuario/medidas/consultaTest" value="Consultar Test"/></li>-->
                 </ul>
