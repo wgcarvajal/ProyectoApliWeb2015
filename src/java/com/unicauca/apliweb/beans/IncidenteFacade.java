@@ -7,6 +7,7 @@ package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Incidente;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -57,6 +58,36 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
     
     public void registrar(Incidente incidente) {
         em.persist(incidente);
+    }
+
+    public List<Incidente> buscarPorPendientesFecha(int perid, Date fechainicial, Date fechafinal) 
+    {
+       Query query = getEntityManager().createNamedQuery("Incidente.findByPerIdPendientesFecha");
+       query.setParameter("perid",perid);
+       query.setParameter("fechainicial",fechainicial);
+       query.setParameter("fechafinal",fechafinal);
+       List<Incidente> resultquery =query.getResultList();
+       return resultquery;
+    }
+
+    public List<Incidente> buscarPorSolucionadosFecha(int perid, Date fechainicial, Date fechafinal) 
+    {
+       Query query = getEntityManager().createNamedQuery("Incidente.findByPerIdSolucionadosFecha");
+       query.setParameter("perid",perid);
+       query.setParameter("fechainicial",fechainicial);
+       query.setParameter("fechafinal",fechafinal);
+       List<Incidente> resultquery =query.getResultList();
+       return resultquery;
+    }
+    
+    public List<Incidente> buscarPorFecha(int perid, Date fechainicial, Date fechafinal) 
+    {
+       Query query = getEntityManager().createNamedQuery("Incidente.findByPerIdFecha");
+       query.setParameter("perid",perid);
+       query.setParameter("fechainicial",fechainicial);
+       query.setParameter("fechafinal",fechafinal);
+       List<Incidente> resultquery =query.getResultList();
+       return resultquery;
     }
     
 }

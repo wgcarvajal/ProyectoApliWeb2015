@@ -48,7 +48,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Incidente.findByIncsolucionado", query = "SELECT i FROM Incidente i WHERE i.incsolucionado = :incsolucionado"),
     @NamedQuery(name = "Incidente.findByPerId", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid"),
     @NamedQuery(name = "Incidente.findByPerIdPendientes", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = FALSE"),
-    @NamedQuery(name = "Incidente.findByPerIdSolucionados", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = TRUE")})
+    @NamedQuery(name = "Incidente.findByPerIdSolucionados", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = TRUE"),
+    @NamedQuery(name = "Incidente.findByPerIdPendientesFecha", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = FALSE AND i.incfecharegistro BETWEEN :fechainicial AND :fechafinal"),
+    @NamedQuery(name = "Incidente.findByPerIdSolucionadosFecha", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = TRUE AND i.incfecharegistro BETWEEN :fechainicial AND :fechafinal"),
+    @NamedQuery(name = "Incidente.findByPerIdFecha", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incfecharegistro BETWEEN :fechainicial AND :fechafinal")})
 public class Incidente implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private Collection<Responde> respondeCollection;

@@ -6,7 +6,9 @@ import com.unicauca.apliweb.beans.PersonaFacade;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Persona;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -31,6 +34,8 @@ public class MostrarIncidentes implements Serializable
     private boolean habilitarIncidentesSolucionados;
     private boolean habilitarIncidentesPendientes;
     private List<Incidente> listaIncidentes;
+    private SimpleDateFormat sdf;
+    private Date fecha;
     
     @EJB
     private IncidenteFacade incidenteEJB;
@@ -40,6 +45,7 @@ public class MostrarIncidentes implements Serializable
    
     public MostrarIncidentes() 
     {
+        this.sdf=new SimpleDateFormat("yyyy-MM-dd");
     }
     
     @PostConstruct
@@ -110,7 +116,23 @@ public class MostrarIncidentes implements Serializable
     }
     
     
-    
+    public SimpleDateFormat getSdf()
+    {
+        return sdf;
+    }
+
+    public void setSdf(SimpleDateFormat sdf) 
+    {
+        this.sdf = sdf;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
     
     
 
@@ -129,6 +151,7 @@ public class MostrarIncidentes implements Serializable
         this.habilitarIncidentesPendientes=false;
         this.habilitarIncidentesTodos=false;
         this.habilitarIncidentesSolucionados=false;
+        this.fecha=null;
         RequestContext requestContext = RequestContext.getCurrentInstance();
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();
@@ -182,6 +205,32 @@ public class MostrarIncidentes implements Serializable
         
     }
     
+    public void cambiarFecha(SelectEvent event)
+    {
+        System.out.println("fecha:"+event.getObject());
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest req = (HttpServletRequest) fc.getExternalContext().getRequest();
+        
+        Persona persona=personaEJB.buscarNombreUsuario(req.getUserPrincipal().getName());
+        if(this.habilitarIncidentesPendientes==true)
+        {
+            this.listaIncidentes=incidenteEJB.buscarPorPendientesFecha(persona.getPerid(),(Date)event.getObject(),new Date());            
+        }
+        
+        if(this.habilitarIncidentesSolucionados==true)
+        {
+            this.listaIncidentes=incidenteEJB.buscarPorSolucionadosFecha(persona.getPerid(),(Date)event.getObject(),new Date());            
+        }
+        
+         if(this.habilitarIncidentesTodos==true)
+        {
+            this.listaIncidentes=incidenteEJB.buscarPorFecha(persona.getPerid(),(Date)event.getObject(),new Date());            
+        }
+    }
+    
+    
+   
     
     
 }
