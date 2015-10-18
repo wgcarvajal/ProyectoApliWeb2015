@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantilla.xhtml">
+
+            <ui:define name="titulo">
+                Registro de Incidentes
+            </ui:define>              
+
+            <ui:define name="title">
+                
+            </ui:define>
+            
+            <ui:define name="menuprincipal">
+                <ul>                           
+                    <li><span class="punta"></span><p:link outcome="/usuario/registroIncidentes"  value="Registrar un Incidente"/></li>
+                    <li><span class="punta"></span><p:link  outcome="/usuario/registroIncidentes"  value="Incidentes Reportados"/></li>                    
+                </ul>
+            </ui:define>
+
+            <ui:define name="body">
+                
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/usuario/registroIncidentes" />                       
+                    </p:breadCrumb>
+                </h:form>
+                
+               <div class="tituloPrincipalPagina"><h1>Registro de Incidentes</h1></div>
+               <br/>
+               <div class="centrarFormulario">
+                    <h:form id="regPersona">
+
+                        <h:panelGrid columns="3">     
+                            
+                            <p:outputLabel value="Categoria: " for="categoria"></p:outputLabel>                
+                            <p:selectOneMenu id="categoria" required="true" requiredMessage="Debe especificar la naturaleza del Incidente" value="#{registroIncidente.idCatSeleccionada}">                    
+                                <f:selectItem itemValue="" itemLabel="Seleccionar el Tipo de Incidente" />
+                                <f:selectItems value="#{registroIncidente.categoriasDisponibles}" var="categoria" itemValue="#{categoria.catid}" itemLabel="#{categoria.catnombre}"></f:selectItems>                    
+                            </p:selectOneMenu>
+                            <p:message for="categoria"/>
+                            
+                            <p:outputLabel value="Nivel: " for="nivel"/>
+                            <p:selectOneMenu id="nivel" required="true" requiredMessage="Debes especificar el Nivel de Urgencia" value="#{registroIncidente.incidente.incnivel}">
+                            
+                            </p:selectOneMenu>
+                                
+                            <p:message for="nombre"/>
+
+                            <p:outputLabel value="Apellido: " for="apellido"/>
+                            <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
+                            <p:message for="apellido"/>
+
+                            <p:outputLabel value="Email: " for="email"/>
+                            <p:inputText id="email" validatorMessage="Email INVALIDO" required="true" requiredMessage="Debes introducir tu Email" value="#{registroController.persona.peremail}" placeholder="Introduce tu Email">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                            </p:inputText>                                    
+                            <p:message for="email"/>
+
+                            <p:outputLabel value="User: " for="user"/>
+                            <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
+                            <p:message for="user"/>
+
+                            <p:outputLabel value="Password: " for="password"/>
+                            <p:password id="password" required="true" requiredMessage="Debes introducir una Contraseña" value="#{registroController.persona.perpassword}" placeholder="Minimo 7 caracteres" feedback="true" promptLabel=" " goodLabel="Contraseña Aceptable" strongLabel="Contraseña Ideal" weakLabel="Contraseña inaceptable (Muy corta)"/>                                                                                
+                            <p:message for="password"/>
+
+                            <p:outputLabel value="Repetir Password: " for="REPpassword"></p:outputLabel>
+                            <p:password id="REPpassword" value="#{registroController.REPpassword}" required="true" requiredMessage="Debes confirmar la contraseña" placeholder="Confirma tu contraseña" feedback="false"/>                                                                                                              
+                            <p:message for="REPpassword"></p:message>                                               
+
+                            <!-- -->
+                            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroController.actionRegistrar}" ajax="false"/>
+                        </h:panelGrid>                                    
+                        <p:messages globalOnly="true"/>        
+                    </h:form>
+                </div>
+            </ui:define>           
+            
+            
+
+        </ui:composition>
+
+    </body>
+</html>
