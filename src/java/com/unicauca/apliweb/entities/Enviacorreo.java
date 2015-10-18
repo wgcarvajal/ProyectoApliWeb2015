@@ -54,10 +54,10 @@ public class Enviacorreo implements Serializable {
     private Incidente incidente;
     @JoinColumn(name = "PERFKREMITENTE", referencedColumnName = "PERID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Persona persona;
+    private Persona remitente;
     @JoinColumn(name = "PERFKDESTINATARIO", referencedColumnName = "PERID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Persona persona1;
+    private Persona destinatario;
 
     public Enviacorreo() {
     }
@@ -115,20 +115,20 @@ public class Enviacorreo implements Serializable {
         this.incidente = incidente;
     }
 
-    public Persona getPersona() {
-        return persona;
+    public Persona getRemitente() {
+        return remitente;
     }
 
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+    public void setRemitente(Persona persona) {
+        this.remitente = persona;
     }
 
-    public Persona getPersona1() {
-        return persona1;
+    public Persona getDestinatario() {
+        return destinatario;
     }
 
-    public void setPersona1(Persona persona1) {
-        this.persona1 = persona1;
+    public void setDestinatario(Persona persona) {
+        this.destinatario = persona;
     }
 
     @Override

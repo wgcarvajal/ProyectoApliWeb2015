@@ -58,7 +58,7 @@ public class Categoria implements Serializable {
         @JoinColumn(name = "PREID", referencedColumnName = "PREID")})
     @ManyToMany
     private List<Preguntas> preguntasList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private List<Incidente> incidenteList;
 
     public Categoria() {

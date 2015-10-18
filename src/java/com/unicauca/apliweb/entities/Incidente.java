@@ -45,9 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Incidente.findByIncdescripcion", query = "SELECT i FROM Incidente i WHERE i.incdescripcion = :incdescripcion"),
     @NamedQuery(name = "Incidente.findByIncexperiencia", query = "SELECT i FROM Incidente i WHERE i.incexperiencia = :incexperiencia"),
     @NamedQuery(name = "Incidente.findByIncsolucionado", query = "SELECT i FROM Incidente i WHERE i.incsolucionado = :incsolucionado"),
-    @NamedQuery(name = "Incidente.findByPerId", query = "SELECT i FROM Incidente i WHERE i.perid.perid = :perid"),
-    @NamedQuery(name = "Incidente.findByPerIdPendientes", query = "SELECT i FROM Incidente i WHERE i.perid.perid = :perid AND i.incsolucionado = FALSE"),
-    @NamedQuery(name = "Incidente.findByPerIdSolucionados", query = "SELECT i FROM Incidente i WHERE i.perid.perid = :perid AND i.incsolucionado = TRUE")})
+    @NamedQuery(name = "Incidente.findByPerId", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid"),
+    @NamedQuery(name = "Incidente.findByPerIdPendientes", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = FALSE"),
+    @NamedQuery(name = "Incidente.findByPerIdSolucionados", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = TRUE")})
 public class Incidente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
