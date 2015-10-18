@@ -164,4 +164,13 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         return query.getSingleResult();
     }
     
+    
+    public Persona buscarNombreUsuario(String peruser)
+    {        
+        Query query = getEntityManager().createNamedQuery("Persona.findByPeruser");
+        query.setParameter("peruser",peruser);
+        Persona resultquery =(Persona) query.getSingleResult();
+        return resultquery;     
+    }
+    
 }
