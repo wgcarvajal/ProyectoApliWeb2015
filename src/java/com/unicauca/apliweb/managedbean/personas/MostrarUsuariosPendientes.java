@@ -81,7 +81,7 @@ public class MostrarUsuariosPendientes implements Serializable
         try 
         {
             personagrupoEJB.create(new Personagrupo(idGrupoSeleccionado, persona.getPerid(),persona.getPeruser()));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","Registro Exitoso"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Usuario Habilitado con Exito","Usuario Habilitado con Exito"));
             listaPendientes.remove(persona);            
             requestContext.update("tablasUsuariosPendientes");
 

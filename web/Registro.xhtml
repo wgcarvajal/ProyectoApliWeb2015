@@ -35,6 +35,12 @@
                                 <p:outputLabel value="Apellido: " for="apellido"/>
                                 <p:inputText id="apellido" required="true" requiredMessage="Debes introducir el apellido del nuevo usuario" value="#{registroController.persona.perapellido}" placeholder="Introduce el apellido"/>                                    
                                 <p:message for="apellido"/>
+                                
+                                <p:outputLabel value="Email: " for="email"/>
+                                <p:inputText id="email" validatorMessage="Email INVALIDO" required="true" requiredMessage="Debes introducir tu Email" value="#{registroController.persona.peremail}" placeholder="Introduce tu Email">
+                                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                                </p:inputText>                                    
+                                <p:message for="email"/>
 
                                 <p:outputLabel value="User: " for="user"/>
                                 <p:inputText id="user" label="User" required="true" requiredMessage="Debes introducir tu usuario" value="#{registroController.persona.peruser}" placeholder="Introduce tu nickname"/>
