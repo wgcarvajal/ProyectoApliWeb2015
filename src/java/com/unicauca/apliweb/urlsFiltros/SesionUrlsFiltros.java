@@ -70,7 +70,8 @@ public class SesionUrlsFiltros implements Filter
                             res.sendRedirect(req.getContextPath()+"/faces/administrador/usuarios.xhtml");
                         }
                         else
-                        {
+                        {                            
+                            res.sendRedirect(req.getContextPath()+"/faces/empleado/gestionIncidentes.xhtml");
                             
                         }
                     }

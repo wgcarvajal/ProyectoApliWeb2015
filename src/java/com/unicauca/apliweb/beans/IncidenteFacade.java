@@ -53,6 +53,8 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
        query.setParameter("perid",id);
        List<Incidente> resultquery =query.getResultList();
        return resultquery;
+    }
+    
     public void registrar(Incidente incidente) {
         em.persist(incidente);
     }
