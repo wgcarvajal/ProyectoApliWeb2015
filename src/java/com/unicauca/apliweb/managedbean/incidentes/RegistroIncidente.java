@@ -9,11 +9,15 @@ import com.unicauca.apliweb.beans.CategoriaFacade;
 import com.unicauca.apliweb.beans.IncidenteFacade;
 import com.unicauca.apliweb.beans.PersonaFacade;
 import com.unicauca.apliweb.beans.PreguntasFacade;
+import com.unicauca.apliweb.beans.RespondeFacade;
 import com.unicauca.apliweb.entities.Categoria;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Preguntas;
+import com.unicauca.apliweb.entities.Responde;
 import java.io.Serializable;
 import java.security.Principal;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,9 +49,13 @@ public class RegistroIncidente implements Serializable{
     private String[] prioridades={"Alta","Media","Baja"};
     private String prioridadSeleccionada;
     
-    //Para las preguntas    
+    //Para las preguntas
+    @EJB
+    private PreguntasFacade preguntasEJB;
     private List<Preguntas> preguntas;
+    private Preguntas preguntaActual;
     private int iterador;
+    private String respuesta;    
 
     
     public void actionRegistrar()
@@ -61,8 +69,7 @@ public class RegistroIncidente implements Serializable{
         RequestContext req=RequestContext.getCurrentInstance();
         try
         {
-            incidenteEJB.registrar(this.incidente); 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","El incidente se ha registrado correctamente"));                
+            incidenteEJB.registrar(this.incidente);             
         }
         catch(Exception ex)
         {
@@ -72,32 +79,63 @@ public class RegistroIncidente implements Serializable{
         }
         
         preguntas=incidente.getCategoria().getPreguntasList();
-                
-        incidente=new Incidente();
-        idCatSeleccionada=0;
-        prioridadSeleccionada="";                
-        req.update("frmRegIncidente");
+        if(preguntas.size()>0)
+        {
+            preguntaActual=preguntas.get(iterador);
+            iterador++;
+            req.execute("PF('emergCuestionario').show()");            
+        }
         
     }
     
     public void actionGuardarRespuesta()
-    {
+    {                                        
+        preguntaActual.agregarRespuesta(this.incidente,this.incidente.getPersona(),respuesta);
+        try
+        {
+            preguntasEJB.guardarCambios(preguntaActual);            
+        }
+        catch(Exception ex)
+        {                     
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Respuesta ya existe", "Usted ya respondio esta pregunta. Se omitira la respuesta que usted acabo de ingresar"));                        
+        }                
         
-    }
-    
-    public Preguntas actionSigPregunta()
-    {
-        iterador++;
-        return preguntas.get(iterador);
-    }
+        RequestContext req=RequestContext.getCurrentInstance();
+        if(iterador<preguntas.size())
+        {
+            preguntaActual=preguntas.get(iterador);
+            iterador++;
+            
+            req.update("frmCuestionario");
+            req.execute("PF('emergCuestionario').show()");            
+        }
+        else
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","El incidente se ha registrado correctamente"));                
+            incidente=new Incidente();
+            idCatSeleccionada=0;
+            prioridadSeleccionada="";                
+            iterador=0;
+            req.update("frmRegIncidente");
+            req.execute("PF('emergCuestionario').hide()");            
+        }
+    }       
     
     @PostConstruct
     public void init()
     {
-        categoriasDisponibles=categoriaEJB.obtnCategorias();     
-        incidente=new Incidente();        
-        iterador=-1;
+        categoriasDisponibles=categoriaEJB.obtnCategorias();
+        incidente=new Incidente();       
+        iterador=0;
     } 
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }        
     
     public int convertirPrioridad(String prioridad)
     {
@@ -114,6 +152,14 @@ public class RegistroIncidente implements Serializable{
         }
     }    
 
+    public Preguntas getPreguntaActual() {
+        return preguntaActual;
+    }
+
+    public void setPreguntaActual(Preguntas preguntaActual) {
+        this.preguntaActual = preguntaActual;
+    }   
+    
     public int getIdCatSeleccionada() {
         return idCatSeleccionada;
     }

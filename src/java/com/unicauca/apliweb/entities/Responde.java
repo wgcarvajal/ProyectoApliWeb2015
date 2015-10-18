@@ -32,14 +32,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Responde.findByPreid", query = "SELECT r FROM Responde r WHERE r.respondePK.preid = :preid"),
     @NamedQuery(name = "Responde.findByRespuesta", query = "SELECT r FROM Responde r WHERE r.respuesta = :respuesta")})
 public class Responde implements Serializable {
+        
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected RespondePK respondePK;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2048)
     @Column(name = "RESPUESTA")
     private String respuesta;
+    
+    @JoinColumn(name = "INCID", referencedColumnName = "INCID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Incidente incidente;
+    
     @JoinColumn(name = "PREID", referencedColumnName = "PREID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Preguntas preguntas;
@@ -118,6 +126,14 @@ public class Responde implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.apliweb.entities.Responde[ respondePK=" + respondePK + " ]";
+    }   
+
+    public Incidente getIncidente() {
+        return incidente;
+    }
+
+    public void setIncidente(Incidente incidente) {
+        this.incidente = incidente;
     }
     
 }

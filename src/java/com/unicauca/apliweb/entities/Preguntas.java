@@ -6,11 +6,13 @@
 package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -97,6 +100,23 @@ public class Preguntas implements Serializable {
     public void setRespondeList(List<Responde> respondeList) {
         this.respondeList = respondeList;
     }
+    
+    public void agregarRespuesta(Incidente inc,Persona per, String respuesta)
+    {        
+        Responde resp= new Responde();
+        resp.setPersona(per);
+        resp.setPreguntas(this);
+        resp.setRespuesta(respuesta);        
+        resp.setIncidente(inc);
+        
+        RespondePK pk=new RespondePK();                
+        pk.setPerid(resp.getPersona().getPerid());
+        pk.setPreid(resp.getPreguntas().getPreid());                
+        pk.setIncid(inc.getIncid());
+        resp.setRespondePK(pk);
+        
+        this.respondeList.add(resp);
+    }
 
     @Override
     public int hashCode() {
@@ -121,6 +141,6 @@ public class Preguntas implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.apliweb.entities.Preguntas[ preid=" + preid + " ]";
-    }
+    }        
     
 }

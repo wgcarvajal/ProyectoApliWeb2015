@@ -6,6 +6,7 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Preguntas;
+import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,5 +30,9 @@ public class PreguntasFacade extends AbstractFacade<Preguntas> {
     public PreguntasFacade() {
         super(Preguntas.class);
     }   
+
+    public void guardarCambios(Preguntas pregunta) throws SQLException{        
+        em.persist(pregunta);
+    }
     
 }

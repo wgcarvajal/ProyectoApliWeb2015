@@ -25,6 +25,10 @@ public class RespondePK implements Serializable {
     @NotNull
     @Column(name = "PREID")
     private int preid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "INCID")
+    private int incid;
 
     public RespondePK() {
     }
@@ -33,6 +37,14 @@ public class RespondePK implements Serializable {
         this.perid = perid;
         this.preid = preid;
     }
+
+    public int getIncid() {
+        return incid;
+    }
+
+    public void setIncid(int incid) {
+        this.incid = incid;
+    }        
 
     public int getPerid() {
         return perid;

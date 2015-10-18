@@ -6,6 +6,7 @@
 package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -49,6 +50,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Incidente.findByPerIdPendientes", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = FALSE"),
     @NamedQuery(name = "Incidente.findByPerIdSolucionados", query = "SELECT i FROM Incidente i WHERE i.persona.perid = :perid AND i.incsolucionado = TRUE")})
 public class Incidente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
+    private Collection<Responde> respondeCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -232,6 +235,15 @@ public class Incidente implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.apliweb.entities.Incidente[ incid=" + incid + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Responde> getRespondeCollection() {
+        return respondeCollection;
+    }
+
+    public void setRespondeCollection(Collection<Responde> respondeCollection) {
+        this.respondeCollection = respondeCollection;
     }
     
 }
