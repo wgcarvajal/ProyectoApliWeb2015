@@ -71,14 +71,16 @@ public class Persona implements Serializable {
     private String peremail;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Atiende> atiendeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Incidente> incidenteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Personagrupo> personagrupoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private List<Enviacorreo> enviacorreoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona1")
-    private List<Enviacorreo> enviacorreoList1;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "remitente")
+    private List<Enviacorreo> remitentesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destinatario")
+    private List<Enviacorreo> destinatariosList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Responde> respondeList;
 
@@ -172,21 +174,21 @@ public class Persona implements Serializable {
     }
 
     @XmlTransient
-    public List<Enviacorreo> getEnviacorreoList() {
-        return enviacorreoList;
+    public List<Enviacorreo> getRemitentesList() {
+        return remitentesList;
     }
 
-    public void setEnviacorreoList(List<Enviacorreo> enviacorreoList) {
-        this.enviacorreoList = enviacorreoList;
+    public void setRemitentesList(List<Enviacorreo> enviacorreoList) {
+        this.remitentesList = enviacorreoList;
     }
 
     @XmlTransient
-    public List<Enviacorreo> getEnviacorreoList1() {
-        return enviacorreoList1;
+    public List<Enviacorreo> getDestinatariosList() {
+        return destinatariosList;
     }
 
-    public void setEnviacorreoList1(List<Enviacorreo> enviacorreoList1) {
-        this.enviacorreoList1 = enviacorreoList1;
+    public void setDestinatariosList(List<Enviacorreo> enviacorreoList) {
+        this.destinatariosList = enviacorreoList;
     }
 
     @XmlTransient
