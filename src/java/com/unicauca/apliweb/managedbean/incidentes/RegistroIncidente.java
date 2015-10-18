@@ -8,8 +8,10 @@ package com.unicauca.apliweb.managedbean.incidentes;
 import com.unicauca.apliweb.beans.CategoriaFacade;
 import com.unicauca.apliweb.beans.IncidenteFacade;
 import com.unicauca.apliweb.beans.PersonaFacade;
+import com.unicauca.apliweb.beans.PreguntasFacade;
 import com.unicauca.apliweb.entities.Categoria;
 import com.unicauca.apliweb.entities.Incidente;
+import com.unicauca.apliweb.entities.Preguntas;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -42,6 +44,10 @@ public class RegistroIncidente implements Serializable{
     private int idCatSeleccionada;
     private String[] prioridades={"Alta","Media","Baja"};
     private String prioridadSeleccionada;
+    
+    //Para las preguntas    
+    private List<Preguntas> preguntas;
+    private int iterador;
 
     
     public void actionRegistrar()
@@ -49,18 +55,49 @@ public class RegistroIncidente implements Serializable{
         this.incidente.setIncnivel(convertirPrioridad(prioridadSeleccionada));
         Principal user=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         this.incidente.setPerid(personaEJB.obtnPersonaPrincipal(user.getName()));
-        this.incidente.setCatid(categoriaEJB.obtnCategoria(idCatSeleccionada));
+        this.incidente.setCategoria(categoriaEJB.obtnCategoria(idCatSeleccionada));
         this.incidente.setIncsolucionado(false);
         this.incidente.setIncfecharegistro(new Date());
-        incidenteEJB.registrar(this.incidente); 
         RequestContext req=RequestContext.getCurrentInstance();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","El incidente se ha registrado correctamente"));                
+        try
+        {
+            incidenteEJB.registrar(this.incidente); 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Registro Exitoso","El incidente se ha registrado correctamente"));                
+        }
+        catch(Exception ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Error en el registro",ex.getMessage()));                
+            // se interrumpe la ejecucion de la funcion
+            return;
+        }
+        
+        preguntas=incidente.getCategoria().getPreguntasList();
+                
         incidente=new Incidente();
         idCatSeleccionada=0;
         prioridadSeleccionada="";                
         req.update("frmRegIncidente");
         
     }
+    
+    public void actionGuardarRespuesta()
+    {
+        
+    }
+    
+    public Preguntas actionSigPregunta()
+    {
+        iterador++;
+        return preguntas.get(iterador);
+    }
+    
+    @PostConstruct
+    public void init()
+    {
+        categoriasDisponibles=categoriaEJB.obtnCategorias();     
+        incidente=new Incidente();        
+        iterador=-1;
+    } 
     
     public int convertirPrioridad(String prioridad)
     {
@@ -122,12 +159,5 @@ public class RegistroIncidente implements Serializable{
                         
     public RegistroIncidente() {                
     }
-    
-    
-    @PostConstruct
-    public void init()
-    {
-        categoriasDisponibles=categoriaEJB.obtnCategorias();     
-        incidente=new Incidente();
-    }            
+                       
 }

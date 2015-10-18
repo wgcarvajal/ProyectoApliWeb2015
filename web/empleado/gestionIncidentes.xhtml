@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantilla.xhtml">
+
+            <ui:define name="titulo">
+                Gestion de Incidentes
+            </ui:define>              
+
+            <ui:define name="title">
+                
+            </ui:define>
+            
+            <ui:define name="menuprincipal">
+                <ul>                           
+                    <li><span class="punta"></span><p:link outcome="/empleado/gestionIncidentes"  value="Gestionar Incidentes"/></li>
+                    
+                </ul>
+            </ui:define>
+
+            <ui:define name="body">
+                
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/empleado/gestionIncidentes" />                       
+                    </p:breadCrumb>
+                </h:form>
+                
+               <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>               
+               <div class="centrarFormulario">
+                   
+                    <h:form id="frmTablaIncidentes">
+                        <p:panel id="tablaIncidete">
+                            <p:dataTable value="#{mostrarIncidentes.listaIncidentes}"
+                                         paginator="true" rows="20"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                <p:column headerText="Fecha">
+                                     #{incidentes.incfecharegistro}
+                                 </p:column>  
+                                 <p:column headerText="Prioridad">
+                                     #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
+                                 </p:column> 
+
+                                 <p:column headerText="Descripción">
+                                     #{incidentes.incdescripcion}
+                                 </p:column> 
+
+                                <p:column headerText="Acciones" width="70">                                
+                                    <p:commandLink title="Atender"   style="text-decoration: none;"  >                                    
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    </p:commandLink>                      
+                                    <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    </p:commandLink> 
+                                </p:column>                           
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                    
+                   
+                </div>
+            </ui:define>                                   
+        </ui:composition>        
+
+    </body>
+</html>

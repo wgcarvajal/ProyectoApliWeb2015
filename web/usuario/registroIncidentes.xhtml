@@ -37,7 +37,7 @@
                <br/>
                <div class="centrarFormulario">
                     <h:form id="frmRegIncidente">
-                        <p:growl autoUpdate="true" globalOnly="true" severity="info" showDetail="true"/>
+                        <p:growl autoUpdate="true" globalOnly="true" severity="info,fatal" showDetail="true"/>
                         <h:panelGrid columns="3">     
                             
                             <p:outputLabel value="Categoria: " for="categoria"></p:outputLabel>                
@@ -62,6 +62,14 @@
                             <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroIncidente.actionRegistrar()}" ajax="false"/>
                         </h:panelGrid>                                                                    
                     </h:form>
+                   
+                   <!-- Emergente-->
+                   <p:dialog >
+                       <h:form>
+                           <p:outputLabel value=""/>
+                       </h:form>
+                   </p:dialog>
+                   
                    
                 </div>
             </ui:define>                                   

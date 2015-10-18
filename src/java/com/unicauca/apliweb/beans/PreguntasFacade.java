@@ -6,9 +6,11 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Preguntas;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,6 +28,6 @@ public class PreguntasFacade extends AbstractFacade<Preguntas> {
 
     public PreguntasFacade() {
         super(Preguntas.class);
-    }
+    }   
     
 }
