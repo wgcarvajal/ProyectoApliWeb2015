@@ -88,7 +88,7 @@ public class Incidente implements Serializable {
     private Persona perid;
     @JoinColumn(name = "CATID", referencedColumnName = "CATID")
     @ManyToOne(optional = false)
-    private Categoria catid;
+    private Categoria categoria;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incid")
     private List<Cambio> cambioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
@@ -183,12 +183,12 @@ public class Incidente implements Serializable {
         this.perid = perid;
     }
 
-    public Categoria getCatid() {
-        return catid;
+    public Categoria getCategoria() {
+        return this.categoria;
     }
 
-    public void setCatid(Categoria catid) {
-        this.catid = catid;
+    public void setCategoria(Categoria cat) {
+        this.categoria = cat;
     }
 
     @XmlTransient

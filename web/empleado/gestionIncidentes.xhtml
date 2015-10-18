@@ -33,9 +33,37 @@
                     </p:breadCrumb>
                 </h:form>
                 
-               <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>
-               <br/>
+               <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>               
                <div class="centrarFormulario">
+                   
+                    <h:form id="frmTablaIncidentes">
+                        <p:panel id="tablaIncidete">
+                            <p:dataTable value="#{mostrarIncidentes.listaIncidentes}"
+                                         paginator="true" rows="20"  
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                                <p:column headerText="Fecha">
+                                     #{incidentes.incfecharegistro}
+                                 </p:column>  
+                                 <p:column headerText="Prioridad">
+                                     #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
+                                 </p:column> 
+
+                                 <p:column headerText="Descripción">
+                                     #{incidentes.incdescripcion}
+                                 </p:column> 
+
+                                <p:column headerText="Acciones" width="70">                                
+                                    <p:commandLink title="Atender"   style="text-decoration: none;"  >                                    
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    </p:commandLink>                      
+                                    <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    </p:commandLink> 
+                                </p:column>                           
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
                     
                    
                 </div>
