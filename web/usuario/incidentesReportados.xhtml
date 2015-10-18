@@ -44,16 +44,20 @@
                         <p:outputLabel styleClass="CampoLabel" value="Seleccione Tipo Incidente:" />                      
                         <p:selectOneMenu  id="tipoIncidente" style="width:150px;font-size: 15px;" required="true"
                                           requiredMessage="Seleccione un Tipo Incidente."
-                                          valueChangeListener="#{mostrarUsuarios.cambiarTipoUsuario}"
+                                          valueChangeListener="#{mostrarIncidentes.cambiarTipoIncidente}"
                                           >
                             <f:selectItem itemLabel="Seleccione.." itemValue="Seleccione" />
-                            <f:selectItems value="#{mostrarUsuarios.listaTiposdePersonas}"
+                            <f:selectItems value="#{mostrarIncidentes.listaTiposdeIncidentes}"
                                            var="tipoIncidente" itemLabel="#{tipoIncidente}" itemValue="#{tipoIncidente}"/>
                            <p:ajax update=":tablasIncidentes"/>
                                                                 
                         </p:selectOneMenu>                      
                     </h:panelGrid>
                 </h:form>                   
+                <p:separator/>
+                
+                <br/>                
+                <ui:include src="listarIncidentes.xhtml"/>               
                 <p:separator/>
                
             </ui:define>

@@ -33,6 +33,7 @@ public class UsuariosController implements Serializable
     
     @EJB
     private PersonagrupoFacade personaGrupoEJB;
+    
 
    
     public UsuariosController() 
