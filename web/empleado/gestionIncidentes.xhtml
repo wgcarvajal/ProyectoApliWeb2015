@@ -148,37 +148,42 @@
                         <br/>
                         <br/>
                         <br/>   
-                        <h2>Solucion a aplicar</h2>                              
-                        <p:panelGrid columns="3">
+                        <h2>Solucion a aplicar</h2>
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid columns="2" >
                             <p:outputLabel value="Nombre Solucion" for="nombreSolucion"/>
                             <p:inputText id="nombreSolucion" value="#{gestionarIncidentes.solucion.intnombre}"
                                          required="true" requiredMessage="Proporciona un Nombre"
-                                         placeholder="Que solucion vas a aplicar?"/>
-                            <p:message for="nombreSolucion"/>
+                                         placeholder="Que solucion vas a aplicar?"/>                            
                             
                             <p:outputLabel value="Descripcion" for="descripcionSolucion"/>
                             <p:inputTextarea id="descripcionSolucion" value="#{gestionarIncidentes.solucion.intdescripcion}"
-                                         required="true" requiredMessage="Debes proporcionar los detalles"
-                                         placeholder="Introduce algunos detalles de la solucion"/>                            
-                            <p:message for="descripcionSolucion"/>
+                                         required="true" requiredMessage="Introduce una descripcion de la solucion"
+                                         placeholder="Introduce algunos detalles de la solucion"/>                                                        
+                            
+                            <!-- -->
+                            <p:commandButton value="Aplicar Solucion" action="#{gestionarIncidentes.actionAplicarSolucion()}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Aplicar Solucion" action="#{gestionarIncidentes.actionAplicarSolucion()}"/>
+                        
                     </h:form>                        
                 </p:dialog>
                 
                  <!-- DIALOGO PARA VER HISTORIAL-->                   
-                 <p:dialog widgetVar="dialogHistorial" header="Historial" showHeader="true" width="700">
-                    <h:form id="frmDialogHistorial">
-                        <br/>                        
-                        <p:tree value="#{gestionarIncidentes.root}" var="node" style="width: 650px;">
+                 <p:dialog widgetVar="dialogHistorial" header="Historial" showHeader="true" width="700">                     
+                    <p:messages autoUpdate="true"/>
+                    <h:form id="frmDialogHistorial">                        
+                        <br/>
+                        <p:commandButton value="Volver" action="#{gestionarIncidentes.actionSalirDialogHistorial()}" />
+                        <br/>
+                        <p:tree value="#{gestionarIncidentes.root}" var="node" style="width: 650px;" animate="true">
                             <p:treeNode>
                                 <h:outputText value="#{node}"/>
                             </p:treeNode>
-                        </p:tree>                        
+                        </p:tree>                                
                     </h:form>                        
                 </p:dialog>
             
-            <p:growl globalOnly="true" autoUpdate="true" />
+                 <p:growl globalOnly="true" autoUpdate="true" severity="fatal,error,info" showDetail="true" />
             
             </ui:define>                                   
         </ui:composition>        

@@ -136,19 +136,32 @@ public class GestionarIncidentes implements Serializable
         List<Cambio> cambios;        
         
         cambios=cambioEJB.obtnCambios(this.incidente);
-        
         root=new DefaultTreeNode("Historial",null);
-        TreeNode anterior=root;
-        for (Cambio cambio : cambios) {
-            TreeNode nodo=new DefaultTreeNode(cambio.getCamfecha(),anterior);
-            TreeNode nodoContenido=new DefaultTreeNode(cambio.getCamdescripcion(),nodo);            
-            anterior=nodo;
-        }                
+        if(cambios.size()>0)
+        {            
+            TreeNode anterior=root;
+            for (Cambio cambio : cambios) {
+                TreeNode nodo=new DefaultTreeNode(cambio.getCamfecha(),anterior);
+                TreeNode nodoContenido=new DefaultTreeNode(cambio.getCamdescripcion(),nodo);                
+                nodo.setExpanded(true);
+                anterior=nodo;                
+            }
+        }
+        else
+        {
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "El Historial esta vacio", "El Historial esta vacio"));
+        }
+        
         RequestContext req=RequestContext.getCurrentInstance();
         req.update("frmDialogHistorial");
         req.execute("PF('dialogHistorial').show()");
     }
     
+    public void actionSalirDialogHistorial()
+    {
+        RequestContext req=RequestContext.getCurrentInstance();
+        req.execute("PF('dialogHistorial').hide()");
+    }
     
     
     public GestionarIncidentes() 
