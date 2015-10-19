@@ -5,7 +5,9 @@
  */
 package com.unicauca.apliweb.beans;
 
+import com.unicauca.apliweb.entities.Cambio;
 import com.unicauca.apliweb.entities.Incidente;
+import com.unicauca.apliweb.entities.Intentosolucion;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -105,6 +107,15 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
                 query.setParameter("incsolucionado", true);                
         }
         return query.getResultList();
+    }
+
+    public void guardarCambios(Incidente incidente, Cambio cambio, Intentosolucion solucion) {
+        em.persist(solucion);
+        em.flush();        
+        incidente.getIntentosolucionList().add(solucion);
+        em.merge(incidente);
+        cambio.setIncidente(incidente);        
+        em.persist(cambio);        
     }
     
 }

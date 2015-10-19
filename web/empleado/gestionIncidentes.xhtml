@@ -57,32 +57,117 @@
                                          var="incidente"
                                          paginator="true" rows="20"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-
-                                <p:column headerText="Fecha">
+                                
+                                <p:column headerText="Descripción">
+                                     #{incidente.incdescripcion}
+                                </p:column> 
+                               
+                                <p:column headerText="Reportado por">
+                                     #{incidente.persona.pernombre} #{incidente.persona.perapellido}
+                                </p:column> 
+                               
+                                <p:column headerText="Fecha Registro">
                                      #{incidente.incfecharegistro}
                                 </p:column>  
                                 <p:column headerText="Prioridad">
                                      #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
                                 </p:column> 
 
-                                <p:column headerText="Descripción">
-                                     #{incidente.incdescripcion}
-                                </p:column> 
+                                
 
                                 <p:column headerText="Acciones" width="70">                                
-                                    <p:commandLink title="Atender"   style="text-decoration: none;"  >                                    
+                                    <p:commandLink title="Ver" action="#{gestionarIncidentes.actionVerIncidente(incidente)}" style="text-decoration: none;"  >                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
                                     </p:commandLink>                      
-                                    <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
-                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
+                                    <p:commandLink title="Atender" action="#{gestionarIncidentes.actionAtenderIncidente(incidente)}" style="text-decoration: none;"  >                                    
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="atender.png"/>
                                     </p:commandLink> 
-                                </p:column>                     
+                                </p:column>
+                               
+                               
                             </p:dataTable>
                         </p:panel>
-                    </h:form>
-                    
-                   
+                    </h:form>                                      
                 </div>
+               
+            <!-- DIALOGO PARA VER USUARIO-->                   
+                <p:dialog widgetVar="dialogVer" header="Detalles del Incidente" showHeader="true">
+                    <h:form id="frmDialogVer">
+                        <br/>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ticket: "/>
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.incid}"/>
+
+                            <p:outputLabel value="Categoria" />
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.categoria.catnombre}" />
+
+                            <p:outputLabel value="Descripcion Incidente" />
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.incdescripcion}" />
+
+                            <p:outputLabel value="Reportado por"/>
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.persona.pernombre} #{gestionarIncidentes.incidente.persona.perapellido}"/>                                                                                                                                                                               
+
+                            <p:outputLabel value="Historial"/>
+                            <p:link value="Ver Historial"/>
+                        </p:panelGrid>
+                        <br/>
+                        <br/>
+                        <br/>   
+                        <h2>Respuestas del Usuario</h2>                              
+                        <p:dataTable value="#{gestionarIncidentes.respuestas}" style="width: 500px"
+                                     var="respuesta"
+                                     paginator="true" rows="5"  
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                            <p:column headerText="Pregunta">
+                                #{respuesta.preguntas.preinterrogante}
+                            </p:column>
+
+                            <p:column headerText="Respuesta">
+                                #{respuesta.respuesta}
+                            </p:column>                                
+                        </p:dataTable>
+                    </h:form>                        
+                </p:dialog>  
+            
+            <!-- DIALOGO PARA ATENDER-->                   
+                <p:dialog widgetVar="dialogAtender" header="Atendiendo Incidente" showHeader="true">
+                    <h:form id="frmDialogAtender">
+                        <br/>                        
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ticket: "/>
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.incid}"/>
+
+                            <p:outputLabel value="Categoria" />
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.categoria.catnombre}" />
+
+                            <p:outputLabel value="Descripcion Incidente" />
+                            <p:outputLabel value="#{gestionarIncidentes.incidente.incdescripcion}" />
+                            
+                        </p:panelGrid>
+                        <br/>
+                        <br/>
+                        <br/>   
+                        <h2>Solucion a aplicar</h2>                              
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="Nombre Solucion" for="nombreSolucion"/>
+                            <p:inputText id="nombreSolucion" value="#{gestionarIncidentes.solucion.intnombre}"
+                                         required="true" requiredMessage="Proporciona un Nombre"
+                                         placeholder="Que solucion vas a aplicar?"/>
+                            <p:message for="nombreSolucion"/>
+                            
+                            <p:outputLabel value="Descripcion" for="descripcionSolucion"/>
+                            <p:inputTextarea id="descripcionSolucion" value="#{gestionarIncidentes.solucion.intdescripcion}"
+                                         required="true" requiredMessage="Debes proporcionar los detalles"
+                                         placeholder="Introduce algunos detalles de la solucion"/>                            
+                            <p:message for="descripcionSolucion"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Aplicar Solucion" action="#{gestionarIncidentes.actionAplicarSolucion()}"/>
+                    </h:form>                        
+                </p:dialog>
+            
+            <p:growl globalOnly="true" autoUpdate="true" />
+            
             </ui:define>                                   
         </ui:composition>        
 

@@ -82,11 +82,14 @@ public class Incidente implements Serializable {
     @NotNull
     @Column(name = "INCSOLUCIONADO")
     private boolean incsolucionado;
+    
     @JoinTable(name = "TIENE", joinColumns = {
         @JoinColumn(name = "INCID", referencedColumnName = "INCID")}, inverseJoinColumns = {
         @JoinColumn(name = "INTID", referencedColumnName = "INTID")})
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Intentosolucion> intentosolucionList;
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private List<Atiende> atiendeList;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID")
@@ -95,7 +98,8 @@ public class Incidente implements Serializable {
     @JoinColumn(name = "CATID", referencedColumnName = "CATID")
     @ManyToOne(optional = false)
     private Categoria categoria;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "incid")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private List<Cambio> cambioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "incidente")
     private List<Enviacorreo> enviacorreoList;
@@ -171,7 +175,7 @@ public class Incidente implements Serializable {
     public void setIntentosolucionList(List<Intentosolucion> intentosolucionList) {
         this.intentosolucionList = intentosolucionList;
     }
-
+        
     @XmlTransient
     public List<Atiende> getAtiendeList() {
         return atiendeList;
@@ -204,7 +208,7 @@ public class Incidente implements Serializable {
 
     public void setCambioList(List<Cambio> cambioList) {
         this.cambioList = cambioList;
-    }
+    }      
 
     @XmlTransient
     public List<Enviacorreo> getEnviacorreoList() {

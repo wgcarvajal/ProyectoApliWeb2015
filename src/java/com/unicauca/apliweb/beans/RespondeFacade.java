@@ -10,9 +10,11 @@ import com.unicauca.apliweb.entities.Persona;
 import com.unicauca.apliweb.entities.Preguntas;
 import com.unicauca.apliweb.entities.Responde;
 import com.unicauca.apliweb.entities.RespondePK;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -40,7 +42,15 @@ public class RespondeFacade extends AbstractFacade<Responde> {
         pk.setPreid(pregId);
         resp.setRespondePK(pk);        
         resp.setRespuesta(respuesta);
-        em.persist(resp);        
+        em.persist(resp);
+        em.flush();
+        em.refresh(resp);
+    }
+
+    public List<Responde> obtnRespuestas(Integer incid) {
+        TypedQuery<Responde> query=em.createNamedQuery("Responde.findByIncid", Responde.class);
+        query.setParameter("incid", incid);
+        return query.getResultList();
     }
     
 }

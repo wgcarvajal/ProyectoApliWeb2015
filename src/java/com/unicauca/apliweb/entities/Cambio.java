@@ -55,7 +55,7 @@ public class Cambio implements Serializable {
     private Date camfecha;
     @JoinColumn(name = "INCID", referencedColumnName = "INCID")
     @ManyToOne(optional = false)
-    private Incidente incid;
+    private Incidente incidente;
 
     public Cambio() {
     }
@@ -94,13 +94,15 @@ public class Cambio implements Serializable {
         this.camfecha = camfecha;
     }
 
-    public Incidente getIncid() {
-        return incid;
+    public Incidente getIncidente() {
+        return incidente;
     }
 
-    public void setIncid(Incidente incid) {
-        this.incid = incid;
+    public void setIncidente(Incidente incidente) {
+        this.incidente = incidente;
     }
+
+   
 
     @Override
     public int hashCode() {
