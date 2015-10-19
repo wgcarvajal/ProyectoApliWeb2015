@@ -21,6 +21,7 @@
             <ui:define name="menuprincipal">
                 <ul>                           
                     <li><span class="punta"></span><p:link outcome="/empleado/gestionIncidentes"  value="Gestionar Incidentes"/></li>
+                    <li><span class="punta"></span><p:link outcome="/empleado/registroIncidentes"  value="Registrar Incidente"/></li>
                     
                 </ul>
             </ui:define>
@@ -35,23 +36,38 @@
                 
                <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>               
                <div class="centrarFormulario">
+                   <h:form id="frmSelecEstado">
+                        <h:panelGrid style="margin-bottom: 10px;" columns="2">
+                             <p:outputLabel styleClass="CampoLabel" value="Incidentes cuyo estado es"/>
+                             <p:selectOneMenu  id="estadoIncidente" style="width:150px;font-size: 15px;" required="true"
+                                               requiredMessage="Seleccione un estado."
+                                               valueChangeListener="#{gestionarIncidentes.eventoCambioEstado}">
+                                 
+                                 <f:selectItem itemLabel="Seleccione.." itemValue="" />
+                                 <f:selectItems value="#{gestionarIncidentes.estadosIncidentes}"
+                                                var="estado" itemLabel="#{estado}" itemValue="#{estado}"/>                                                             
+                                 <p:ajax update=":frmTablaIncidentes"/>                                                                
+                             </p:selectOneMenu> 
+                         </h:panelGrid>
+                    </h:form>   
                    
-                    <h:form id="frmTablaIncidentes">
-                        <p:panel id="tablaIncidete">
-                            <p:dataTable value="#{mostrarIncidentes.listaIncidentes}"
+                   <h:form id="frmTablaIncidentes" >                        
+                       <p:panel id="tablaIncidete" rendered="#{gestionarIncidentes.visibilidadTabla}">
+                           <p:dataTable value="#{gestionarIncidentes.listaIncidentes}"
+                                         var="incidente"
                                          paginator="true" rows="20"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                                 <p:column headerText="Fecha">
-                                     #{incidentes.incfecharegistro}
-                                 </p:column>  
-                                 <p:column headerText="Prioridad">
-                                     #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
-                                 </p:column> 
+                                     #{incidente.incfecharegistro}
+                                </p:column>  
+                                <p:column headerText="Prioridad">
+                                     #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
+                                </p:column> 
 
-                                 <p:column headerText="Descripción">
-                                     #{incidentes.incdescripcion}
-                                 </p:column> 
+                                <p:column headerText="Descripción">
+                                     #{incidente.incdescripcion}
+                                </p:column> 
 
                                 <p:column headerText="Acciones" width="70">                                
                                     <p:commandLink title="Atender"   style="text-decoration: none;"  >                                    
@@ -60,7 +76,7 @@
                                     <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
                                     </p:commandLink> 
-                                </p:column>                           
+                                </p:column>                     
                             </p:dataTable>
                         </p:panel>
                     </h:form>

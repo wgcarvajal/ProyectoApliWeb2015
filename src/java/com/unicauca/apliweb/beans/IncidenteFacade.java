@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -88,6 +89,22 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
        query.setParameter("fechafinal",fechafinal);
        List<Incidente> resultquery =query.getResultList();
        return resultquery;
+    }
+    
+    public List<Incidente> buscarIncidentes(String estado)
+    {
+        TypedQuery<Incidente> query;
+        if(estado.equals("Todos"))
+            query=em.createNamedQuery("Incidente.findAll",Incidente.class);       
+        else
+        {                        
+            query=em.createNamedQuery("Incidente.findByIncsolucionado",Incidente.class);
+            if(estado.equals("Pendiente"))
+                query.setParameter("incsolucionado", false);
+            else
+                query.setParameter("incsolucionado", true);                
+        }
+        return query.getResultList();
     }
     
 }

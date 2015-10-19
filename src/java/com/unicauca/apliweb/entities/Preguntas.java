@@ -100,24 +100,7 @@ public class Preguntas implements Serializable {
     public void setRespondeList(List<Responde> respondeList) {
         this.respondeList = respondeList;
     }
-    
-    public void agregarRespuesta(Incidente inc,Persona per, String respuesta)
-    {        
-        Responde resp= new Responde();
-        resp.setPersona(per);
-        resp.setPreguntas(this);
-        resp.setRespuesta(respuesta);        
-        resp.setIncidente(inc);
         
-        RespondePK pk=new RespondePK();                
-        pk.setPerid(resp.getPersona().getPerid());
-        pk.setPreid(resp.getPreguntas().getPreid());                
-        pk.setIncid(inc.getIncid());
-        resp.setRespondePK(pk);
-        
-        this.respondeList.add(resp);
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;

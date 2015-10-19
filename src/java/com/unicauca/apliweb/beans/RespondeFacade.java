@@ -5,7 +5,11 @@
  */
 package com.unicauca.apliweb.beans;
 
+import com.unicauca.apliweb.entities.Incidente;
+import com.unicauca.apliweb.entities.Persona;
+import com.unicauca.apliweb.entities.Preguntas;
 import com.unicauca.apliweb.entities.Responde;
+import com.unicauca.apliweb.entities.RespondePK;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +30,17 @@ public class RespondeFacade extends AbstractFacade<Responde> {
 
     public RespondeFacade() {
         super(Responde.class);
+    }
+
+    public void guardarRespuesta(int incId, int perId, int pregId, String respuesta) {
+        Responde resp=new Responde();
+        RespondePK pk=new RespondePK();
+        pk.setIncid(incId);
+        pk.setPerid(perId);
+        pk.setPreid(pregId);
+        resp.setRespondePK(pk);        
+        resp.setRespuesta(respuesta);
+        em.persist(resp);        
     }
     
 }

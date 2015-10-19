@@ -8,17 +8,12 @@ package com.unicauca.apliweb.managedbean.incidentes;
 import com.unicauca.apliweb.beans.CategoriaFacade;
 import com.unicauca.apliweb.beans.IncidenteFacade;
 import com.unicauca.apliweb.beans.PersonaFacade;
-import com.unicauca.apliweb.beans.PreguntasFacade;
 import com.unicauca.apliweb.beans.RespondeFacade;
 import com.unicauca.apliweb.entities.Categoria;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Preguntas;
-import com.unicauca.apliweb.entities.Responde;
 import java.io.Serializable;
 import java.security.Principal;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -49,9 +44,9 @@ public class RegistroIncidente implements Serializable{
     private String[] prioridades={"Alta","Media","Baja"};
     private String prioridadSeleccionada;
     
-    //Para las preguntas
+    //Para las respuestas    
     @EJB
-    private PreguntasFacade preguntasEJB;
+    private RespondeFacade respondeEJB;
     private List<Preguntas> preguntas;
     private Preguntas preguntaActual;
     private int iterador;
@@ -89,11 +84,10 @@ public class RegistroIncidente implements Serializable{
     }
     
     public void actionGuardarRespuesta()
-    {                                        
-        preguntaActual.agregarRespuesta(this.incidente,this.incidente.getPersona(),respuesta);
+    {                
         try
         {
-            preguntasEJB.guardarCambios(preguntaActual);            
+            respondeEJB.guardarRespuesta(this.incidente.getIncid(),this.incidente.getPersona().getPerid(),this.preguntaActual.getPreid(),respuesta);
         }
         catch(Exception ex)
         {                     

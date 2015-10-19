@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantilla.xhtml">
+
+            <ui:define name="titulo">
+                Registro de Incidentes
+            </ui:define>              
+
+            <ui:define name="title">
+                
+            </ui:define>
+            
+            <ui:define name="menuprincipal">
+                <ul>
+                    <li><span class="punta"></span><p:link outcome="/empleado/gestionIncidentes"  value="Gestionar Incidentes"/></li>
+                    <li><span class="punta"></span><p:link outcome="/empleado/registroIncidentes"  value="Registrar Incidente"/></li>
+                </ul>
+            </ui:define>
+
+            <ui:define name="body">
+                
+                <h:form>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" outcome="/empleado/gestionIncidentes" />                       
+                    </p:breadCrumb>
+                </h:form>
+                
+               <div class="tituloPrincipalPagina"><h1>Registro de Incidentes</h1></div>
+               <br/>
+               <div class="centrarFormulario">
+                    <h:form id="frmRegIncidente">                        
+                        <h:panelGrid columns="3">     
+                            
+                            <p:outputLabel value="Categoria: " for="categoria"></p:outputLabel>                
+                            <p:selectOneMenu id="categoria" required="true" requiredMessage="Debe especificar la naturaleza del Incidente" value="#{registroIncidente.idCatSeleccionada}">                    
+                                <f:selectItem itemValue="" itemLabel="Seleccionar el Tipo de Incidente" />
+                                <f:selectItems value="#{registroIncidente.categoriasDisponibles}" var="categoria" itemValue="#{categoria.catid}" itemLabel="#{categoria.catnombre}"></f:selectItems>                    
+                            </p:selectOneMenu>
+                            <p:message for="categoria"/>
+                            
+                            <p:outputLabel value="Prioridad: " for="prioridad"/>
+                            <p:selectOneMenu id="prioridad" required="true" requiredMessage="Debes especificar la prioridad" value="#{registroIncidente.prioridadSeleccionada}">                                
+                                <f:selectItem itemValue="" itemLabel="Seleccionar la Prioridad" />
+                                <f:selectItems value="#{registroIncidente.prioridades}" var="prioridad" itemValue="#{prioridad}" />                                                    
+                            </p:selectOneMenu>                                
+                            <p:message for="prioridad"/>
+
+                            <p:outputLabel value="Descripcion: " for="descripcion"/>
+                            <p:inputTextarea id="descripcion" required="true" requiredMessage="Debes describir el Incidente" value="#{registroIncidente.incidente.incdescripcion}" placeholder="Describe el Incidente"/>                                    
+                            <p:message for="descripcion"/>
+                            
+                            <!-- -->
+                            <p:commandButton id="btnRegistrar" value="Registrar" action="#{registroIncidente.actionRegistrar()}" ajax="false"/>
+                        </h:panelGrid>                                                                    
+                    </h:form>
+                   
+                   <!-- Emergente-->
+                   <p:dialog widgetVar="emergCuestionario">
+                       <h:form id="frmCuestionario">
+                           <p:outputLabel value="Cuestionario"/>
+                           <br/>
+                           <p:outputLabel value="#{registroIncidente.preguntaActual.preinterrogante}"/>
+                           <p:panelGrid columns="2">
+                               <p:selectOneRadio value="#{registroIncidente.respuesta}">
+                                   <f:selectItem itemValue="SI" itemLabel="Si"/>
+                                   <f:selectItem itemValue="NO" itemLabel="No"/>
+                                   <f:selectItem itemValue="No Sabe/No Responde" itemLabel="No Sabe/No Responde"/>
+                               </p:selectOneRadio>
+                           </p:panelGrid>
+                           <p:commandButton value="Enviar" actionListener="#{registroIncidente.actionGuardarRespuesta()}"/>
+                       </h:form>
+                   </p:dialog>
+                   
+                   
+                   <p:growl autoUpdate="true" globalOnly="true" severity="info,fatal" showDetail="true"/>
+                </div>
+            </ui:define>                                   
+        </ui:composition>        
+
+    </body>
+</html>
