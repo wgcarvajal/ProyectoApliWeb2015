@@ -65,16 +65,20 @@
                    <!-- Emergente-->
                    <p:dialog widgetVar="emergCuestionario">
                        <h:form id="frmCuestionario">
-                           <p:outputLabel value="Cuestionario"/>
-                           <br/>
+                           <h2>Cuestionario</h2>                                                      
                            <p:outputLabel value="#{registroIncidente.preguntaActual.preinterrogante}"/>
-                           <p:panelGrid columns="2">
-                               <p:selectOneRadio value="#{registroIncidente.respuesta}">
+                           <br/>                           
+                           <br/>
+                           <p:selectOneRadio value="#{registroIncidente.respuesta}">
                                    <f:selectItem itemValue="SI" itemLabel="Si"/>
                                    <f:selectItem itemValue="NO" itemLabel="No"/>
                                    <f:selectItem itemValue="No Sabe/No Responde" itemLabel="No Sabe/No Responde"/>
-                               </p:selectOneRadio>
+                            </p:selectOneRadio>
+                           <p:panelGrid columns="2">
+                               <p:outputLabel value="Observaciones"/>
+                               <p:inputTextarea value="#{registroIncidente.observaciones}"/>
                            </p:panelGrid>
+                           <br/>
                            <p:commandButton value="Enviar" actionListener="#{registroIncidente.actionGuardarRespuesta()}"/>
                        </h:form>
                    </p:dialog>

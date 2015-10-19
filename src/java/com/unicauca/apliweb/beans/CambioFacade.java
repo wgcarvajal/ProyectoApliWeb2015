@@ -6,9 +6,12 @@
 package com.unicauca.apliweb.beans;
 
 import com.unicauca.apliweb.entities.Cambio;
+import com.unicauca.apliweb.entities.Incidente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,6 +29,12 @@ public class CambioFacade extends AbstractFacade<Cambio> {
 
     public CambioFacade() {
         super(Cambio.class);
+    }
+
+    public List<Cambio> obtnCambios(Incidente incidente) {
+        TypedQuery query=em.createNamedQuery("Cambio.findByIncidASC", Cambio.class);
+        query.setParameter("incId", incidente.getIncid());
+        return query.getResultList();
     }
     
 }

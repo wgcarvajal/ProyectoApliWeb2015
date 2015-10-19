@@ -1,6 +1,7 @@
 
 package com.unicauca.apliweb.managedbean.incidentes;
 
+import com.unicauca.apliweb.beans.CambioFacade;
 import com.unicauca.apliweb.beans.IncidenteFacade;
 import com.unicauca.apliweb.beans.PersonaFacade;
 import com.unicauca.apliweb.beans.RespondeFacade;
@@ -22,6 +23,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -46,6 +49,10 @@ public class GestionarIncidentes implements Serializable
     
     @EJB
     private PersonaFacade personaEJB;
+    
+    @EJB
+    private CambioFacade cambioEJB;
+    private TreeNode root;
     
 
     @PostConstruct
@@ -123,6 +130,25 @@ public class GestionarIncidentes implements Serializable
         
     }
     
+    public void actionCargarHistorial()
+    {        
+        System.out.println("Mi MSG: Entrando a CARGARHISTORIAL");
+        List<Cambio> cambios;        
+        
+        cambios=cambioEJB.obtnCambios(this.incidente);
+        
+        root=new DefaultTreeNode("Historial",null);
+        TreeNode anterior=root;
+        for (Cambio cambio : cambios) {
+            TreeNode nodo=new DefaultTreeNode(cambio.getCamfecha(),anterior);
+            TreeNode nodoContenido=new DefaultTreeNode(cambio.getCamdescripcion(),nodo);            
+            anterior=nodo;
+        }                
+        RequestContext req=RequestContext.getCurrentInstance();
+        req.update("frmDialogHistorial");
+        req.execute("PF('dialogHistorial').show()");
+    }
+    
     
     
     public GestionarIncidentes() 
@@ -183,6 +209,16 @@ public class GestionarIncidentes implements Serializable
     {
         this.listaIncidentes = listaIncidentes;
     }
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
+    
+    
 
     
     private void InicializarValores() 

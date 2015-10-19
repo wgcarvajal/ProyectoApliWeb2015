@@ -107,8 +107,8 @@
                             <p:outputLabel value="Reportado por"/>
                             <p:outputLabel value="#{gestionarIncidentes.incidente.persona.pernombre} #{gestionarIncidentes.incidente.persona.perapellido}"/>                                                                                                                                                                               
 
-                            <p:outputLabel value="Historial"/>
-                            <p:link value="Ver Historial"/>
+                            <p:outputLabel value="Historial"/>                            
+                            <p:commandButton value="Ver Historial" action="#{gestionarIncidentes.actionCargarHistorial()}"/>                                                            
                         </p:panelGrid>
                         <br/>
                         <br/>
@@ -163,6 +163,18 @@
                             <p:message for="descripcionSolucion"/>
                         </p:panelGrid>
                         <p:commandButton value="Aplicar Solucion" action="#{gestionarIncidentes.actionAplicarSolucion()}"/>
+                    </h:form>                        
+                </p:dialog>
+                
+                 <!-- DIALOGO PARA VER HISTORIAL-->                   
+                <p:dialog widgetVar="dialogHistorial" header="Atendiendo Incidente" showHeader="true">
+                    <h:form id="frmDialogHistorial">
+                        <br/>                        
+                        <p:tree value="#{gestionarIncidentes.root}" var="node">
+                            <p:treeNode>
+                                <h:outputText value="#{node}"/>
+                            </p:treeNode>
+                        </p:tree>                        
                     </h:form>                        
                 </p:dialog>
             

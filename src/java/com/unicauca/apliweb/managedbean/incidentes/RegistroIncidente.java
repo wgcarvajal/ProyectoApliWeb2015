@@ -50,7 +50,8 @@ public class RegistroIncidente implements Serializable{
     private List<Preguntas> preguntas;
     private Preguntas preguntaActual;
     private int iterador;
-    private String respuesta;    
+    private String respuesta;
+    private String observaciones;
 
     
     public void actionRegistrar()
@@ -84,10 +85,12 @@ public class RegistroIncidente implements Serializable{
     }
     
     public void actionGuardarRespuesta()
-    {                
+    {
+        if(this.observaciones.equals("")==false)
+            this.respuesta=this.respuesta+"\n\nObservaciones:\n"+observaciones;            
         try
         {
-            respondeEJB.guardarRespuesta(this.incidente.getIncid(),this.incidente.getPersona().getPerid(),this.preguntaActual.getPreid(),respuesta);
+            respondeEJB.guardarRespuesta(this.incidente.getIncid(),this.incidente.getPersona().getPerid(),this.preguntaActual.getPreid(),respuesta);            
         }
         catch(Exception ex)
         {                     
@@ -97,6 +100,7 @@ public class RegistroIncidente implements Serializable{
         RequestContext req=RequestContext.getCurrentInstance();
         if(iterador<preguntas.size())
         {
+            observaciones="";
             preguntaActual=preguntas.get(iterador);
             iterador++;
             
@@ -123,6 +127,14 @@ public class RegistroIncidente implements Serializable{
         iterador=0;
     } 
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+        
     public String getRespuesta() {
         return respuesta;
     }
