@@ -167,10 +167,10 @@
                 </p:dialog>
                 
                  <!-- DIALOGO PARA VER HISTORIAL-->                   
-                <p:dialog widgetVar="dialogHistorial" header="Atendiendo Incidente" showHeader="true">
+                 <p:dialog widgetVar="dialogHistorial" header="Historial" showHeader="true" width="700">
                     <h:form id="frmDialogHistorial">
                         <br/>                        
-                        <p:tree value="#{gestionarIncidentes.root}" var="node">
+                        <p:tree value="#{gestionarIncidentes.root}" var="node" style="width: 650px;">
                             <p:treeNode>
                                 <h:outputText value="#{node}"/>
                             </p:treeNode>
