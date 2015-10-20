@@ -34,8 +34,7 @@
                     </p:breadCrumb>
                 </h:form>
                 
-               <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>               
-               <div class="centrarFormulario">
+               <div class="tituloPrincipalPagina"><h1>Gestion de Incidentes</h1></div>                              
                    <h:form id="frmSelecEstado">
                         <h:panelGrid style="margin-bottom: 10px;" columns="2">
                              <p:outputLabel styleClass="CampoLabel" value="Incidentes cuyo estado es"/>
@@ -58,24 +57,29 @@
                                          paginator="true" rows="20"  
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                                 
+                               <p:column width="40" headerText="Ticket">
+                                     #{incidente.incid}
+                                </p:column> 
+                               
                                 <p:column headerText="Descripción">
                                      #{incidente.incdescripcion}
                                 </p:column> 
                                
-                                <p:column headerText="Reportado por">
-                                     #{incidente.persona.pernombre} #{incidente.persona.perapellido}
+                               <p:column width="70" headerText="Reportado por">
+                                     #{incidente.persona.pernombre} 
+                                     <br/>#{incidente.persona.perapellido}
                                 </p:column> 
                                
-                                <p:column headerText="Fecha Registro">
+                               <p:column width="70" headerText="Fecha Registro">
                                      #{incidente.incfecharegistro}
                                 </p:column>  
-                                <p:column headerText="Prioridad">
+                               <p:column width="60" headerText="Prioridad">
                                      #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
                                 </p:column> 
 
                                 
 
-                                <p:column headerText="Acciones" width="70">                                
+                                <p:column headerText="Acciones" width="100">                                
                                     <p:commandLink title="Ver" action="#{gestionarIncidentes.actionVerIncidente(incidente)}" style="text-decoration: none;"  >                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
                                     </p:commandLink>                      
@@ -83,14 +87,19 @@
                                                    style="text-decoration: none;"
                                                    rendered="#{incidente.incsolucionado==false}">                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="atender.png"/>
-                                    </p:commandLink> 
+                                    </p:commandLink>
+                                    
+                                    <p:commandLink title="Enviar Correo" 
+                                                   style="text-decoration: none;">                                                                         
+                                         <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="Send_mail.png"/>
+                                    </p:commandLink>
+                                    
                                 </p:column>
                                
                                
                             </p:dataTable>
                         </p:panel>
-                    </h:form>                                      
-                </div>
+                    </h:form>                                                      
                
             <!-- DIALOGO PARA VER USUARIO-->                   
                 <p:dialog widgetVar="dialogVer" header="Detalles del Incidente" showHeader="true">

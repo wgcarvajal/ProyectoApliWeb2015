@@ -24,20 +24,25 @@
                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                       >
 
-                            <p:column headerText="Ticket">
+                    <p:column width="40" headerText="Ticket">
                                 #{incidente.incid}
                             </p:column>  
-                    
-                            <p:column headerText="Fecha">
-                                #{mostrarIncidentes.sdf.format(incidente.incfecharegistro)}
-                            </p:column>  
-                            <p:column headerText="Prioridad">
-                                #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
-                            </p:column> 
                     
                             <p:column headerText="Descripción">
                                 #{incidente.incdescripcion}
                             </p:column> 
+                                
+                    <p:column width="60" headerText="Fecha Reporte">
+                                #{mostrarIncidentes.sdf.format(incidente.incfecharegistro)}
+                            </p:column>
+                    
+                    <p:column width="70" headerText="Prioridad">
+                                #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
+                            </p:column>                                                 
+                    
+                    <p:column width="80" headerText="Solucionado">
+                                #{incidente.incsolucionado==true? 'SI' : 'NO'}
+                            </p:column>
                             
                             <p:column headerText="Acciones" width="70">                                                                                      
                                 <p:commandLink title="Historial" style="text-decoration: none;"
