@@ -94,11 +94,21 @@ public class GestionarIncidentes implements Serializable
     }
     public void actionAtenderIncidente(Incidente incSeleccionado)
     {
-        this.incidente=incSeleccionado;
-        solucion=new Intentosolucion();
         RequestContext req=RequestContext.getCurrentInstance();
-        req.update("frmDialogAtender");
-        req.execute("PF('dialogAtender').show()");
+        if(incidenteEJB.estaSolucionado(incSeleccionado.getIncid()))
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "INCIDENTE YA SOLUCIONADO", "El respectivo usuario ya dio de alta este incidente"));
+            this.visibilidadTabla=false;
+            req.update("frmTablaIncidentes");
+        }
+        else
+        {
+            this.incidente=incSeleccionado;
+            solucion=new Intentosolucion();            
+            req.update("frmDialogAtender");
+            req.execute("PF('dialogAtender').show()");
+        }
+        
     }
     
     public void actionAplicarSolucion()

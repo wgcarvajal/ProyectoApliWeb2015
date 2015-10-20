@@ -51,16 +51,28 @@
                                 </p:commandLink>
                                 
                                 <p:commandLink title="Dar de Alta" style="text-decoration: none;"
-                                               action="#{gestionarIncidentes.actionDarDeAlta(incidente,mostrarIncidentes)}"
+                                               action="#{mostrarIncidentes.actionConfirmarDarDeAlta(incidente)}"
                                                rendered="#{incidente.incsolucionado==false}">                                    
                                     <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ok.png"/>
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
-                    </p:panel>                   
-                    
+                    </p:panel>                                       
                 </h:form>
+                
+        <p:dialog widgetVar="dialogConfirmar">
+            <h:form>
+                <h2>¿Esta seguro que desea dar de alta el Incidente?</h2>
+                <h5>Solo hagalo cuando el problema haya sido resuelto</h5>
+                <br/>
+                <p:commandButton value="Confirmar" action="#{gestionarIncidentes.actionDarDeAlta(mostrarIncidentes.incidenteSolucionado,mostrarIncidentes)}"/>
+                <p:commandButton value="Cancelar" onclick="PF('dialogConfirmar').hide()"/>
+            </h:form>            
+        </p:dialog>
         
     </ui:composition>    
 </html>
 
+<!-- 
+action=""
+-->

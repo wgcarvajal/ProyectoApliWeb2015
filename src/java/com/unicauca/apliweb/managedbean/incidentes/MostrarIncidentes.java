@@ -42,6 +42,8 @@ public class MostrarIncidentes implements Serializable
     
     @EJB
     private PersonaFacade personaEJB;
+    
+    private Incidente incidenteSolucionado;
    
     public MostrarIncidentes() 
     {
@@ -133,7 +135,14 @@ public class MostrarIncidentes implements Serializable
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
+
+    public Incidente getIncidenteSolucionado() {
+        return incidenteSolucionado;
+    }
+
+    public void setIncidenteSolucionado(Incidente incidenteSolucionado) {
+        this.incidenteSolucionado = incidenteSolucionado;
+    }            
     
 
     private void cargarListaTiposIncidentes() 
@@ -229,14 +238,18 @@ public class MostrarIncidentes implements Serializable
         }
     }
 
-    void quitarIncidente(Incidente incidente) {
+    public void quitarIncidente(Incidente incidente) {
+        RequestContext.getCurrentInstance().execute("PF('dialogConfirmar').hide()");
         this.listaIncidentes.remove(incidente);
         RequestContext req=RequestContext.getCurrentInstance();
         req.update("tablasIncidentes");
     }
     
-    
-   
-    
-    
+    public void actionConfirmarDarDeAlta(Incidente incidente)            
+    {
+        this.incidenteSolucionado=incidente;
+        RequestContext.getCurrentInstance().execute("PF('dialogConfirmar').show()");
+        
+    }
+                
 }
