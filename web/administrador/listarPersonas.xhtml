@@ -7,9 +7,9 @@
     <ui:composition>
         <h:form id="tablasUsuarios">
             <h:panelGrid style="margin-bottom: 10px;" rendered="#{mostrarUsuarios.habilitarTablaPersonas}" columns="3">                      
-                <h:outputLabel rendered="#{mostrarUsuarios.habilitarAdministradores}" class="CampoLabel" value="Nombre del Administrador:" />
-                <h:outputLabel rendered="#{mostrarUsuarios.habilitarEmpleados}" class="CampoLabel" value="Nombre del Empleado:" />
-                <h:outputLabel rendered="#{mostrarUsuarios.habilitarUsuarios}" class="CampoLabel" value="Nombre del Usuario:" />
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarAdministradores}" class="CampoLabel" value="Buscar por Nombre del Administrador:" />
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarEmpleados}" class="CampoLabel" value="Buscar por Nombre del Empleado:" />
+                <h:outputLabel rendered="#{mostrarUsuarios.habilitarUsuarios}" class="CampoLabel" value="Buscar por Nombre del Usuario:" />
                 <p:inputText style="width: 240px;" value="#{mostrarUsuarios.nombrePersona}"  >
                     <p:ajax event="keyup" update="tablaUsuario" listener="#{mostrarUsuarios.buscarPorNombrePersona}" />                                
                         </p:inputText>                                                   

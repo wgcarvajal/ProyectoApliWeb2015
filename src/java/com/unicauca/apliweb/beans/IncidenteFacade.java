@@ -133,5 +133,10 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
         incidente.setIncsolucionado(true);
         em.merge(incidente);        
     }
+
+    public boolean estaSolucionado(Integer incid) {
+        Incidente incidente=em.find(Incidente.class, incid);
+        return incidente.getIncsolucionado();
+    }
     
 }
