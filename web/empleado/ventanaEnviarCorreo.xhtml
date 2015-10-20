@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <p:dialog header="Enviar correo" modal="true" resizable="false" position="center"  widgetVar="enviarCorreo" closable="true">
+            <h:form id="formEnviarCorreo">
+                <p:growl autoUpdate="true"/>
+                <p:panelGrid style="text-align:left;" styleClass="panelgrid"  id="panel">
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel class="CampoLabel" value="Nombre:"/>                        
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{enviarCorreoController.persona.pernombre} #{enviarCorreoController.persona.perapellido}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel class="CampoLabel" value="Correo:"/>                        
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{enviarCorreoController.persona.peremail}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel class="CampoLabel" value="Asunto:"/>                        
+                        </p:column>
+                        <p:column>
+                            <p:inputText required="true" requiredMessage="Ingrese asunto"
+                                         value="#{enviarCorreoController.subject}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel class="CampoLabel" value="Mensaje:"/>                        
+                        </p:column>
+                        <p:column>
+                            <p:inputTextarea required="true" requiredMessage="Ingrese mensaje" value="#{enviarCorreoController.message}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:commandButton value="Enviar" action="#{enviarCorreoController.sendMail()}"
+                                             update="formEnviarCorreo" />
+                        </p:column>
+                        <p:column>
+                            
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>                
+            </h:form>            
+        </p:dialog>
+        
+    </ui:composition>   
+</html>
