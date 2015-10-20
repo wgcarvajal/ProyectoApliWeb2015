@@ -89,7 +89,7 @@
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="atender.png"/>
                                     </p:commandLink>
                                     
-                                    <p:commandLink title="Enviar Correo" 
+                                    <p:commandLink title="Enviar Correo" action="#{enviarCorreoController.enviarMensaje(incidente)}"
                                                    style="text-decoration: none;">                                                                         
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="Send_mail.png"/>
                                     </p:commandLink>
@@ -196,6 +196,7 @@
             
                  <p:growl globalOnly="true" autoUpdate="true" severity="fatal,error,info" showDetail="true" />
             
+                 <ui:include src="ventanaEnviarCorreo.xhtml"/>  
             </ui:define>                                   
         </ui:composition>        
 
