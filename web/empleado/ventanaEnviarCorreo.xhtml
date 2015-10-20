@@ -46,7 +46,7 @@
                     <p:row>
                         <p:column>
                             <p:commandButton value="Enviar" action="#{enviarCorreoController.sendMail()}"
-                                             update="formEnviarCorreo" />
+                                             update="formEnviarCorreo" onstart="PF('efectoCarga').show()" onsuccess="PF('efectoCarga').hide()" />
                         </p:column>
                         <p:column>
                             

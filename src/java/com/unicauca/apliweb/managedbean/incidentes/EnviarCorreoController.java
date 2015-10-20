@@ -14,6 +14,7 @@ import com.unicauca.apliweb.entities.Persona;
 import java.io.Serializable;
 import java.util.Properties;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -104,7 +105,7 @@ public class EnviarCorreoController implements Serializable
         
         System.out.println("entro-----------------");
         HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest(); 
-        
+        RequestContext requestContext = RequestContext.getCurrentInstance();
         Persona perEnvia=personaEJB.buscarNombreUsuario(request.getUserPrincipal().getName());
         
         to = persona.getPeremail();
@@ -152,6 +153,13 @@ public class EnviarCorreoController implements Serializable
             enviaCorreo.setEnviacorreoPK(enviaCorreoPK);
             this.enviaCorreoEJB.create(enviaCorreo);
             System.out.println("A+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje Enviado", "Mensaje Enviado"));
+            mensaje="";
+            subject="";
+            requestContext.update("formEnviarCorreo");
+            requestContext.execute("PF('enviarCorreo').hide()");
+            
+            
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }       
