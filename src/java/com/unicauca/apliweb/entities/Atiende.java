@@ -7,8 +7,6 @@ package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,9 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,16 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Atiende.findAll", query = "SELECT a FROM Atiende a"),
     @NamedQuery(name = "Atiende.findByIncid", query = "SELECT a FROM Atiende a WHERE a.atiendePK.incid = :incid"),
     @NamedQuery(name = "Atiende.findByPerid", query = "SELECT a FROM Atiende a WHERE a.atiendePK.perid = :perid"),
-    @NamedQuery(name = "Atiende.findByFecha", query = "SELECT a FROM Atiende a WHERE a.fecha = :fecha")})
+    @NamedQuery(name = "Atiende.findByFecha", query = "SELECT a FROM Atiende a WHERE a.atiendePK.fecha = :fecha")})
 public class Atiende implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AtiendePK atiendePK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
     @JoinColumn(name = "PERID", referencedColumnName = "PERID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Persona persona;
@@ -56,13 +46,8 @@ public class Atiende implements Serializable {
         this.atiendePK = atiendePK;
     }
 
-    public Atiende(AtiendePK atiendePK, Date fecha) {
-        this.atiendePK = atiendePK;
-        this.fecha = fecha;
-    }
-
-    public Atiende(int incid, int perid) {
-        this.atiendePK = new AtiendePK(incid, perid);
+    public Atiende(int incid, int perid, Date fecha) {
+        this.atiendePK = new AtiendePK(incid, perid, fecha);
     }
 
     public AtiendePK getAtiendePK() {
@@ -71,14 +56,6 @@ public class Atiende implements Serializable {
 
     public void setAtiendePK(AtiendePK atiendePK) {
         this.atiendePK = atiendePK;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public Persona getPersona() {

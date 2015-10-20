@@ -6,9 +6,12 @@
 package com.unicauca.apliweb.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,13 +28,19 @@ public class AtiendePK implements Serializable {
     @NotNull
     @Column(name = "PERID")
     private int perid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FECHA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
 
     public AtiendePK() {
     }
 
-    public AtiendePK(int incid, int perid) {
+    public AtiendePK(int incid, int perid, Date fecha) {
         this.incid = incid;
         this.perid = perid;
+        this.fecha = fecha;
     }
 
     public int getIncid() {
@@ -50,11 +59,20 @@ public class AtiendePK implements Serializable {
         this.perid = perid;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) incid;
         hash += (int) perid;
+        hash += (fecha != null ? fecha.hashCode() : 0);
         return hash;
     }
 
@@ -71,12 +89,15 @@ public class AtiendePK implements Serializable {
         if (this.perid != other.perid) {
             return false;
         }
+        if ((this.fecha == null && other.fecha != null) || (this.fecha != null && !this.fecha.equals(other.fecha))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "com.unicauca.apliweb.entities.AtiendePK[ incid=" + incid + ", perid=" + perid + " ]";
+        return "com.unicauca.apliweb.entities.AtiendePK[ incid=" + incid + ", perid=" + perid + ", fecha=" + fecha + " ]";
     }
     
 }

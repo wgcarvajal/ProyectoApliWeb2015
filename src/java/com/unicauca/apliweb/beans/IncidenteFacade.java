@@ -111,10 +111,15 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
     }
 
     public void guardarCambios(Incidente incidente, Cambio cambio, Intentosolucion solucion, int empPerId) {        
-        Atiende atiende=new Atiende();        
-        atiende.setAtiendePK(new AtiendePK(incidente.getIncid(), empPerId));
-        atiende.setFecha(new Date());
-        em.persist(atiende);
+        Atiende atiende=new Atiende(incidente.getIncid(), empPerId, new Date());          
+        try
+        {
+            em.persist(atiende);
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Mi MSG: "+ex.getMessage());
+        }
         em.persist(solucion);
         em.flush();        
         incidente.getIntentosolucionList().add(solucion);        
