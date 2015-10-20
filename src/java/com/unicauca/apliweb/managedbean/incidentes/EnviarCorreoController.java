@@ -5,10 +5,15 @@
  */
 package com.unicauca.apliweb.managedbean.incidentes;
 
+import com.unicauca.apliweb.beans.EnviacorreoFacade;
+import com.unicauca.apliweb.beans.PersonaFacade;
+import com.unicauca.apliweb.entities.Enviacorreo;
+import com.unicauca.apliweb.entities.EnviacorreoPK;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Persona;
 import java.io.Serializable;
 import java.util.Properties;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -31,12 +36,18 @@ public class EnviarCorreoController implements Serializable
 {
 
     private String correo;
-    private Persona persona;   
+    private Persona persona;
+    private Incidente incidente;
     private String to;
     private String from;
     private String message;
+    private String mensaje;
     private String subject;
     private String smtpServ;
+    @EJB
+    private PersonaFacade personaEJB;
+    @EJB
+    private EnviacorreoFacade enviaCorreoEJB;
     
     public EnviarCorreoController()
     {
@@ -62,13 +73,15 @@ public class EnviarCorreoController implements Serializable
         this.subject = subject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
+
+    
     
     
     
@@ -76,6 +89,7 @@ public class EnviarCorreoController implements Serializable
     public void enviarMensaje(Incidente incidente)
     {
         this.persona=incidente.getPersona();
+        this.incidente=incidente;
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.update("formEnviarCorreo");
         requestContext.execute("PF('enviarCorreo').show()");
@@ -89,7 +103,9 @@ public class EnviarCorreoController implements Serializable
     public void sendMail(){
         
         System.out.println("entro-----------------");
-        HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();      
+        HttpServletRequest request=(HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest(); 
+        
+        Persona perEnvia=personaEJB.buscarNombreUsuario(request.getUserPrincipal().getName());
         
         to = persona.getPeremail();
         from = "electivaapliweb@gmail.com";    
@@ -105,6 +121,11 @@ public class EnviarCorreoController implements Serializable
 
         Session session = Session.getDefaultInstance(props);//autentificar el correo
 
+        
+        this.message="<br/>Tiket incidente:"+this.incidente.getIncid()+
+                "<br/>Miembro Equipo de  Soporte:"+perEnvia.getPernombre()+" "+perEnvia.getPerapellido()+"<br/><br/>"
+                +this.mensaje+"<br/><br/><br/>Por favor no responder este mensaje.........";
+        
         try {
             MimeMessage message = new MimeMessage(session);//se inicia una session
             message.setFrom(new InternetAddress(this.from));
@@ -117,6 +138,19 @@ public class EnviarCorreoController implements Serializable
             transport.connect(smtpServ, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            Enviacorreo enviaCorreo=new Enviacorreo();
+            EnviacorreoPK enviaCorreoPK=new EnviacorreoPK();
+            enviaCorreoPK.setIncid(this.incidente.getIncid());
+            enviaCorreoPK.setPerfkdestinatario(this.persona.getPerid());
+            enviaCorreoPK.setPerfkremitente(perEnvia.getPerid());
+            enviaCorreo.setAsunto(this.subject);
+            enviaCorreo.setDestinatario(this.persona);
+            enviaCorreo.setRemitente(perEnvia);
+            enviaCorreo.setMensaje(this.mensaje);
+            enviaCorreo.setIncidente(this.incidente);
+            enviaCorreo.setAdjunto("ninguno");
+            enviaCorreo.setEnviacorreoPK(enviaCorreoPK);
+            this.enviaCorreoEJB.create(enviaCorreo);
             System.out.println("A+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
