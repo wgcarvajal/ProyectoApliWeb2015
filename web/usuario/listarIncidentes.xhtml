@@ -19,27 +19,37 @@
             </h:panelGrid>
 
             <p:panel id="tablaIncidete" rendered="#{mostrarIncidentes.habilitarTablaIncidentes}">                                            
-                <p:dataTable  var="incidentes" value="#{mostrarIncidentes.listaIncidentes}"
+                <p:dataTable  var="incidente" value="#{mostrarIncidentes.listaIncidentes}"
                                       paginator="true" rows="20"  
                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                                       >
 
-                            
+                            <p:column headerText="Ticket">
+                                #{incidente.incid}
+                            </p:column>  
+                    
                             <p:column headerText="Fecha">
-                                #{mostrarIncidentes.sdf.format(incidentes.incfecharegistro)}
+                                #{mostrarIncidentes.sdf.format(incidente.incfecharegistro)}
                             </p:column>  
                             <p:column headerText="Prioridad">
-                                #{mostrarIncidentes.convertirPrioridad(incidentes.incnivel)}
+                                #{mostrarIncidentes.convertirPrioridad(incidente.incnivel)}
                             </p:column> 
                     
                             <p:column headerText="Descripción">
-                                #{incidentes.incdescripcion}
+                                #{incidente.incdescripcion}
                             </p:column> 
                             
-                            <p:column headerText="Acciones" width="70">                                
-                                <p:commandLink title="Ver o Editar"   style="text-decoration: none;"  >                                    
-                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="lupa.jpg"/>
-                                </p:commandLink>                      
+                            <p:column headerText="Acciones" width="70">                                                                                      
+                                <p:commandLink title="Historial" style="text-decoration: none;"
+                                               action="#{gestionarIncidentes.actionCargarHistorial(incidente)}">                                    
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="history.png"/>
+                                </p:commandLink>
+                                
+                                <p:commandLink title="Dar de Alta" style="text-decoration: none;"
+                                               action="#{gestionarIncidentes.actionDarDeAlta(incidente,mostrarIncidentes)}"
+                                               rendered="#{incidente.incsolucionado==false}">                                    
+                                    <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ok.png"/>
+                                </p:commandLink>
                             </p:column>
                         </p:dataTable>
                     </p:panel>                   

@@ -228,6 +228,12 @@ public class MostrarIncidentes implements Serializable
             this.listaIncidentes=incidenteEJB.buscarPorFecha(persona.getPerid(),(Date)event.getObject(),new Date());            
         }
     }
+
+    void quitarIncidente(Incidente incidente) {
+        this.listaIncidentes.remove(incidente);
+        RequestContext req=RequestContext.getCurrentInstance();
+        req.update("tablasIncidentes");
+    }
     
     
    

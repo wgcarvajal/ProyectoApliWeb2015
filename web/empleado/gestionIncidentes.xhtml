@@ -79,7 +79,9 @@
                                     <p:commandLink title="Ver" action="#{gestionarIncidentes.actionVerIncidente(incidente)}" style="text-decoration: none;"  >                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img/usuarios" name="ver.png"/>
                                     </p:commandLink>                      
-                                    <p:commandLink title="Atender" action="#{gestionarIncidentes.actionAtenderIncidente(incidente)}" style="text-decoration: none;"  >                                    
+                                    <p:commandLink title="Atender" action="#{gestionarIncidentes.actionAtenderIncidente(incidente)}" 
+                                                   style="text-decoration: none;"
+                                                   rendered="#{incidente.incsolucionado==false}">                                    
                                          <p:graphicImage style="width:25px;margin-left: 5px;" library="img" name="atender.png"/>
                                     </p:commandLink> 
                                 </p:column>
@@ -108,7 +110,7 @@
                             <p:outputLabel value="#{gestionarIncidentes.incidente.persona.pernombre} #{gestionarIncidentes.incidente.persona.perapellido}"/>                                                                                                                                                                               
 
                             <p:outputLabel value="Historial"/>                            
-                            <p:commandButton value="Ver Historial" action="#{gestionarIncidentes.actionCargarHistorial()}"/>                                                            
+                            <p:commandButton value="Ver Historial" action="#{gestionarIncidentes.actionCargarHistorial(gestionarIncidentes.incidente)}"/>                                                            
                         </p:panelGrid>
                         <br/>
                         <br/>

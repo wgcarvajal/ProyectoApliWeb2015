@@ -128,5 +128,10 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
         em.persist(cambio);        
         
     }
+
+    public void darDeAlta(Incidente incidente) {
+        incidente.setIncsolucionado(true);
+        em.merge(incidente);        
+    }
     
 }

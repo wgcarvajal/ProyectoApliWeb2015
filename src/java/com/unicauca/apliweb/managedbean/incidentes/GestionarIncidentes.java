@@ -129,12 +129,11 @@ public class GestionarIncidentes implements Serializable
         
     }
     
-    public void actionCargarHistorial()
+    public void actionCargarHistorial(Incidente incidente)
     {        
         System.out.println("Mi MSG: Entrando a CARGARHISTORIAL");
-        List<Cambio> cambios;        
-        
-        cambios=cambioEJB.obtnCambios(this.incidente);
+        List<Cambio> cambios;                
+        cambios=cambioEJB.obtnCambios(incidente);
         root=new DefaultTreeNode("Historial",null);
         if(cambios.size()>0)
         {            
@@ -160,6 +159,20 @@ public class GestionarIncidentes implements Serializable
     {
         RequestContext req=RequestContext.getCurrentInstance();
         req.execute("PF('dialogHistorial').hide()");
+    }
+    
+    public void actionDarDeAlta(Incidente incidente,MostrarIncidentes mostrarIncidentes)
+    {
+        try
+        {
+            incidenteEJB.darDeAlta(incidente);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacion Exitosa", "El incidente ya se dio de alta"));
+            mostrarIncidentes.quitarIncidente(incidente);
+        }
+        catch(Exception ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Hubo un error al intentar dar de alta al incidente"));
+        }                    
     }
     
     

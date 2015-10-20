@@ -60,6 +60,22 @@
                 <ui:include src="listarIncidentes.xhtml"/>               
                 <p:separator/>
                
+                <!-- DIALOGO PARA VER HISTORIAL-->                   
+                <p:dialog widgetVar="dialogHistorial" header="Historial" showHeader="true" width="700">                     
+                    <p:messages autoUpdate="true"/>
+                    <h:form id="frmDialogHistorial">                        
+                        <br/>
+                        <p:commandButton value="Volver" action="#{gestionarIncidentes.actionSalirDialogHistorial()}" />
+                        <br/>
+                        <p:tree value="#{gestionarIncidentes.root}" var="node" style="width: 650px;" animate="true">
+                            <p:treeNode>
+                                <h:outputText value="#{node}"/>
+                            </p:treeNode>
+                        </p:tree>                                
+                    </h:form>                        
+                </p:dialog>
+                <p:growl autoUpdate="true" globalOnly="true" showDetail="true"
+                         severity="fatal,info,error"/>
             </ui:define>
 
         </ui:composition>
