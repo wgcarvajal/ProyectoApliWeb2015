@@ -107,8 +107,7 @@ public class GestionarIncidentes implements Serializable
         
         solucion.setIntfecha(new Date());
         // como esto se llama despues de actionAtenderIncidente, se garantiza que incidente ya
-        // esta cargado correctamente
-        //this.incidente.addIntentoSolucion(solucion);
+        // esta cargado correctamente        
         
         Principal user=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         Persona empleado=personaEJB.obtnPersonaPrincipal(user.getName());
@@ -118,7 +117,7 @@ public class GestionarIncidentes implements Serializable
         
         try
         {
-            incidenteEJB.guardarCambios(incidente,cambio,solucion);
+            incidenteEJB.guardarCambios(incidente,cambio,solucion,empleado.getPerid());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso","Se ha registrado correctamente la Atencion"));
         }
         catch(Exception ex)

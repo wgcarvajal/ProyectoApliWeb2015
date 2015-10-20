@@ -5,10 +5,11 @@
  */
 package com.unicauca.apliweb.beans;
 
+import com.unicauca.apliweb.entities.Atiende;
+import com.unicauca.apliweb.entities.AtiendePK;
 import com.unicauca.apliweb.entities.Cambio;
 import com.unicauca.apliweb.entities.Incidente;
 import com.unicauca.apliweb.entities.Intentosolucion;
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,7 +26,7 @@ import javax.persistence.TypedQuery;
 public class IncidenteFacade extends AbstractFacade<Incidente> {
     @PersistenceContext(unitName = "ProyectoApliWebPU")
     private EntityManager em;
-
+        
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -109,13 +110,18 @@ public class IncidenteFacade extends AbstractFacade<Incidente> {
         return query.getResultList();
     }
 
-    public void guardarCambios(Incidente incidente, Cambio cambio, Intentosolucion solucion) {
+    public void guardarCambios(Incidente incidente, Cambio cambio, Intentosolucion solucion, int empPerId) {        
+        Atiende atiende=new Atiende();        
+        atiende.setAtiendePK(new AtiendePK(incidente.getIncid(), empPerId));
+        atiende.setFecha(new Date());
+        em.persist(atiende);
         em.persist(solucion);
         em.flush();        
-        incidente.getIntentosolucionList().add(solucion);
+        incidente.getIntentosolucionList().add(solucion);        
         em.merge(incidente);
         cambio.setIncidente(incidente);        
         em.persist(cambio);        
+        
     }
     
 }
