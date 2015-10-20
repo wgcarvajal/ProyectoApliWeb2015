@@ -44,7 +44,7 @@ public class SesionUrlsFiltros implements Filter
         
             if(req.getUserPrincipal()==null)
             {
-                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") || requestUrl.equals(urlPrincipal+"faces/Registro.xhtml"))
+                if(requestUrl.equals(urlPrincipal) || requestUrl.equals(urlPrincipal+"faces/Login.xhtml") || requestUrl.equals(urlPrincipal+"faces/Registro.xhtml") || requestUrl.equals(urlPrincipal+"faces/Bienvenida.xhtml"))
                 {
                     chain.doFilter(request, response);
                 }
